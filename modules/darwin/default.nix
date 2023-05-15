@@ -2,6 +2,8 @@
 {
   services.nix-daemon.enable  = true;           #... Make sure the nix daemon always runs & manage the service
   nix.extraOptions = ''
+    keep-outputs = true
+    keep-derivations = true
     experimental-features = nix-command flakes
   '';
 
