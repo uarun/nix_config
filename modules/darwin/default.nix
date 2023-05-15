@@ -31,7 +31,19 @@
 
     LaunchServices.LSQuarantine = true;             #... Enable Quarantine for downloaded applications
 
-    dock.autohide = true;
+    #... Dock settings
+    dock = {
+      autohide = true;                 #... auto hide/show dock on hover
+      autohide-delay = 0.0;            #... no delay in showing dock
+      autohide-time-modifier = 0.2;    #... speed of dock animation
+      expose-animation-duration = 0.2; 
+      tilesize = 36;
+      showhidden = true;
+      show-recents = false;
+      show-process-indicators = true;
+      orientation = "bottom";          #... dock orientation/location
+      wvous-tr-corner = 4;             #... hot corner action for top-right corner = show desktop
+    };
 
     NSGlobalDomain.AppleShowAllExtensions = true;
     NSGlobalDomain.InitialKeyRepeat = 15;
