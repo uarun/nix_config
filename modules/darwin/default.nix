@@ -19,6 +19,8 @@
 
   system.stateVersion = 4;  #... This is here for backwards compatibility, don't change
 
+  security.pam.enableSudoTouchIdAuth = true;  #... Enable sudo authentication with Touch ID
+
   system.defaults = {
     finder.AppleShowAllExtensions = true;
     finder.FXEnableExtensionChangeWarning = false;
