@@ -24,12 +24,12 @@
     finder.FXEnableExtensionChangeWarning = false;
     finder._FXShowPosixPathInTitle = true;
     finder.QuitMenuItem = true;
-    finder.FXPreferredViewStyle = "Nlsv"            #... Change default finder view to List View
-    finder.FXDefaultSearchScope = "SCcf"            #... Change default search scope to Current Folder
+    finder.FXPreferredViewStyle = "Nlsv";           #... Change default finder view to List View
+    finder.FXDefaultSearchScope = "SCcf";           #... Change default search scope to Current Folder
     finder.ShowPathbar   = true;
-    finder.ShowStatusbar = true;
+    finder.ShowStatusBar = true;
 
-    LauchServices.LSQuarantine = true;              #... Enable Quarantine for downloaded applications
+    LaunchServices.LSQuarantine = true;             #... Enable Quarantine for downloaded applications
 
     dock.autohide = true;
 
