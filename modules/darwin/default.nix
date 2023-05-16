@@ -17,7 +17,6 @@
     pathsToLink = [ "/Applications" ];
 
     systemPackages = with pkgs; [
-      brave                          #... brave browser
       cachix
     ];
   };
@@ -95,6 +94,7 @@
 
     #... List of Homebrew Casks to install
     casks = [ 
+      "brave-browser"
       "citrix-workspace"
       "microsoft-teams"
       "raycast"
