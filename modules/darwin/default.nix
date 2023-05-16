@@ -12,9 +12,14 @@
   environment = {
     shells = with pkgs; [ bashInteractive zsh ];
     loginShell = pkgs.zsh;
-    systemPackages = with pkgs; [ cachix ];
+
     systemPath = [ "/opt/homebrew/bin" ];
     pathsToLink = [ "/Applications" ];
+
+    systemPackages = with pkgs; [
+      brave                          #... brave browser
+      cachix
+    ];
   };
 
   system.stateVersion = 4;  #... This is here for backwards compatibility, don't change
