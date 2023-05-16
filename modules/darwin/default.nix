@@ -47,9 +47,27 @@
       wvous-tr-corner = 4;             #... hot corner action for top-right corner = show desktop
     };
 
-    NSGlobalDomain.AppleShowAllExtensions = true;
-    NSGlobalDomain.InitialKeyRepeat = 15;
-    NSGlobalDomain.KeyRepeat = 2;
+    NSGlobalDomain = {
+      AppleShowAllExtensions = true;
+      AppleKeyboardUIMode = 3;         #... enable full keyboard control
+      InitialKeyRepeat = 15;
+      KeyRepeat = 2;
+
+      AppleFontSmoothing = 2;          #... heavy font smoothing
+      NSScrollAnimationEnabled = true; #... smooth scrolling
+      AppleShowScrollBars = "Automatic";
+    };
+
+    CustomUserPreferences = {
+      "com.apple.AdLib" = { allowApplePersonalizedAdvertising = false; };
+      "com.apple.SoftwareUpdate" = {
+        AutomaticCheckEnabled = true;
+        ScheduleFrequency = 1;         #... check for updates daily
+        AutomaticDownload = 1;         #... download updates in the background
+        CriticalUpdateInstall = 1;     #... install security updates
+      };
+      "com.apple.commerce".AutoUpdate = true;  #... auto-update apps
+    };
   };
 
   homebrew = {
@@ -73,6 +91,7 @@
     #... List of Homebrew Casks to install
     casks = [ 
       "microsoft-teams"
+      "raycast"
     ];
 
     #... List of application to install from the offical Mac App Store (using mas)
