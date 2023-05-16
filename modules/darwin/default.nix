@@ -90,6 +90,7 @@
 
     #... List of Homebrew Casks to install
     casks = [ 
+      "citrix-workspace"
       "microsoft-teams"
       "raycast"
     ];
