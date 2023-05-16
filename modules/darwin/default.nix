@@ -26,40 +26,57 @@
   security.pam.enableSudoTouchIdAuth = true;  #... Enable sudo authentication with Touch ID
 
   system.defaults = {
-    finder.AppleShowAllExtensions = true;
-    finder.FXEnableExtensionChangeWarning = false;
-    finder._FXShowPosixPathInTitle = true;
-    finder.QuitMenuItem = true;
-    finder.FXPreferredViewStyle = "Nlsv";           #... Change default finder view to List View
-    finder.FXDefaultSearchScope = "SCcf";           #... Change default search scope to Current Folder
-    finder.ShowPathbar   = true;
-    finder.ShowStatusBar = true;
 
-    LaunchServices.LSQuarantine = true;             #... Enable Quarantine for downloaded applications
+    #... Finder settings
+    finder = {
+      AppleShowAllExtensions = true;
+      FXEnableExtensionChangeWarning = false;
+      _FXShowPosixPathInTitle = true;
+      QuitMenuItem = true;
+      FXPreferredViewStyle = "Nlsv";           #... Change default finder view to List View
+      FXDefaultSearchScope = "SCcf";           #... Change default search scope to Current Folder
+      ShowPathbar   = true;
+      ShowStatusBar = true;
+    };
+
+    LaunchServices.LSQuarantine = true;        #... Enable Quarantine for downloaded applications
 
     #... Dock settings
     dock = {
-      autohide = true;                 #... auto hide/show dock on hover
-      autohide-delay = 0.0;            #... no delay in showing dock
-      autohide-time-modifier = 0.2;    #... speed of dock animation
+      autohide = true;                         #... auto hide/show dock on hover
+      autohide-delay = 0.0;                    #... no delay in showing dock
+      autohide-time-modifier = 0.2;            #... speed of dock animation
       expose-animation-duration = 0.2; 
       tilesize = 36;
       showhidden = true;
       show-recents = false;
       show-process-indicators = true;
-      orientation = "bottom";          #... dock orientation/location
-      wvous-tr-corner = 4;             #... hot corner action for top-right corner = show desktop
+      orientation = "bottom";                  #... dock orientation/location
+      wvous-tr-corner = 4;                     #... hot corner action for top-right corner = show desktop
     };
 
     NSGlobalDomain = {
       AppleShowAllExtensions = true;
-      AppleKeyboardUIMode = 3;         #... enable full keyboard control
+      AppleKeyboardUIMode = 3;                 #... enable full keyboard control
       InitialKeyRepeat = 15;
       KeyRepeat = 2;
 
-      AppleFontSmoothing = 2;          #... heavy font smoothing
-      NSScrollAnimationEnabled = true; #... smooth scrolling
+      AppleFontSmoothing = 2;                  #... heavy font smoothing
+      NSScrollAnimationEnabled = true;         #... smooth scrolling
       AppleShowScrollBars = "Automatic";
+    };
+
+    loginwindow = {
+      GuestEnabled = false;                    #... disable guest account
+      SHOWFULLNAME = false;                    #... show username instead of full name
+      DisableConsoleAccess = true;             #... disables access to the console by typing “>console” for a username at the login window
+    };
+
+    #... Firewall settings
+    alf = {
+      globalstate = 1;                         #... 0 = disabled, 1 = enabled, 2 = block all incoming connections except for essential services
+      loggingenabled = 0;                      #... logging of requests made to the firewall
+      stealthenabled = 1;                      #... firewall drops incoming requests via ICMP
     };
 
     CustomUserPreferences = {
