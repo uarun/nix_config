@@ -63,6 +63,7 @@
 
     #... List of Homebrew formula repositories to tap
     taps = [
+      "homebrew/cask"
     ];
 
     #... List of Homebrew Formulae to install
@@ -71,6 +72,7 @@
 
     #... List of Homebrew Casks to install
     casks = [ 
+      "microsoft-teams"
     ];
 
     #... List of application to install from the offical Mac App Store (using mas)
