@@ -59,7 +59,7 @@
       AppleShowAllExtensions = true;
       AppleKeyboardUIMode = 3;                 #... enable full keyboard control
       InitialKeyRepeat = 15;
-      KeyRepeat = 2;
+      KeyRepeat = 1;
 
       AppleFontSmoothing = 2;                  #... heavy font smoothing
       NSScrollAnimationEnabled = true;         #... smooth scrolling
@@ -114,6 +114,8 @@
       "brave-browser"
       "citrix-workspace"
       "microsoft-teams"
+      "notion"
+      "obsidian"
       "raycast"
     ];
 
