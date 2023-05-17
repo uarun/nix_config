@@ -20,7 +20,7 @@
     darwinConfigurations = let
       system = "aarch64-darwin";    #... "x86_64-darwin" for intel based Macs
     in {
-      Adelaide = darwin.lib.darwinSystem {
+      Melbourne = darwin.lib.darwinSystem {
         pkgs = import nixpkgs { inherit system; };
         modules = [
           ./modules/darwin/default.nix
