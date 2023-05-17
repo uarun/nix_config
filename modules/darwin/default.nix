@@ -113,6 +113,7 @@
     casks = [ 
       "brave-browser"
       "citrix-workspace"
+      "flux"                   # f.lux
       "keepassxc"
       "microsoft-teams"
       "notion"
