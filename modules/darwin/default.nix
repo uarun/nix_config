@@ -18,6 +18,8 @@
 
     systemPackages = with pkgs; [
       cachix
+      curl
+      git
     ];
   };
 
