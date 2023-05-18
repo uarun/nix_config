@@ -39,8 +39,11 @@
           "Iosevka"
           "JetBrainsMono"
           "Meslo"
+          "Monofur"
           "NerdFontsSymbolsOnly"
           "SourceCodePro"
+          "UbuntuMono"
+          "VictorMono"
         ];
       })
       # vistafonts                #... Adding this mainly for Consolas (this needs allowUnfree to be set to true)
