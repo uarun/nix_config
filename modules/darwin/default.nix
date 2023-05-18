@@ -37,6 +37,7 @@
           "Hasklig"
           "Inconsolata"
           "Iosevka"
+          "IosevkaTerm"
           "JetBrainsMono"
           "Meslo"
           "Monofur"
