@@ -1,11 +1,15 @@
 { pkgs, ... }:
 {
   services.nix-daemon.enable  = true;           #... Make sure the nix daemon always runs & manage the service
+  nix.configureBuildUsers = true;               #... Manage nixbld group and users
+
   nix.extraOptions = ''
     keep-outputs = true
     keep-derivations = true
     experimental-features = nix-command flakes
   '';
+
+  documentation.enable = true;    #... install documentation for systemPackages
 
   programs.zsh.enable = true;
 
@@ -93,6 +97,7 @@
     };
   };
 
+  #... All things Homebrew go here
   homebrew = {
     enable = true;        #... nix-darwin to manage installing/updating/uprading Homebrew taps
     onActivation = {
