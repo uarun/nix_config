@@ -27,10 +27,29 @@
     ];
   };
 
-  system.stateVersion = 4;  #... This is here for backwards compatibility, don't change
+  #... Install Fonts
+  fonts = {
+    fontDir.enable = true;       #... If true, manually installed system fonts will be deleted !!
+    fonts = with pkgs; [
+      (nerdfonts.override {
+        fonts = [
+          "FiraCode"
+          "Hasklig"
+          "Inconsolata"
+          "Iosevka"
+          "JetBrainsMono"
+          "Meslo"
+          "NerdFontsSymbolsOnly"
+          "SourceCodePro"
+        ];
+      })
+      # vistafonts                #... Adding this mainly for Consolas (this needs allowUnfree to be set to true)
+    ];
+  };
 
   security.pam.enableSudoTouchIdAuth = true;  #... Enable sudo authentication with Touch ID
 
+  #... MacOS System Preferences
   system.defaults = {
 
     #... Finder settings
@@ -132,4 +151,7 @@
     masApps = {
     };
   };
+
+  #... This is here for backwards compatibility, don't change
+  system.stateVersion = 4;
 }
