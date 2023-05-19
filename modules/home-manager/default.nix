@@ -15,22 +15,7 @@
   programs.bat.enable = true;
   programs.bat.config.theme = "Solarized (light)";
 
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
-
-    history = {
-      extended = true;                #... Save timestamps into history file
-      save = 500000;                  #... Save 500K lines of history
-      share = true;                   #... Share history between zsh sessions
-      expireDuplicatesFirst = true;
-      ignoreSpace = true;
-    };
-
-    defaultKeymap = "viins";
-  };
+  programs.zsh = (import ./programs/zsh.nix) pkgs;
 
   programs.git = {
     enable = true;
@@ -44,7 +29,6 @@
 
   programs.exa = {
     enable = true;
-    enableAliases = true;
     git = true;
     icons = true;
   };
