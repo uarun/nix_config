@@ -41,4 +41,22 @@
       github.user = "uarun";
     };
   };
+
+  programs.exa = {
+    enable = true;
+    enableAliases = true;
+    git = true;
+    icons = true;
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+    enableNushellIntegration = false;
+  };
 }
