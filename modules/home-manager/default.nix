@@ -22,7 +22,9 @@
     enableSyntaxHighlighting = true;
 
     history = {
-      save = 10000;                  #... Save 10K lines of history
+      extended = true;                #... Save timestamps into history file
+      save = 500000;                  #... Save 500K lines of history
+      share = true;                   #... Share history between zsh sessions
       expireDuplicatesFirst = true;
       ignoreSpace = true;
     };
