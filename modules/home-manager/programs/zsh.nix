@@ -21,8 +21,7 @@
     ll  = "exa --icons --git-ignore --git -F --extended -l";
     lt  = "exa --icons --git-ignore --git -F --extended -T";
     llt = "exa --icons --git-ignore --git -F --extended -l -T";
-  } 
-  // pkgs.lib.optionalAttrs pkgs.stdenv.isDarwin {
+  } // pkgs.lib.optionalAttrs pkgs.stdenv.isDarwin {
     dwswitch = "pushd ~; darwin-rebuild switch --flake ~/nix_config/.#$(hostname -s); popd";
   };
 }

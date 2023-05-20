@@ -15,7 +15,7 @@
   programs.bat.enable = true;
   programs.bat.config.theme = "Solarized (light)";
 
-  programs.zsh = (import ./programs/zsh.nix) pkgs;
+  programs.zsh = import ./programs/zsh.nix pkgs;
 
   programs.git = {
     enable = true;
