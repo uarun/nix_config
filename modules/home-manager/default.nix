@@ -6,8 +6,8 @@
   ];
 
   home.sessionVariables = {
-    PAGER = "less";
-    EDITOR = "vim";
+    PAGER  = "less";
+    EDITOR = "nvim";
   };
 
   home.file.".inputrc".source = ./dotfiles/inputrc;
@@ -15,7 +15,9 @@
   programs.bat.enable = true;
   programs.bat.config.theme = "Solarized (light)";
 
-  programs.zsh = import ./programs/zsh.nix pkgs;
+  imports = [
+    ./programs/zsh.nix
+  ];
 
   programs.git = {
     enable = true;
