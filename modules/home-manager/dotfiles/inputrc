@@ -5,7 +5,7 @@ set mark-symlinked-directories on
 set colored-stats on
 set visible-stats on
 
+set skip-completed-text on
 
 set keymap vi
 set editing-mode vi-insert
-
