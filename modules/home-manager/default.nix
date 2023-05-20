@@ -11,10 +11,13 @@
   };
 
   imports = [
+    ./aliases.nix
     ./programs/bat.nix
     ./programs/exa.nix
     ./programs/fzf.nix
     ./programs/git.nix
+    ./programs/neovim.nix
+    ./programs/ssh.nix
     ./programs/zoxide.nix
     ./programs/zsh.nix
   ];
