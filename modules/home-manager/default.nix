@@ -10,39 +10,14 @@
     EDITOR = "nvim";
   };
 
-  home.file.".inputrc".source = ./dotfiles/inputrc;
-
-  programs.bat.enable = true;
-  programs.bat.config.theme = "Solarized (light)";
-
   imports = [
+    ./programs/bat.nix
+    ./programs/exa.nix
+    ./programs/fzf.nix
+    ./programs/git.nix
+    ./programs/zoxide.nix
     ./programs/zsh.nix
   ];
 
-  programs.git = {
-    enable = true;
-    userName = "Arun Udayashankar";
-    userEmail = "arunkumar.u@gmail.com";
-
-    extraConfig = {
-      github.user = "uarun";
-    };
-  };
-
-  programs.exa = {
-    enable = true;
-    git = true;
-    icons = true;
-  };
-
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-    enableNushellIntegration = false;
-  };
+  home.file.".inputrc".source = ./dotfiles/inputrc;
 }
