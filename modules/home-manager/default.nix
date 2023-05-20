@@ -17,6 +17,7 @@
     ./programs/fzf.nix
     ./programs/git.nix
     ./programs/neovim.nix
+    ./programs/nushell.nix
     ./programs/ssh.nix
     ./programs/zoxide.nix
     ./programs/zsh.nix
