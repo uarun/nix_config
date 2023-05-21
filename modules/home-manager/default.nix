@@ -16,6 +16,7 @@
     ./programs/exa.nix
     ./programs/fzf.nix
     ./programs/git.nix
+    ./programs/kitty.nix
     ./programs/neovim.nix
     ./programs/nushell.nix
     ./programs/ssh.nix
