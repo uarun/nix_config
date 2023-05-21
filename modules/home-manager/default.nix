@@ -1,4 +1,4 @@
-{ pkgs, ... }: 
+{ pkgs, config, ... }:
 {
   home.stateVersion = "22.11";  #... This is here for backwards compatibility, don't change
 
@@ -22,6 +22,10 @@
     ./programs/zoxide.nix
     ./programs/zsh.nix
   ];
+
+  programs = {
+    dircolors.enable = true;
+  };
 
   home.file.".inputrc".source = ./dotfiles/inputrc;
 }
