@@ -19,6 +19,7 @@
     ./programs/neovim.nix
     ./programs/nushell.nix
     ./programs/ssh.nix
+    ./programs/tldr.nix
     ./programs/zoxide.nix
     ./programs/zsh.nix
   ];
