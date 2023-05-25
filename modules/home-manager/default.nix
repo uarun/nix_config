@@ -3,6 +3,8 @@
   home.stateVersion = "22.11";  #... This is here for backwards compatibility, don't change
 
   home.packages = with pkgs; [
+    duf
+    du-dust
   ];
 
   home.sessionVariables = {
@@ -26,6 +28,7 @@
   ];
 
   programs = {
+    btop.enable = true;
     dircolors.enable = true;
   };
 
