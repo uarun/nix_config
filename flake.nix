@@ -25,6 +25,9 @@
     ...
   } @ inputs:
   let
+    isDarwin = system: (builtins.elem system inputs.nixpkgs.lib.platforms.darwin);
+    homePrefix = system: if isDarwin system then "/Users" else "/home";
+
     #... Function to generate a base darwin configuration with the specified hostname, overlays, and any extraModules applied
     mkDarwinConfig = {
       system ? "aarch64-darwin",
@@ -35,13 +38,37 @@
       ],
       extraModules ? [],
     }:
-    inputs.darwin.lib.darwinSystem {
-      inherit system;
-      modules = baseModules ++ extraModules;
-      specialArgs = {inherit self inputs nixpkgs;};
-    };
+      inputs.darwin.lib.darwinSystem {
+        inherit system;
+        modules = baseModules ++ extraModules;
+        specialArgs = {inherit self inputs nixpkgs;};
+      };
+
+    #... Function to generate home manager configuration usable on any unix system
+    mkHomeConfig = {
+      username,
+      system  ? "x86_64-linux",
+      nixpkgs ? inputs.nixpkgs,
+      baseModules ? [
+        ./modules/home-manager
+        {
+          home = {
+            inherit username;
+            homeDirectory = "${homePrefix system}/${username}";
+            sessionVariables = { };
+          };
+        }
+      ],
+      extraModules ? [],
+    }:
+      inputs.home-manager.lib.homeMangerConfiguration rec {
+        extraSpecialArgs = {inherit self inputs nixpkgs;};
+        modules = baseModules ++ extraModules;
+      };
 
   in {
+
+    #... MacOS Configurations
     darwinConfigurations = {
       Melbourne = mkDarwinConfig {
         system = "aarch64-darwin";
@@ -51,5 +78,19 @@
         ];
       };
     };
+
+    #... Home Manager Configurations (for non-NixOS Linux installations)
+    homeConfigurations = {
+      nj1dvrdsdev01 = mkHomeConfig {
+        username = "audayashankar";
+        system   = "x86_64-linux";
+        extraModules = [ ./profile/home-manager/work.nix ];
+      };
+    };
+
+    #... NixOS Configurations
+    nixosConfigurations = {
+    };
+
   };
 }
