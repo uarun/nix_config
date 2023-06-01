@@ -6,12 +6,14 @@
     du-dust
     duf
     fd
+    most
     tree-sitter
   ];
 
   home.sessionVariables = {
-    PAGER  = "less";
-    EDITOR = "nvim";
+    EDITOR   = "nvim";
+    MANPAGER = "most";
+    PAGER    = "less";
   };
 
   imports = [
