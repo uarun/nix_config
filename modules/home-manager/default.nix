@@ -3,8 +3,10 @@
   home.stateVersion = "22.11";  #... This is here for backwards compatibility, don't change
 
   home.packages = with pkgs; [
-    duf
     du-dust
+    duf
+    fd
+    tree-sitter
   ];
 
   home.sessionVariables = {
@@ -28,8 +30,17 @@
   ];
 
   programs = {
+    home-manager = {
+      enable = true;
+      path = "${config.home.homeDirectory}/.nixpkgs/modules/home-manager";
+    };
+
     btop.enable = true;
     dircolors.enable = true;
+    jq.enable = true;
+    less.enable = true;
+    man.enable = true;
+    nix-index.enable = true;
   };
 
   home.file.".inputrc".source = ./dotfiles/inputrc;
