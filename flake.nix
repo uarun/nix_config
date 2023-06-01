@@ -61,7 +61,7 @@
       ],
       extraModules ? [],
     }:
-      inputs.home-manager.lib.homeMangerConfiguration rec {
+      inputs.home-manager.lib.homeManagerConfiguration rec {
         extraSpecialArgs = {inherit self inputs nixpkgs;};
         modules = baseModules ++ extraModules;
       };
