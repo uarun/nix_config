@@ -22,12 +22,14 @@
     casks = [
       "brave-browser"
       "citrix-workspace"
+      "discord"
       "flux"                   # f.lux
       "keepassxc"
       "microsoft-teams"
       "notion"
       "obsidian"
       "raycast"
+      "zoom"
     ];
 
     #... List of application to install from the offical Mac App Store (using mas)
