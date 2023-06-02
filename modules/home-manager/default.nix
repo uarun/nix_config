@@ -8,6 +8,7 @@
     duf
     fd
     glances
+    go
     gping
     gron
     kalker
@@ -20,6 +21,7 @@
     pre-commit
     procps
     procs
+    ripgrep
     shellcheck
     tree-sitter
     visidata
