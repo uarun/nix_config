@@ -21,13 +21,13 @@
       autohide = true;                         #... auto hide/show dock on hover
       autohide-delay = 0.0;                    #... no delay in showing dock
       autohide-time-modifier = 0.2;            #... speed of dock animation
-      expose-animation-duration = 0.2; 
+      expose-animation-duration = 0.2;
       tilesize = 36;
       showhidden = true;
       show-recents = false;
       show-process-indicators = true;
       orientation = "bottom";                  #... dock orientation/location
-      wvous-tr-corner = 4;                     #... hot corner action for top-right corner = show desktop
+      wvous-tl-corner = 4;                     #... hot corner action for top-left corner = show desktop
       static-only = false;                     #... show only open applications
       mineffect = "suck";                      #... One of "genie", "suck" or "scale" (Default is "genie")
     };
@@ -79,8 +79,8 @@
       "com.apple.commerce".AutoUpdate = true;  #... auto-update apps
     };
   };
- 
-  #... Keyboard settings 
+
+  #... Keyboard settings
   system.keyboard = {
     enableKeyMapping = true;
     remapCapsLockToControl = true;
