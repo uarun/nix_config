@@ -8,7 +8,6 @@
     duf
     fd
     glances
-    go
     gping
     gron
     kalker
@@ -26,6 +25,12 @@
     tree-sitter
     visidata
     xsv
+
+    #... Lang Packages
+    gcc13
+    go
+    python3Full
+    rustup
   ];
 
   home.sessionVariables = {
