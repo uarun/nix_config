@@ -27,6 +27,7 @@
   let
     isDarwin = system: (builtins.elem system inputs.nixpkgs.lib.platforms.darwin);
     homePrefix = system: if isDarwin system then "/Users" else "/home";
+    defaultSystems = [ "aarch64-linux" "aarch64-darwin" "x86_64-darwin" "x86_64-linux" ];
 
     #... Function to generate a base darwin configuration with the specified hostname, overlays, and any extraModules applied
     mkDarwinConfig = {
@@ -62,15 +63,43 @@
       extraModules ? [],
     }:
       inputs.home-manager.lib.homeManagerConfiguration rec {
+        pkgs = import nixpkgs { inherit system; };
         extraSpecialArgs = {inherit self inputs nixpkgs;};
         modules = baseModules ++ extraModules;
       };
+
+    mkChecks = {
+      arch,
+      os,
+      username ? "arun",
+    }: {
+      "${arch}-${os}" = {
+        "${username}_${os}" =
+          if os == "darwin"
+          then
+            self.darwinConfigurations
+            ."${username}@${arch}-${os}"
+            .config
+            .system
+            .build
+            .toplevel
+          else
+            builtins.derivation {                      ##... Dummy derivation until we implement a NixOS derivation
+              name = "NixOS_NotImplemented";
+              builder = "true";
+              system  = "${arch}-${os}";
+            };
+
+        "${username}_home" =
+          self.homeConfigurations."${username}@${arch}-${os}".activationPackage;
+      };
+    };
 
   in {
 
     #... MacOS Configurations
     darwinConfigurations = {
-      Melbourne = mkDarwinConfig {
+      "arun@aarch64-darwin" = mkDarwinConfig {
         system = "aarch64-darwin";
         extraModules = [
           ./profiles/personal.nix
@@ -84,13 +113,24 @@
       "audayashankar@x86_64-linux" = mkHomeConfig {
         username = "audayashankar";
         system   = "x86_64-linux";
-        extraModules = [ ./profile/home-manager/work.nix ];
+        extraModules = [ ./profiles/home-manager/work.nix ];
+      };
+
+      "arun@x86_64-linux" = mkHomeConfig {
+        username = "arun";
+        system   = "x86_64-linux";
+        extraModules = [ ./profiles/home-manager/personal.nix ];
+      };
+
+      "arun@aarch64-darwin" = mkHomeConfig {
+        username = "arun";
+        system   = "aarch64-darwin";
+        extraModules = [ ./profiles/home-manager/personal.nix ];
       };
     };
 
-    #... NixOS Configurations
-    nixosConfigurations = {
-    };
-
+    checks = {}
+      // (mkChecks { arch = "aarch64"; os = "darwin"; username = "arun"; })
+      // (mkChecks { arch = "x86_64";  os = "linux";  username = "audayashankar"; });
   };
 }
