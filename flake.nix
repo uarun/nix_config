@@ -2,7 +2,7 @@
   description = "Arun's Nix Configuration Flake";
 
   inputs = {
-    nixpkgs-stable.url   = "github:nixos/nixpkgs/nixos-22.11";
+    nixpkgs-stable.url   = "github:nixos/nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url          = "github:nixos/nixpkgs/nixos-unstable";
 
