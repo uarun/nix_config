@@ -81,7 +81,7 @@
 
     #... Home Manager Configurations (for non-NixOS Linux installations)
     homeConfigurations = {
-      nj1dvrdsdev01 = mkHomeConfig {
+      "audayashankar@x86_64-linux" = mkHomeConfig {
         username = "audayashankar";
         system   = "x86_64-linux";
         extraModules = [ ./profile/home-manager/work.nix ];
