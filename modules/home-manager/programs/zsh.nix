@@ -32,7 +32,7 @@
     ### defaultKeymap = "viins";
 
     shellAliases = {
-      ls  = "ls --color=auto -F";
+      ls  = "ls --color=auto -F -h";
       l   = "exa --icons --git-ignore --git -F --extended";
       ll  = "exa --icons --git-ignore --git -F --extended -l";
       lt  = "exa --icons --git-ignore --git -F --extended -T";
@@ -77,6 +77,8 @@
       bindkey '^s' history-incremental-search-forward
       bindkey -M vicmd '/' history-incremental-pattern-search-backward      # default is vi-history-search-backward
       bindkey -M vicmd '?' vi-history-search-backward                       # default is vi-history-search-forward
+
+      source ${../dotfiles/lscolors.sh}
     '';
 
     profileExtra = ''
