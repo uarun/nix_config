@@ -1,9 +1,22 @@
-{ pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
+
+    dotDir = ".config/zsh";
+
+    localVariables = {
+      LANG = "en_US.UTF-8";
+      DEFAULT_USER = "${config.home.username}";
+      TERM = "xterm-256color";
+    };
 
     history = {
       extended = true;                #... Save timestamps into history file
@@ -24,7 +37,11 @@
       ll  = "exa --icons --git-ignore --git -F --extended -l";
       lt  = "exa --icons --git-ignore --git -F --extended -T";
       llt = "exa --icons --git-ignore --git -F --extended -l -T";
-    } // pkgs.lib.optionalAttrs pkgs.stdenv.isDarwin {
+
+      hmswitch = "home-manager switch --flake github:uarun/nix_config#$(id -un)@x86_64-linux";
+
+    } //   #... Union
+    pkgs.lib.optionalAttrs pkgs.stdenv.isDarwin {
       dwswitch       = "pushd ~; darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@aarch64-darwin; popd";
       dwswitch_trace = "pushd ~; darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@aarch64-darwin -show-trace; popd";
       dwclean        = "pushd ~; sudo nix-env --delete-generations +7 --profile /nix/var/nix/profiles/system; sudo nix-collect-garbage --delete-older-than 30d; nix store optimise; popd";
@@ -63,5 +80,15 @@
 
       eval "$(mcfly init zsh)"
     '';
+
+    profileExtra = ''
+      ${lib.optionalString pkgs.stdenvNoCC.isLinux "[[ -e /etc/profile ]] && source /etc/profile"}
+    '';
+
+    oh-my-zsh = {
+      enable = true;
+      plugins = [ "git" "sudo" "ssh-agent" ];
+    };
+
   };
 }
