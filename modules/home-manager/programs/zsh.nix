@@ -77,8 +77,6 @@
       bindkey '^s' history-incremental-search-forward
       bindkey -M vicmd '/' history-incremental-pattern-search-backward      # default is vi-history-search-backward
       bindkey -M vicmd '?' vi-history-search-backward                       # default is vi-history-search-forward
-
-      eval "$(mcfly init zsh)"
     '';
 
     profileExtra = ''

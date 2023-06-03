@@ -11,7 +11,6 @@
     gping
     gron
     kalker
-    mcfly
     miller
     most
     ncdu
@@ -48,6 +47,7 @@
     ./programs/kitty.nix
     ./programs/neovim.nix
     ./programs/nushell.nix
+    ./programs/mcfly.nix
     ./programs/ssh.nix
     ./programs/tldr.nix
     ./programs/zoxide.nix
