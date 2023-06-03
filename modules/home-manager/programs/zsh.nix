@@ -87,7 +87,7 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "sudo" "ssh-agent" ];
+      plugins = [ "ssh-agent" ];
     };
 
   };
