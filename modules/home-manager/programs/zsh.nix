@@ -49,6 +49,10 @@
       dwshowupdates  = ''zsh -c "nix store diff-closures /nix/var/nix/profiles/system-*-link(om[2]) /nix/var/nix/profiles/system-*-link(om[1])"'';
     };
 
+    envExtra = ''
+      source ${../dotfiles/init_nix.sh}
+    '';
+
     initExtraFirst = ''
       source ${../dotfiles/p10k.zsh}
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
