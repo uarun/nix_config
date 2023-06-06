@@ -26,6 +26,7 @@
     xsv
 
     #... Lang Packages
+    coursier             #... Scala application and artifact manager
     gcc13
     go
     python3Full
