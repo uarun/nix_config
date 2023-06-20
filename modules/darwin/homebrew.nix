@@ -29,6 +29,7 @@
       "notion"
       "obsidian"
       "raycast"
+      "syncthing"              # TODO: Look into moving this to homemanager
       "zoom"
     ];
 
