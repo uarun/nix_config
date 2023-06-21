@@ -10,6 +10,8 @@
     glances
     gping
     gron
+    gtop
+    httpie
     kalker
     miller
     most
@@ -60,6 +62,7 @@
       enable = true;
     };
 
+    broot.enable = true;
     btop.enable = true;
     dircolors.enable = true;
     htop.enable = true;
