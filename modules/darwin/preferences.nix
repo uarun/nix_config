@@ -63,7 +63,7 @@
       Clicking = true;                         #... enable tap to click
       FirstClickThreshold = 1;                 #... firmness level, 0 = lightest, 2 = heaviest
       SecondClickThreshold = 1;                #... firmness level for force touch
-      TrackpadRightClick = false;              #... don't allow positional right click
+      TrackpadRightClick = true;               #... two finger tap for right click
       TrackpadThreeFingerDrag = false;         #... three finger drag for space switching
     };
 
