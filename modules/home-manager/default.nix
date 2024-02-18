@@ -33,6 +33,9 @@
     go
     python3Full
     rustup
+
+    #... Lang Misc
+    exercism
   ];
 
   home.sessionVariables = {
@@ -44,7 +47,7 @@
   imports = [
     ./aliases.nix
     ./programs/bat.nix
-    ./programs/exa.nix
+    ./programs/eza.nix
     ./programs/fzf.nix
     ./programs/git.nix
     ./programs/kitty.nix
@@ -73,4 +76,5 @@
   };
 
   home.file.".inputrc".source = ./dotfiles/inputrc;
+  fonts.fontconfig.enable = true;
 }

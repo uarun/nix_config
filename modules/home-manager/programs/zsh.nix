@@ -8,7 +8,7 @@
     enable = true;
     enableCompletion = true;
     enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    syntaxHighlighting.enable = true;
 
     dotDir = ".config/zsh";
 
@@ -33,17 +33,17 @@
 
     shellAliases = {
       ls  = "ls --color=auto -F -h";
-      l   = "exa --icons --git-ignore --git -F --extended";
-      ll  = "exa --icons --git-ignore --git -F --extended -l";
-      lt  = "exa --icons --git-ignore --git -F --extended -T";
-      llt = "exa --icons --git-ignore --git -F --extended -l -T";
+      l   = "eza --icons --git-ignore --git -F --extended";
+      ll  = "eza --icons --git-ignore --git -F --extended -l";
+      lt  = "eza --icons --git-ignore --git -F --extended -T";
+      llt = "eza --icons --git-ignore --git -F --extended -l -T";
 
       hmswitch = "home-manager switch --flake github:uarun/nix_config#$(id -un)@x86_64-linux";
 
     } //   #... Union
     pkgs.lib.optionalAttrs pkgs.stdenv.isDarwin {
       dwswitch       = "pushd ~; darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@aarch64-darwin; popd";
-      dwswitch_trace = "pushd ~; darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@aarch64-darwin -show-trace; popd";
+      dwswitch_trace = "pushd ~; darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@aarch64-darwin --show-trace; popd";
       dwclean        = "pushd ~; sudo nix-env --delete-generations +7 --profile /nix/var/nix/profiles/system; sudo nix-collect-garbage --delete-older-than 30d; nix store optimise; popd";
       dwupdate       = "pushd ~/nix_config; nix flake update; /opt/homebrew/bin/brew update; popd; dwswitch; /opt/homebrew/bin/brew upgrade; /opt/homebrew/bin/brew upgrade --cask --greedy; dwshowupdates";
       dwshowupdates  = ''zsh -c "nix store diff-closures /nix/var/nix/profiles/system-*-link(om[2]) /nix/var/nix/profiles/system-*-link(om[1])"'';

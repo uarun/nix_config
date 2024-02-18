@@ -18,7 +18,7 @@
     home = "${if pkgs.stdenvNoCC.isDarwin then "/Users" else "/home"}/${config.user.name}";
     shell = pkgs.zsh;
   };
-  
+
   #... Bootstrap home manager using system config
   hmgr = {
     imports = [
@@ -59,7 +59,7 @@
   };
 
   #... Install documentation for systemPackages
-  documentation.enable = true;    
+  documentation.enable = true;
 
   #... Install Fonts
   fonts = {

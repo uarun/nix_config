@@ -27,7 +27,7 @@ in
       options = "--delete-older-than 14d";
     };
 
-    readOnlyStore = true;
+    # readOnlyStore = true;
     configureBuildUsers = true;               #... Manage nixbld group and users
   };
 }
