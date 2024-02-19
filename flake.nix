@@ -7,12 +7,12 @@
     nixpkgs.url          = "github:nixos/nixpkgs/nixos-unstable";
 
     #... Declarative configuration of user speficic packages and dotfiles
-    home-manager.url = "github:nix-community/home-manager/master";  # release-22.11
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     #... MacOS system level settings
-    darwin.url = "github:lnl7/nix-darwin/master";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
+    darwin.url = "github:lnl7/nix-darwin";
+    darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     lib-aggregate.url = "github:nix-community/lib-aggregate";    #... Aggregate of nix libs that do not depend on nixpkgs
     flake-utils.url   = "github:numtide/flake-utils";
