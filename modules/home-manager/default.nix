@@ -35,6 +35,9 @@
 
     #... Lang Misc
     exercism
+
+    #... Tools
+    toxiproxy
   ];
 
   home.sessionVariables = {
