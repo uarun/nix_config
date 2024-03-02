@@ -14,10 +14,10 @@
 
     #... List of Homebrew formula repositories to tap
     taps = [
-      "homebrew/core"
-      "homebrew/bundle"
-      "homebrew/cask"
-      "homebrew/services"
+      # "homebrew/core"
+      # "homebrew/bundle"
+      # "homebrew/cask"
+      # "homebrew/services"
     ];
 
     #... List of Homebrew Formulae to install
