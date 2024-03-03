@@ -36,8 +36,9 @@
     #... Lang Misc
     exercism
 
-    #... Tools
+    #... Dev Tools
     toxiproxy
+    jetbrains.idea-ultimate
   ];
 
   home.sessionVariables = {

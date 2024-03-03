@@ -10,6 +10,7 @@ in
 {
   nixpkgs.config = {
     allowBroken = false;
+    allowUnfree = true;
     allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
       "vista-fonts"
     ];
