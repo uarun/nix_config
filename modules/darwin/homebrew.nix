@@ -31,7 +31,6 @@
       { name = "discord";          greedy = true; }
       { name = "flux";             greedy = true; }   # f.lux
       { name = "keepassxc";        greedy = true; }
-      { name = "libreoffice";      greedy = true; }
       { name = "microsoft-teams";  greedy = true; }
       { name = "notion";           greedy = true; }
       { name = "obsidian";         greedy = true; }
