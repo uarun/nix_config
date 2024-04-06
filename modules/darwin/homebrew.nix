@@ -37,6 +37,7 @@
       { name = "raycast";          greedy = true; }
       { name = "syncthing";        greedy = true; } # TODO: Look into moving this to homemanager
       { name = "zoom";             greedy = true; }
+      { name = "utm";              greedy = true; }
     ];
 
     #... List of application to install from the offical Mac App Store (using mas)
