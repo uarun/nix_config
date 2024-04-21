@@ -26,18 +26,21 @@
 
     #... List of Homebrew Casks to install
     casks = [
-      { name = "brave-browser";    greedy = true; }
-      { name = "citrix-workspace"; greedy = true; }
-      { name = "discord";          greedy = true; }
-      { name = "flux";             greedy = true; }   # f.lux
-      { name = "keepassxc";        greedy = true; }
-      { name = "microsoft-teams";  greedy = true; }
-      { name = "notion";           greedy = true; }
-      { name = "obsidian";         greedy = true; }
-      { name = "raycast";          greedy = true; }
-      { name = "syncthing";        greedy = true; } # TODO: Look into moving this to homemanager
-      { name = "zoom";             greedy = true; }
-      { name = "utm";              greedy = true; }
+      { name = "brave-browser";            greedy = true; }
+      { name = "citrix-workspace";         greedy = true; }
+      { name = "discord";                  greedy = true; }
+      { name = "flux";                     greedy = true; }   # f.lux
+      { name = "gpg-suite-no-mail";        greedy = true; }
+      { name = "keepassxc";                greedy = true; }
+      { name = "microsoft-teams";          greedy = true; }
+      { name = "notion";                   greedy = true; }
+      { name = "obsidian";                 greedy = true; }
+      { name = "raycast";                  greedy = true; }
+      { name = "syncthing";                greedy = true; } # TODO: Look into moving this to homemanager
+      { name = "utm";                      greedy = true; }
+      { name = "yubico-authenticator";     greedy = true; }
+      { name = "yubico-yubikey-manager";   greedy = true; }
+      { name = "zoom";                     greedy = true; }
     ];
 
     #... List of application to install from the offical Mac App Store (using mas)
