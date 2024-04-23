@@ -39,6 +39,9 @@
     #... Dev Tools
     toxiproxy
     jetbrains.idea-ultimate
+
+    ##... AI tools
+    ollama
   ];
 
   home.sessionVariables = {
