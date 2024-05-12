@@ -42,6 +42,9 @@
 
     ##... AI tools
     ollama
+
+    ##... Automation
+    ansible
   ];
 
   home.sessionVariables = {
