@@ -45,6 +45,7 @@
 
     ##... Automation
     ansible
+    sshpass
   ];
 
   home.sessionVariables = {
