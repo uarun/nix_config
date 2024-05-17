@@ -6,7 +6,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url          = "github:nixos/nixpkgs/nixos-unstable";
 
-    #... Declarative configuration of user speficic packages and dotfiles
+    #... Declarative configuration of user specific packages and dotfiles
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
