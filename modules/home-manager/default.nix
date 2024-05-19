@@ -49,6 +49,7 @@
 
     ##... Networking
     arp-scan
+    nmap
   ];
 
   home.sessionVariables = {
