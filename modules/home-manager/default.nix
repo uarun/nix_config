@@ -46,6 +46,9 @@
     ##... Automation
     ansible
     sshpass
+
+    ##... Networking
+    arp-scan
   ];
 
   home.sessionVariables = {
