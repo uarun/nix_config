@@ -29,6 +29,7 @@
       { name = "brave-browser";            greedy = true; }
       { name = "citrix-workspace";         greedy = true; }
       { name = "discord";                  greedy = true; }
+      { name = "docker";                   greedy = true; }
       { name = "flux";                     greedy = true; }   # f.lux
       { name = "gpg-suite-no-mail";        greedy = true; }
       { name = "keepassxc";                greedy = true; }
@@ -39,6 +40,7 @@
       { name = "syncthing";                greedy = true; } # TODO: Look into moving this to homemanager
       { name = "tor-browser";              greedy = true; }
       { name = "utm";                      greedy = true; }
+      { name = "xquartz";                  greedy = true; }
       { name = "yubico-authenticator";     greedy = true; }
       { name = "yubico-yubikey-manager";   greedy = true; }
       { name = "zoom";                     greedy = true; }
