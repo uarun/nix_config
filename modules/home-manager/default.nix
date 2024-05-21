@@ -4,7 +4,10 @@
 
   home.packages = with pkgs; [
     bottom
+    bandwhich
+    browsh
     du-dust
+    ddgr
     duf
     fd
     glances
@@ -21,9 +24,11 @@
     pre-commit
     procps
     procs
+    rclone               #... Manage cloud storage
     ripgrep
     shellcheck
     tree-sitter
+    tuir                 #... Text UI reddit
     visidata
     xsv
 
