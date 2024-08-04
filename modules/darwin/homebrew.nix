@@ -41,7 +41,6 @@
       { name = "syncthing";                greedy = true; } # TODO: Look into moving this to homemanager
       { name = "tor-browser";              greedy = true; }
       { name = "utm";                      greedy = true; }
-      { name = "whatsapp";                 greedy = true; }
       { name = "xquartz";                  greedy = true; }
       { name = "yubico-authenticator";     greedy = true; }
       { name = "yubico-yubikey-manager";   greedy = true; }
