@@ -33,6 +33,7 @@
       { name = "flux";                     greedy = true; }   # f.lux
       { name = "gpg-suite-no-mail";        greedy = true; }
       { name = "keepassxc";                greedy = true; }
+      { name = "lm-studio";                greedy = true; }
       { name = "microsoft-teams";          greedy = true; }
       { name = "notion";                   greedy = true; }
       { name = "obsidian";                 greedy = true; }
@@ -40,6 +41,7 @@
       { name = "syncthing";                greedy = true; } # TODO: Look into moving this to homemanager
       { name = "tor-browser";              greedy = true; }
       { name = "utm";                      greedy = true; }
+      { name = "whatsapp";                 greedy = true; }
       { name = "xquartz";                  greedy = true; }
       { name = "yubico-authenticator";     greedy = true; }
       { name = "yubico-yubikey-manager";   greedy = true; }

@@ -13,13 +13,16 @@ in {
 
     #... Packages installed in system profile
     # systemPackages = [ ];
+    systemPackages = with pkgs; [
+      libiconv-darwin
+    ];
 
     systemPath = [ "/opt/homebrew/bin" ];
     pathsToLink = [ "/Applications" ];
   };
 
-  homebrew.brewPrefix = if isAarch64 || isAarch32 
-    then "/opt/homebrew/bin" 
+  homebrew.brewPrefix = if isAarch64 || isAarch32
+    then "/opt/homebrew/bin"
     else "/usr/local/bin";
 
   services.nix-daemon.enable = true;                   #... Auto upgrade nix package and the daemon service.

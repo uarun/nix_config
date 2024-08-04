@@ -20,7 +20,7 @@
     most
     ncdu
     neofetch
-    parallel
+    (lib.hiPrio parallel)  #... Higher priority than collision from llama-cpp
     pre-commit
     procps
     procs
@@ -47,6 +47,7 @@
 
     ##... AI tools
     ollama
+    llama-cpp
 
     ##... Automation
     ansible
