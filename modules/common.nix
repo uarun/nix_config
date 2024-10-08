@@ -63,8 +63,7 @@
 
   #... Install Fonts
   fonts = {
-    fontDir.enable = true;       #... If true, manually installed system fonts will be deleted !!
-    fonts = with pkgs; [
+    packages = with pkgs; [
       (nerdfonts.override {
         fonts = [
           "FiraCode"
