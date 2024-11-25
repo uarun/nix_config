@@ -7,7 +7,7 @@
       package = pkgs.iosevka;
       name = "Iosevka";
     };
-    theme = "Gruvbox Dark";                #... Other options we like "Solarized Dark", "Gruvbox Dark", "Monokai Pro"
+    themeFile = "gruvbox-dark";                #... Other options we like "Solarized Dark", "Gruvbox Dark", "Monokai Pro"
     settings = {
       bold_font = "auto";
       italic_font = "auto";
