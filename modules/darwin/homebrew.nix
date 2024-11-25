@@ -27,6 +27,7 @@
     #... List of Homebrew Casks to install
     casks = [
       { name = "brave-browser";            greedy = true; }
+      { name = "caffeine";                 greedy = true; }
       { name = "citrix-workspace";         greedy = true; }
       { name = "discord";                  greedy = true; }
       { name = "docker";                   greedy = true; }
