@@ -24,8 +24,8 @@
     pre-commit
     procps
     procs
-    rclone
     rclone               #... Manage cloud storage
+    restic
     ripgrep
     shellcheck
     tree-sitter
