@@ -3,11 +3,11 @@
   home.stateVersion = "22.11";  #... This is here for backwards compatibility, don't change
 
   home.packages = with pkgs; [
-    bottom
     bandwhich
+    bottom
     browsh
-    du-dust
     ddgr
+    du-dust
     duf
     fd
     glances
@@ -24,6 +24,7 @@
     pre-commit
     procps
     procs
+    rclone
     rclone               #... Manage cloud storage
     ripgrep
     shellcheck
