@@ -38,6 +38,7 @@
     gcc13
     go
     rustup
+    nodejs_22
 
     #... Lang Misc
     exercism
