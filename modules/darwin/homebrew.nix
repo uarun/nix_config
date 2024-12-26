@@ -47,6 +47,7 @@
       { name = "xquartz";                  greedy = true; }
       { name = "yubico-authenticator";     greedy = true; }
       { name = "yubico-yubikey-manager";   greedy = true; }
+      { name = "zed";                      greedy = true; }
       { name = "zoom";                     greedy = true; }
     ];
 

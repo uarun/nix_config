@@ -45,7 +45,7 @@
 
     #... Dev Tools
     toxiproxy
-    jetbrains.idea-ultimate
+    jetbrains.idea-community
 
     ##... AI tools
     ollama
