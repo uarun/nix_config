@@ -39,6 +39,7 @@
       { name = "microsoft-teams";          greedy = true; }
       { name = "notion";                   greedy = true; }
       { name = "obsidian";                 greedy = true; }
+      { name = "openmtp";                  greedy = true; }
       { name = "raycast";                  greedy = true; }
       { name = "syncthing";                greedy = true; } # TODO: Look into moving this to homemanager
       { name = "tor-browser";              greedy = true; }

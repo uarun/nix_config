@@ -46,6 +46,7 @@
     #... Dev Tools
     toxiproxy
     jetbrains.idea-community
+    vscode
 
     ##... AI tools
     ollama
@@ -58,6 +59,10 @@
     ##... Networking
     arp-scan
     nmap
+
+    ##... Misc
+    opentimestamps-client
+    p7zip
   ];
 
   home.sessionVariables = {
