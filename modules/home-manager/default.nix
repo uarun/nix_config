@@ -16,6 +16,7 @@
     gtop
     httpie
     kalker
+    lnav
     miller
     most
     ncdu
@@ -60,9 +61,14 @@
     arp-scan
     nmap
 
+    ##... Cheatsheets
+    cht-sh
+    navi
+
     ##... Misc
     opentimestamps-client
     p7zip
+    sc-im
   ];
 
   home.sessionVariables = {
