@@ -64,22 +64,15 @@
   #... Install Fonts
   fonts = {
     packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "FiraCode"
-          "Hasklig"
-          "Inconsolata"
-          "Iosevka"
-          "IosevkaTerm"
-          "JetBrainsMono"
-          "Meslo"
-          "Monofur"
-          "NerdFontsSymbolsOnly"
-          "SourceCodePro"
-          "UbuntuMono"
-          "VictorMono"
-        ];
-      })
+      pkgs.nerd-fonts.fira-code
+      pkgs.nerd-fonts.inconsolata
+      pkgs.nerd-fonts.iosevka
+      pkgs.nerd-fonts.iosevka-term
+      pkgs.nerd-fonts.jetbrains-mono
+      pkgs.nerd-fonts.monofur
+      pkgs.nerd-fonts.symbols-only
+      pkgs.nerd-fonts.ubuntu-mono
+      pkgs.nerd-fonts.victor-mono
       vistafonts                #... Adding this mainly for Consolas (this needs allowUnfree to be set to true)
     ];
   };

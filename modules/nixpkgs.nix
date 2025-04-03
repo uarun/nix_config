@@ -29,6 +29,5 @@ in
     };
 
     # readOnlyStore = true;
-    configureBuildUsers = true;               #... Manage nixbld group and users
   };
 }

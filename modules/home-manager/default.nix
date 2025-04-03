@@ -32,7 +32,6 @@
     tree-sitter
     tuir                 #... Text UI reddit
     visidata
-    xsv
 
     #... Lang Packages
     coursier             #... Scala application and artifact manager
@@ -66,7 +65,6 @@
     navi
 
     ##... Misc
-    opentimestamps-client
     p7zip
     sc-im
   ];
