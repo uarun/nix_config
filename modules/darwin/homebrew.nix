@@ -29,6 +29,7 @@
       { name = "brave-browser";            greedy = true; }
       { name = "caffeine";                 greedy = true; }
       { name = "citrix-workspace";         greedy = true; }
+      { name = "cursor";                   greedy = true; }
       { name = "discord";                  greedy = true; }
       { name = "disk-inventory-x";         greedy = true; }
       { name = "docker";                   greedy = true; }
@@ -49,6 +50,7 @@
       { name = "yubico-authenticator";     greedy = true; }
       { name = "yubico-yubikey-manager";   greedy = true; }
       { name = "zed";                      greedy = true; }
+      { name = "zen-browser";              greedy = true; }
       { name = "zoom";                     greedy = true; }
     ];
 
