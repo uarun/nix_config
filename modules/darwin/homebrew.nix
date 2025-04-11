@@ -32,7 +32,6 @@
       { name = "cursor";                   greedy = true; }
       { name = "discord";                  greedy = true; }
       { name = "disk-inventory-x";         greedy = true; }
-      { name = "docker";                   greedy = true; }
       { name = "flux";                     greedy = true; }   # f.lux
       { name = "gpg-suite-no-mail";        greedy = true; }
       { name = "keepassxc";                greedy = true; }
