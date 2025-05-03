@@ -39,6 +39,7 @@
     go
     rustup
     nodejs_22
+    gnumake
 
     #... Lang Misc
     exercism
