@@ -64,6 +64,9 @@
     cht-sh
     navi
 
+    ##... Messaging
+    protobuf_24            #... Protocol Buffers v2.4.x
+
     ##... Misc
     p7zip
     sc-im
