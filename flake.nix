@@ -16,6 +16,7 @@
 
     lib-aggregate.url = "github:nix-community/lib-aggregate";    #... Aggregate of nix libs that do not depend on nixpkgs
     flake-utils.url   = "github:numtide/flake-utils";
+
   };
 
   outputs = {
@@ -66,6 +67,7 @@
         pkgs = import nixpkgs { inherit system; };
         extraSpecialArgs = {inherit self inputs nixpkgs;};
         modules = baseModules ++ extraModules;
+        nixpkgs.overlays = [ (import ./overlays/mockit-fix.nix) ];
       };
 
     mkChecks = {

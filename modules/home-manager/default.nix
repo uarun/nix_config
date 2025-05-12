@@ -50,7 +50,6 @@
     vscode
 
     ##... AI tools
-    ollama
     llama-cpp
 
     ##... Automation

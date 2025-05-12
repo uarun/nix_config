@@ -39,10 +39,11 @@
       { name = "microsoft-teams";          greedy = true; }
       { name = "notion";                   greedy = true; }
       { name = "obsidian";                 greedy = true; }
+      { name = "ollama";                   greedy = true; }
       { name = "openmtp";                  greedy = true; }
       { name = "raycast";                  greedy = true; }
-      { name = "syncthing";                greedy = true; } # TODO: Look into moving this to homemanager
       { name = "superwhisper";             greedy = true; }
+      { name = "syncthing";                greedy = true; } # TODO: Look into moving this to homemanager
       { name = "tor-browser";              greedy = true; }
       { name = "utm";                      greedy = true; }
       { name = "veracrypt";                greedy = true; }
