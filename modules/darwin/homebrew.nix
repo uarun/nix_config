@@ -47,6 +47,7 @@
       { name = "tor-browser";              greedy = true; }
       { name = "utm";                      greedy = true; }
       { name = "veracrypt";                greedy = true; }
+      { name = "windsurf";                 greedy = true; }
       { name = "xquartz";                  greedy = true; }
       { name = "yubico-authenticator";     greedy = true; }
       { name = "yubico-yubikey-manager";   greedy = true; }
