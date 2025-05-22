@@ -67,6 +67,10 @@
     ##... Messaging
     protobuf_24            #... Protocol Buffers v2.4.x
 
+    ##... Clipboard Management
+    xsel      #... X11 clipboard utility
+    xclip     #... Alternative X11 clipboard tool
+
     ##... Misc
     p7zip
     sc-im
