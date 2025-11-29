@@ -73,6 +73,8 @@
     };
   };
 
+  system.primaryUser = "arun";             #... define the primary user name for the system (string: username used for user account, home-manager, and other user-specific configurations)
+
   #... Keyboard settings
   system.keyboard = {
     enableKeyMapping = true;
