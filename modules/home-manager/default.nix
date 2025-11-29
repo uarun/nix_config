@@ -35,7 +35,7 @@
 
     #... Lang Packages
     coursier             #... Scala application and artifact manager
-    gcc13
+    gcc
     go
     rustup
     nodejs_22
@@ -65,7 +65,7 @@
     navi
 
     ##... Messaging
-    protobuf_24            #... Protocol Buffers v2.4.x
+    # protobuf_24            #... Protocol Buffers v2.4.x
 
     ##... Clipboard Management
     xsel      #... X11 clipboard utility
