@@ -73,7 +73,7 @@
       pkgs.nerd-fonts.symbols-only
       pkgs.nerd-fonts.ubuntu-mono
       pkgs.nerd-fonts.victor-mono
-      vistafonts                #... Adding this mainly for Consolas (this needs allowUnfree to be set to true)
+      vista-fonts                #... Adding this mainly for Consolas (this needs allowUnfree to be set to true)
     ];
   };
 }

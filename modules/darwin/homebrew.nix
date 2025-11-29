@@ -43,7 +43,7 @@
       { name = "openmtp";                  greedy = true; }
       { name = "raycast";                  greedy = true; }
       { name = "superwhisper";             greedy = true; }
-      { name = "syncthing";                greedy = true; } # TODO: Look into moving this to homemanager
+      { name = "syncthing-app";            greedy = true; } # TODO: Look into moving this to homemanager
       { name = "tor-browser";              greedy = true; }
       { name = "utm";                      greedy = true; }
       { name = "veracrypt";                greedy = true; }

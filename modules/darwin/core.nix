@@ -13,7 +13,7 @@ in {
     #... Packages installed in system profile
     # systemPackages = [ ];
     systemPackages = with pkgs; [
-      libiconv-darwin
+      darwin.libiconv
     ];
 
     systemPath = [ "/opt/homebrew/bin" ];

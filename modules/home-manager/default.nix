@@ -7,7 +7,7 @@
     bottom
     browsh
     ddgr
-    du-dust
+    dust
     duf
     fd
     glances
