@@ -67,7 +67,6 @@
         pkgs = import nixpkgs { inherit system; };
         extraSpecialArgs = {inherit self inputs nixpkgs;};
         modules = baseModules ++ extraModules;
-        nixpkgs.overlays = [ (import ./overlays/mockit-fix.nix) ];
       };
 
     mkChecks = {
