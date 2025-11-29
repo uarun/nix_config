@@ -50,13 +50,6 @@
       DisableConsoleAccess = true;             #... disables access to the console by typing “>console” for a username at the login window
     };
 
-    #... Firewall settings
-    alf = {
-      globalstate = 1;                         #... 0 = disabled, 1 = enabled, 2 = block all incoming connections except for essential services
-      loggingenabled = 0;                      #... logging of requests made to the firewall
-      stealthenabled = 1;                      #... firewall drops incoming requests via ICMP
-    };
-
     #... Trackpad settings
     trackpad = {
       ActuationStrength = 0;                   #... silent clicking = 0, default = 1
@@ -84,5 +77,14 @@
   system.keyboard = {
     enableKeyMapping = true;
     remapCapsLockToControl = true;
+  };
+
+  #... Firewall settings
+  networking = {
+    applicationFirewall = {
+      enable = true;                         #... enable the application firewall (boolean: true to enable, false to disable, null for system default)
+      enableStealthMode = true;              #... enable stealth mode to make the system less visible on the network (boolean: true to enable, false to disable, null for system default)
+      blockAllIncoming = true;               #... block all incoming connections except explicitly allowed (boolean: true to block, false to allow, null for system default)
+    };
   };
 }
