@@ -10,7 +10,7 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
 
     localVariables = {
       LANG = "en_US.UTF-8";
@@ -53,7 +53,7 @@
       source ${../dotfiles/init_nix.sh}
     '';
 
-    initExtraFirst = ''
+    initContent = ''
       source ${../dotfiles/p10k.zsh}
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 
@@ -61,9 +61,7 @@
       if [[ -r "$\{XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-$\{(%):-%n}.zsh" ]]; then
         source "$\{XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-$\{(%):-%n}.zsh"
       fi
-    '';
 
-    initExtra = ''
       set -o vi
       bindkey -v
 

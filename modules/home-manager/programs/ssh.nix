@@ -1,9 +1,12 @@
 { ... }: {
   programs.ssh = {
     enable = true;
-    compression = true;
-    extraConfig = ''
-      AddKeysToAgent yes
-    '';  
+    enableDefaultConfig = false;
+    matchBlocks."*" = {
+      compression = true;
+      extraOptions = {
+        AddKeysToAgent = "yes";
+      };
+    };
   };
 }
