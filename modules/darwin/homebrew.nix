@@ -40,6 +40,7 @@
       { name = "notion";                   greedy = true; }
       { name = "obsidian";                 greedy = true; }
       { name = "ollama";                   greedy = true; }
+      { name = "opencode";                 greedy = true; }
       { name = "openmtp";                  greedy = true; }
       { name = "raycast";                  greedy = true; }
       { name = "superwhisper";             greedy = true; }
