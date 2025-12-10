@@ -10,6 +10,7 @@
     ddgr
     dust
     duf
+    eksctl
     fd
     glances
     gping
@@ -17,6 +18,7 @@
     gtop
     httpie
     kalker
+    kubectl
     lnav
     miller
     most
