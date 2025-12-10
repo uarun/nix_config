@@ -3,6 +3,7 @@
   home.stateVersion = "22.11";  #... This is here for backwards compatibility, don't change
 
   home.packages = with pkgs; [
+    awscli2
     bandwhich
     bottom
     browsh
