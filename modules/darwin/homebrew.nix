@@ -14,10 +14,10 @@
 
     #... List of Homebrew formula repositories to tap
     taps = [
-      # "homebrew/core"
-      # "homebrew/bundle"
-      # "homebrew/cask"
-      # "homebrew/services"
+      "homebrew/core"
+      "homebrew/cask"
+      "homebrew/services"
+     #"homebrew/bundle"
     ];
 
     #... List of Homebrew Formulae to install
@@ -40,7 +40,7 @@
       { name = "notion";                   greedy = true; }
       { name = "obsidian";                 greedy = true; }
       { name = "ollama";                   greedy = true; }
-     #{ name = "opencode";                 greedy = true; }
+      { name = "opencode";                 greedy = true; }
       { name = "openmtp";                  greedy = true; }
       { name = "raycast";                  greedy = true; }
       { name = "superwhisper";             greedy = true; }
