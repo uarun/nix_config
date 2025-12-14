@@ -9,6 +9,8 @@ _: {
     gld  = "git log -p --ext-diff";
     gls  = "git status --short -b";
     gst  = "git status --long";
-    gwat = "git whatchanged";
+    gwat = "git log --raw --no-merges";
+
+    tree = "eza -T";
   };
 }
