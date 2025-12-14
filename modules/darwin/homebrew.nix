@@ -14,14 +14,15 @@
 
     #... List of Homebrew formula repositories to tap
     taps = [
-      "homebrew/core"
-      "homebrew/cask"
-      "homebrew/services"
+     #"homebrew/core"
+     #"homebrew/cask"
+     # "homebrew/services"
      #"homebrew/bundle"
     ];
 
     #... List of Homebrew Formulae to install
     brews = [
+      "opencode"
     ];
 
     #... List of Homebrew Casks to install
@@ -32,15 +33,14 @@
       { name = "cursor";                   greedy = true; }
       { name = "discord";                  greedy = true; }
       { name = "disk-inventory-x";         greedy = true; }
-      { name = "flux";                     greedy = true; }   # f.lux
+      { name = "flux-app";                 greedy = true; }   # f.lux
       { name = "gpg-suite-no-mail";        greedy = true; }
       { name = "keepassxc";                greedy = true; }
       { name = "lm-studio";                greedy = true; }
       { name = "microsoft-teams";          greedy = true; }
       { name = "notion";                   greedy = true; }
       { name = "obsidian";                 greedy = true; }
-      { name = "ollama";                   greedy = true; }
-      { name = "opencode";                 greedy = true; }
+      { name = "ollama-app";               greedy = true; }
       { name = "openmtp";                  greedy = true; }
       { name = "raycast";                  greedy = true; }
       { name = "superwhisper";             greedy = true; }
@@ -53,7 +53,7 @@
       { name = "yubico-authenticator";     greedy = true; }
       { name = "yubico-yubikey-manager";   greedy = true; }
       { name = "zed";                      greedy = true; }
-      { name = "zen-browser";              greedy = true; }
+      { name = "zen";                      greedy = true; }
       { name = "zoom";                     greedy = true; }
     ];
 
