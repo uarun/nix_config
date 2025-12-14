@@ -83,6 +83,7 @@
 
   #... Firewall settings
   networking = {
+    dns = [ "192.168.1.222" "9.9.9.9" "1.1.1.1" "8.8.8.8" ];  #... Custom DNS servers
     applicationFirewall = {
       enable = true;                         #... enable the application firewall (boolean: true to enable, false to disable, null for system default)
       enableStealthMode = true;              #... enable stealth mode to make the system less visible on the network (boolean: true to enable, false to disable, null for system default)
