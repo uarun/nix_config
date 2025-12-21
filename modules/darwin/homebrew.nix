@@ -23,6 +23,7 @@
     #... List of Homebrew Formulae to install
     brews = [
       "opencode"
+      "gemini-cli"
     ];
 
     #... List of Homebrew Casks to install
@@ -31,6 +32,7 @@
       { name = "caffeine";                 greedy = true; }
       { name = "citrix-workspace";         greedy = true; }
       { name = "cursor";                   greedy = true; }
+      { name = "claude-code";              greedy = true; }
       { name = "discord";                  greedy = true; }
       { name = "disk-inventory-x";         greedy = true; }
       { name = "flux-app";                 greedy = true; }   # f.lux
