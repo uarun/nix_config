@@ -48,8 +48,9 @@
     exercism
 
     #... Dev Tools
+    gh                    #... GitHub CLI
     toxiproxy
-    jetbrains.idea-community
+    # jetbrains.idea-oss
     vscode
 
     ##... AI tools
