@@ -3,6 +3,7 @@
   inputs,
   config,
   pkgs,
+  hostname ? "",
   ...
 }: {
 
@@ -28,7 +29,7 @@
 
   #... Let nix manage home-manager profiles and use global nixpkgs
   home-manager = {
-    extraSpecialArgs = {inherit self inputs;};
+    extraSpecialArgs = {inherit self inputs hostname;};
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";

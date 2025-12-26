@@ -34,6 +34,7 @@
     mkDarwinConfig = {
       system ? "aarch64-darwin",
       nixpkgs ? inputs.nixpkgs,
+      hostname ? "",
       baseModules ? [
         home-manager.darwinModules.home-manager
         ./modules/darwin
@@ -43,7 +44,7 @@
       inputs.darwin.lib.darwinSystem {
         inherit system;
         modules = baseModules ++ extraModules;
-        specialArgs = {inherit self inputs nixpkgs;};
+        specialArgs = {inherit self inputs nixpkgs hostname;};
       };
 
     #... Function to generate home manager configuration usable on any unix system
@@ -96,18 +97,37 @@
       };
     };
 
-  in {
-
-    #... MacOS Configurations
-    darwinConfigurations = {
-      "arun@aarch64-darwin" = mkDarwinConfig {
+    #... Define darwin hosts
+    darwinHosts = [
+      {
+        username = "arun";
+        hostname = "Melbourne";
         system = "aarch64-darwin";
         extraModules = [
           ./profiles/personal.nix
           ./modules/darwin/apps.nix
         ];
-      };
-    };
+      }
+      # Add more hosts here as needed
+      # {
+      #   username = "arun";
+      #   hostname = "WorkMac";
+      #   system = "x86_64-darwin";
+      #   extraModules = [ ./profiles/work.nix ];
+      # }
+    ];
+
+  in {
+
+    #... MacOS Configurations
+    darwinConfigurations = builtins.listToAttrs (
+      map (host: {
+        name = "${host.username}@${host.hostname}:${host.system}";
+        value = mkDarwinConfig {
+          inherit (host) system hostname extraModules;
+        };
+      }) darwinHosts
+    );
 
     #... Home Manager Configurations (for non-NixOS Linux installations)
     homeConfigurations = {
