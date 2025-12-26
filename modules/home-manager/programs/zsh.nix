@@ -3,7 +3,15 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+let
+  #... Get hostname and strip domain suffix
+  fullHostname = builtins.getEnv "HOSTNAME";
+  shortHostname = builtins.head (builtins.split "\\." fullHostname);
+  hostZshrcPath = ../../../hosts/${shortHostname}/zshrc;
+  hasHostZshrc = builtins.pathExists hostZshrcPath;
+in
+{
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -81,6 +89,12 @@
       bindkey -M vicmd '?' vi-history-search-backward                       # default is vi-history-search-forward
 
       source ${../dotfiles/lscolors.sh}
+
+      #... Host-specific config (from git)
+      ${lib.optionalString hasHostZshrc (builtins.readFile hostZshrcPath)}
+
+      #... Local overrides (untracked)
+      [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
     '';
 
     profileExtra = ''
