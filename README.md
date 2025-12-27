@@ -146,8 +146,9 @@ The Zsh configuration includes helpful aliases for common Nix operations:
 - `dwclean`: Clean up old system generations and optimize store
 - `dwshowupdates`: Show changes between system generations
 
-**Home Manager (Linux) alias:**
+**Home Manager (Linux) aliases:**
 - `hmswitch`: Switch Home Manager configuration (`home-manager switch --flake .#$(id -un)@$(hostname -s):x86_64-linux`)
+- `hmclean`: Clean up old packages and optimize Nix store
 
 ### Available Configurations
 

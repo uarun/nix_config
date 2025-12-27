@@ -45,6 +45,7 @@ in
       llt = "eza --icons --git-ignore --git -F --extended -l -T";
 
       hmswitch = "home-manager switch --flake github:uarun/nix_config#$(id -un)@$(hostname -s):x86_64-linux";
+      hmclean  = "nix-collect-garbage --delete-older-than 30d; nix store optimise";
 
     } //   #... Union
     pkgs.lib.optionalAttrs pkgs.stdenv.isDarwin {
