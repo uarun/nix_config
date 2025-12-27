@@ -3,79 +3,80 @@
   home.stateVersion = "22.11";  #... This is here for backwards compatibility, don't change
 
   home.packages = with pkgs; [
-    awscli2
+    # System monitoring and utilities
     bandwhich
     bottom
     browsh
     ddgr
     dust
     duf
-    eksctl
-    fd
     glances
     gping
     gron
     gtop
     httpie
     kalker
-    kubectl
     lnav
     miller
     most
     ncdu
     neofetch
-    (lib.hiPrio parallel)  #... Higher priority than collision from llama-cpp
+    procs
+    tree-sitter
+
+    # Development tools
+    awscli2
+    eksctl
+    fd
+    gh                    # GitHub CLI
+    kubectl
     pre-commit
     procps
-    procs
-    rclone               #... Manage cloud storage
-    restic
     ripgrep
     shellcheck
-    tree-sitter
-    tuir                 #... Text UI reddit
-    visidata
-
-    #... Lang Packages
-    coursier             #... Scala application and artifact manager
-    gcc
-    go
-    rustup
-    nodejs_22
-    gnumake
-
-    #... Lang Misc
-    exercism
-
-    #... Dev Tools
-    gh                    #... GitHub CLI
     toxiproxy
-    # jetbrains.idea-oss
     vscode
 
-    ##... AI tools
-    llama-cpp
+    # Languages and build tools
+    coursier             # Scala
+    gcc
+    go
+    gnumake
+    nodejs_22
+    rustup
 
-    ##... Automation
+    # Language learning/tools
+    exercism
+
+    # Cloud storage and backup
+    rclone
+    restic
+
+    # Text processing and data
+    tuir                 # Text UI reddit
+    visidata
+
+    # AI tools
+    llama-cpp
+    (lib.hiPrio parallel)  # Higher priority than collision from llama-cpp
+
+    # Automation and infrastructure
     ansible
     sshpass
 
-    ##... Networking
+    # Networking
     arp-scan
     nmap
 
-    ##... Cheatsheets
+    # Documentation and cheatsheets
     cht-sh
     navi
 
-    ##... Messaging
-    # protobuf_24            #... Protocol Buffers v2.4.x
+    # Clipboard management (Linux)
+    xsel
+    xclip
 
-    ##... Clipboard Management
-    xsel      #... X11 clipboard utility
-    xclip     #... Alternative X11 clipboard tool
-
-    ##... Misc
+    # Archives and misc
     p7zip
     sc-im
   ];
