@@ -44,7 +44,7 @@ in
       lt  = "eza --icons --git-ignore --git -F --extended -T";
       llt = "eza --icons --git-ignore --git -F --extended -l -T";
 
-      hmswitch = "home-manager switch --flake github:uarun/nix_config#$(id -un)@x86_64-linux";
+      hmswitch = "home-manager switch --flake github:uarun/nix_config#$(id -un)@$(hostname -s):x86_64-linux";
 
     } //   #... Union
     pkgs.lib.optionalAttrs pkgs.stdenv.isDarwin {
