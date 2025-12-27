@@ -52,6 +52,7 @@
       username,
       system  ? "x86_64-linux",
       nixpkgs ? inputs.nixpkgs,
+      hostname ? "",
       baseModules ? [
         ./modules/home-manager
         {
@@ -66,7 +67,7 @@
     }:
       inputs.home-manager.lib.homeManagerConfiguration rec {
         pkgs = import nixpkgs { inherit system; };
-        extraSpecialArgs = {inherit self inputs nixpkgs;};
+        extraSpecialArgs = {inherit self inputs nixpkgs hostname;};
         modules = baseModules ++ extraModules;
       };
 
@@ -83,7 +84,7 @@
 
         # Validation
         requiredFields = ["username" "system" "extraModules"];
-        missingFields = builtins.filter (field: !config ? field) requiredFields;
+        missingFields = builtins.filter (field: !builtins.hasAttr field config) requiredFields;
 
         # Validate system format
         systemValid = builtins.match ".*-(darwin|linux)" config.system != null;
@@ -118,7 +119,7 @@
       map (host: {
         name = "${host.username}@${host.hostname}:${host.system}";
         value = mkHomeConfig {
-          inherit (host) username system extraModules;
+          inherit (host) username system hostname extraModules;
         };
       }) linuxHosts
     );
