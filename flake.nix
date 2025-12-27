@@ -70,52 +70,36 @@
         modules = baseModules ++ extraModules;
       };
 
-    mkChecks = {
-      arch,
-      os,
-      username ? "arun",
-    }: {
-      "${arch}-${os}" = {
-        "${username}_${os}" =
-          if os == "darwin"
-          then
-            self.darwinConfigurations
-            ."${username}@${arch}-${os}"
-            .config
-            .system
-            .build
-            .toplevel
-          else
-            builtins.derivation {                      ##... Dummy derivation until we implement a NixOS derivation
-              name = "NixOS_NotImplemented";
-              builder = "true";
-              system  = "${arch}-${os}";
-            };
+  in
+  let
+    hostsDir = ./hosts;
+    hostNames = builtins.attrNames (builtins.readDir hostsDir);
 
-        "${username}_home" =
-          self.homeConfigurations."${username}@${arch}-${os}".activationPackage;
-      };
-    };
+    # Load and validate host configurations
+    loadHostConfig = hostName:
+      let
+        configPath = hostsDir + "/${hostName}/config.nix";
+        config = import configPath;
 
-    #... Define darwin hosts
-    darwinHosts = [
-      {
-        username = "arun";
-        hostname = "Melbourne";
-        system = "aarch64-darwin";
-        extraModules = [
-          ./profiles/personal.nix
-          ./modules/darwin/apps.nix
-        ];
-      }
-      # Add more hosts here as needed
-      # {
-      #   username = "arun";
-      #   hostname = "WorkMac";
-      #   system = "x86_64-darwin";
-      #   extraModules = [ ./profiles/work.nix ];
-      # }
-    ];
+        # Validation
+        requiredFields = ["username" "system" "extraModules"];
+        missingFields = builtins.filter (field: !config ? field) requiredFields;
+
+        # Validate system format
+        systemValid = builtins.match ".*-(darwin|linux)" config.system != null;
+      in
+        if missingFields != [] then
+          throw "Host ${hostName}: Missing required fields: ${builtins.concatStringsSep ", " missingFields}"
+        else if !systemValid then
+          throw "Host ${hostName}: Invalid system format '${config.system}'. Expected *-darwin or *-linux"
+        else
+          config // { hostname = hostName; };
+
+    allHosts = builtins.map loadHostConfig hostNames;
+
+    # Separate by system type
+    darwinHosts = builtins.filter (host: builtins.match ".*-darwin" host.system != null) allHosts;
+    linuxHosts = builtins.filter (host: builtins.match ".*-linux" host.system != null) allHosts;
 
   in {
 
@@ -129,29 +113,17 @@
       }) darwinHosts
     );
 
-    #... Home Manager Configurations (for non-NixOS Linux installations)
-    homeConfigurations = {
-      "audayashankar@x86_64-linux" = mkHomeConfig {
-        username = "audayashankar";
-        system   = "x86_64-linux";
-        extraModules = [ ./profiles/home-manager/work.nix ];
-      };
+    #... Linux Home Manager Configurations
+    homeConfigurations = builtins.listToAttrs (
+      map (host: {
+        name = "${host.username}@${host.hostname}:${host.system}";
+        value = mkHomeConfig {
+          inherit (host) username system extraModules;
+        };
+      }) linuxHosts
+    );
 
-      "arun@x86_64-linux" = mkHomeConfig {
-        username = "arun";
-        system   = "x86_64-linux";
-        extraModules = [ ./profiles/home-manager/personal.nix ];
-      };
-
-      "arun@aarch64-darwin" = mkHomeConfig {
-        username = "arun";
-        system   = "aarch64-darwin";
-        extraModules = [ ./profiles/home-manager/personal.nix ];
-      };
-    };
-
-    checks = {}
-      // (mkChecks { arch = "aarch64"; os = "darwin"; username = "arun"; })
-      // (mkChecks { arch = "x86_64";  os = "linux";  username = "audayashankar"; });
+    # Checks removed for now
+    checks = {};
   };
 }
