@@ -22,8 +22,9 @@
 
     #... List of Homebrew Formulae to install
     brews = [
-      "opencode"
-      "gemini-cli"
+       "cargo-audit"
+       "opencode"
+       "gemini-cli"
     ];
 
     #... List of Homebrew Casks to install
