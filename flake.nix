@@ -72,17 +72,17 @@
     hostsDir = ./hosts;
     hostNames = builtins.attrNames (builtins.readDir hostsDir);
 
-    # Load and validate host configurations
+    #... Load and validate host configurations
     loadHostConfig = hostName:
       let
         configPath = hostsDir + "/${hostName}/config.nix";
         config = import configPath;
 
-        # Validation
+        #... Validation
         requiredFields = ["username" "system" "extraModules"];
         missingFields = builtins.filter (field: !builtins.hasAttr field config) requiredFields;
 
-        # Validate system format
+        #... Validate system format
         systemValid = builtins.match ".*-(darwin|linux)" config.system != null;
       in
         if missingFields != [] then
@@ -94,7 +94,7 @@
 
     allHosts = builtins.map loadHostConfig hostNames;
 
-    # Separate by system type
+    #... Separate by system type
     darwinHosts = builtins.filter (host: builtins.match ".*-darwin" host.system != null) allHosts;
     linuxHosts = builtins.filter (host: builtins.match ".*-linux" host.system != null) allHosts;
 
@@ -120,7 +120,7 @@
       }) linuxHosts
     );
 
-    # Checks removed for now
+    #... Checks removed for now
     checks = {};
   };
 }

@@ -3,7 +3,7 @@
   home.stateVersion = "22.11";  #... This is here for backwards compatibility, don't change
 
   home.packages = with pkgs; [
-    # System monitoring and utilities
+    #... System monitoring and utilities
     bandwhich
     bottom
     browsh
@@ -24,11 +24,11 @@
     procs
     tree-sitter
 
-    # Development tools
+    #... Development tools
     awscli2
     eksctl
     fd
-    gh                    # GitHub CLI
+    gh                    #... GitHub CLI
     kubectl
     pre-commit
     procps
@@ -37,46 +37,46 @@
     toxiproxy
     vscode
 
-    # Languages and build tools
-    coursier             # Scala
+    #... Languages and build tools
+    coursier             #... Scala
     gcc
     go
     gnumake
     nodejs_22
     rustup
 
-    # Language learning/tools
+    #... Language learning/tools
     exercism
 
-    # Cloud storage and backup
+    #... Cloud storage and backup
     rclone
     restic
 
-    # Text processing and data
-    tuir                 # Text UI reddit
+    #... Text processing and data
+    tuir                 #... Text UI reddit
     visidata
 
-    # AI tools
+    #... AI tools
     llama-cpp
-    (lib.hiPrio parallel)  # Higher priority than collision from llama-cpp
+    (lib.hiPrio parallel)  #... Higher priority than collision from llama-cpp
 
-    # Automation and infrastructure
+    #... Automation and infrastructure
     ansible
     sshpass
 
-    # Networking
+    #... Networking
     arp-scan
     nmap
 
-    # Documentation and cheatsheets
+    #... Documentation and cheatsheets
     cht-sh
     navi
 
-    # Clipboard management (Linux)
+    #... Clipboard management (Linux)
     xsel
     xclip
 
-    # Archives and misc
+    #... Archives and misc
     p7zip
     sc-im
   ];
