@@ -58,6 +58,7 @@ in
 
     envExtra = ''
       source ${../dotfiles/init_nix.sh}
+      export RUSTFLAGS="-L${pkgs.libiconv}/lib"
     '';
 
     initContent = ''
