@@ -16,6 +16,7 @@ in
     ];
   };
 
+  nix.enable = false;
   nix = {
     extraOptions = ''
       keep-outputs = true
@@ -23,10 +24,10 @@ in
       experimental-features = nix-command flakes
     '';
 
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 14d";
-    };
+    #gc = {
+    #  automatic = true;
+    #  options = "--delete-older-than 14d";
+    #};
 
     # readOnlyStore = true;
   };
