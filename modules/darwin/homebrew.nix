@@ -32,8 +32,8 @@
       { name = "brave-browser";            greedy = true; }
       { name = "caffeine";                 greedy = true; }
       { name = "citrix-workspace";         greedy = true; }
-      { name = "cursor";                   greedy = true; }
       { name = "claude-code";              greedy = true; }
+      { name = "cursor";                   greedy = true; }
       { name = "discord";                  greedy = true; }
       { name = "disk-inventory-x";         greedy = true; }
       { name = "flux-app";                 greedy = true; }   # f.lux
@@ -45,6 +45,7 @@
       { name = "obsidian";                 greedy = true; }
       { name = "ollama-app";               greedy = true; }
       { name = "openmtp";                  greedy = true; }
+      { name = "osaurus";                  greedy = true; }
       { name = "raycast";                  greedy = true; }
       { name = "superwhisper";             greedy = true; }
       { name = "syncthing-app";            greedy = true; } # TODO: Look into moving this to homemanager
