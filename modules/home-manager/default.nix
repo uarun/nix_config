@@ -42,7 +42,7 @@
     gcc
     go
     gnumake
-    nodejs_22
+    nodejs_25
     rustup
 
     #... Language learning/tools

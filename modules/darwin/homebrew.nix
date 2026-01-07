@@ -18,10 +18,12 @@
      #"homebrew/cask"
      # "homebrew/services"
      #"homebrew/bundle"
+      "steveyegge/beads"
     ];
 
     #... List of Homebrew Formulae to install
     brews = [
+       "bd"               # TODO: Move this to homemanager when it's more stable (i.e. less frequent releases)
        "cargo-audit"
        "opencode"
        "gemini-cli"
@@ -37,6 +39,7 @@
       { name = "discord";                  greedy = true; }
       { name = "disk-inventory-x";         greedy = true; }
       { name = "flux-app";                 greedy = true; }   # f.lux
+      { name = "ghostty";                  greedy = true; }
       { name = "gpg-suite-no-mail";        greedy = true; }
       { name = "keepassxc";                greedy = true; }
       { name = "lm-studio";                greedy = true; }
