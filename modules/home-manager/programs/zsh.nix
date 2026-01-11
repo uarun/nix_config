@@ -49,10 +49,10 @@ in
 
     } //   #... Union
     pkgs.lib.optionalAttrs pkgs.stdenv.isDarwin {
-      dwswitch       = "pushd ~; sudo darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@$(hostname -s):aarch64-darwin; popd";
-      dwswitch_trace = "pushd ~; sudo darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@$(hostname -s):aarch64-darwin --show-trace; popd";
-      dwclean        = "pushd ~; sudo nix-env --delete-generations +7 --profile /nix/var/nix/profiles/system; sudo nix-collect-garbage --delete-older-than 30d; nix store optimise; popd";
-      dwupdate       = "pushd ~/nix_config; nix flake update; /opt/homebrew/bin/brew update; popd; dwswitch; /opt/homebrew/bin/brew upgrade; /opt/homebrew/bin/brew upgrade --cask --greedy; dwshowupdates";
+      dwswitch       = "sudo darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@$(hostname -s):aarch64-darwin";
+      dwswitch_trace = "sudo darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@$(hostname -s):aarch64-darwin --show-trace";
+      dwclean        = "sudo nix-env --delete-generations +7 --profile /nix/var/nix/profiles/system; sudo nix-collect-garbage --delete-older-than 30d; nix store optimise";
+      dwupdate       = "nix flake update --flake ~/nix_config; /opt/homebrew/bin/brew update; dwswitch; /opt/homebrew/bin/brew upgrade; /opt/homebrew/bin/brew upgrade --cask --greedy; dwshowupdates";
       dwshowupdates  = ''zsh -c "nix store diff-closures /nix/var/nix/profiles/system-*-link(om[2]) /nix/var/nix/profiles/system-*-link(om[1])"'';
     };
 
