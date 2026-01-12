@@ -30,6 +30,7 @@
     fd
     gh                    #... GitHub CLI
     kubectl
+    mermaid-cli
     pre-commit
     procps
     ripgrep
