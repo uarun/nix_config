@@ -36,6 +36,7 @@
     ripgrep
     shellcheck
     toxiproxy
+    uv
     vscode
 
     #... Languages and build tools
