@@ -27,6 +27,7 @@
        "cargo-audit"
        "opencode"
        "gemini-cli"
+       "tailscale"
     ];
 
     #... List of Homebrew Casks to install
