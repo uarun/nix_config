@@ -30,6 +30,7 @@
     fd
     gh                    #... GitHub CLI
     kubectl
+    lazygit
     mermaid-cli
     pre-commit
     procps
