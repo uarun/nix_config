@@ -56,7 +56,7 @@
     restic
 
     #... Text processing and data
-    tuir                 #... Text UI reddit
+    # tuir                 #... Text UI reddit
     visidata
 
     #... AI tools
