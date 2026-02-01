@@ -49,6 +49,7 @@
     go
     gnumake
     nodejs_25
+    nodePackages.typescript-language-server
     rustup
 
     #... Language learning/tools
