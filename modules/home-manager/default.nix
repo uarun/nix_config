@@ -32,6 +32,7 @@
     kubectl
     lazygit
     mermaid-cli
+    pnpm
     pre-commit
     procps
     ripgrep
