@@ -20,9 +20,9 @@ in {
     pathsToLink = [ "/Applications" ];
   };
 
-  homebrew.brewPrefix = if isAarch64 || isAarch32
-    then "/opt/homebrew/bin"
-    else "/usr/local/bin";
+  homebrew.prefix = if isAarch64 || isAarch32
+    then "/opt/homebrew"
+    else "/usr/local";
 
   nix = {
     nixPath = ["darwin=/etc/${config.environment.etc.darwin.target}"];
