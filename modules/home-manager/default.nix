@@ -29,6 +29,7 @@
     eksctl
     fd
     gh                    #... GitHub CLI
+    just
     kubectl
     lazygit
     mermaid-cli
@@ -40,6 +41,7 @@
     toxiproxy
     uv
     vscode
+    yazi
 
     #... Languages and build tools
     coursier             #... Scala
