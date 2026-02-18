@@ -32,6 +32,7 @@
     just
     kubectl
     lazygit
+    liquibase
     mermaid-cli
     pnpm
     pre-commit
