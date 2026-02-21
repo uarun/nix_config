@@ -4,17 +4,8 @@
   pkgs,
   ...
 }:
-let
-  lib = inputs.lib-aggregate.lib;
-in
 {
-  nixpkgs.config = {
-    allowBroken = false;
-    allowUnfree = true;
-    allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "vista-fonts"
-    ];
-  };
+  nixpkgs.config = import ./config.nix { lib = inputs.nixpkgs.lib; };
 
   nix.enable = false;
   nix = {
