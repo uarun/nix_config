@@ -12,7 +12,6 @@
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    lib-aggregate.url = "github:nix-community/lib-aggregate";    #... Aggregate of nix libs that do not depend on nixpkgs
   };
 
   outputs = {
@@ -22,7 +21,9 @@
     ...
   } @ inputs:
   let
-    isDarwin = system: (builtins.elem system inputs.nixpkgs.lib.platforms.darwin);
+    lib = inputs.nixpkgs.lib;
+    pkgsConfig = import ./modules/config.nix { inherit lib; };
+    isDarwin = system: (builtins.elem system lib.platforms.darwin);
     homePrefix = system: if isDarwin system then "/Users" else "/home";
     defaultSystems = [ "aarch64-linux" "aarch64-darwin" "x86_64-darwin" "x86_64-linux" ];
 
@@ -62,7 +63,10 @@
       extraModules ? [],
     }:
       inputs.home-manager.lib.homeManagerConfiguration rec {
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = import nixpkgs {
+          inherit system;
+          config = pkgsConfig;
+        };
         extraSpecialArgs = {inherit self inputs nixpkgs hostname;};
         modules = baseModules ++ extraModules;
       };
@@ -70,27 +74,34 @@
   in
   let
     hostsDir = ./hosts;
-    hostNames = builtins.attrNames (builtins.readDir hostsDir);
+    hostNames = builtins.attrNames (
+      lib.filterAttrs (_: entryType: entryType == "directory") (builtins.readDir hostsDir)
+    );
 
     #... Load and validate host configurations
     loadHostConfig = hostName:
       let
         configPath = hostsDir + "/${hostName}/config.nix";
-        config = import configPath;
-
+        config =
+          if builtins.pathExists configPath then
+            import configPath
+          else
+            throw "Host ${hostName}: Missing required file ${toString configPath}";
+      in
+      let
         #... Validation
-        requiredFields = ["username" "system" "extraModules"];
+        requiredFields = [ "username" "system" "extraModules" ];
         missingFields = builtins.filter (field: !builtins.hasAttr field config) requiredFields;
 
         #... Validate system format
         systemValid = builtins.match ".*-(darwin|linux)" config.system != null;
       in
-        if missingFields != [] then
-          throw "Host ${hostName}: Missing required fields: ${builtins.concatStringsSep ", " missingFields}"
-        else if !systemValid then
-          throw "Host ${hostName}: Invalid system format '${config.system}'. Expected *-darwin or *-linux"
-        else
-          config // { hostname = hostName; };
+      if missingFields != [] then
+        throw "Host ${hostName}: Missing required fields: ${builtins.concatStringsSep ", " missingFields}"
+      else if !systemValid then
+        throw "Host ${hostName}: Invalid system format '${config.system}'. Expected *-darwin or *-linux"
+      else
+        config // { hostname = hostName; };
 
     allHosts = builtins.map loadHostConfig hostNames;
 
@@ -120,7 +131,20 @@
       }) linuxHosts
     );
 
-    #... Checks removed for now
-    checks = {};
+    #... Per-host checks, grouped by system for `nix flake check`
+    checks = builtins.foldl' (acc: host:
+      let
+        hostCheckName = "${host.username}@${host.hostname}";
+        checkDrv = if builtins.match ".*-darwin" host.system != null then
+          (mkDarwinConfig { inherit (host) system hostname extraModules; }).system
+        else
+          (mkHomeConfig { inherit (host) username system hostname extraModules; }).activationPackage;
+      in
+      acc // {
+        "${host.system}" = (acc.${host.system} or {}) // {
+          "${hostCheckName}" = checkDrv;
+        };
+      }
+    ) {} allHosts;
   };
 }
