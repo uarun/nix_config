@@ -8,7 +8,7 @@
 in {
   #... Environment setup
   environment = {
-    etc = { darwin.source = "${inputs.darwin}"; };
+    etc = { darwin.source = inputs.darwin.outPath; };
 
     #... Packages installed in system profile
     # systemPackages = [ ];
