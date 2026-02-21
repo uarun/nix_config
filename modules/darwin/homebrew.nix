@@ -36,6 +36,7 @@
       { name = "caffeine";                 greedy = true; }
       { name = "citrix-workspace";         greedy = true; }
       { name = "claude-code";              greedy = true; }
+      { name = "codex";                    greedy = true; }
       { name = "cursor";                   greedy = true; }
       { name = "discord";                  greedy = true; }
       { name = "disk-inventory-x";         greedy = true; }
