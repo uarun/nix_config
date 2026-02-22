@@ -127,5 +127,6 @@
   };
 
   home.file.".inputrc".source = ./dotfiles/inputrc;
+  home.file.".config/nix/nix.conf".text = "experimental-features = nix-command flakes\n";
   fonts.fontconfig.enable = true;
 }
