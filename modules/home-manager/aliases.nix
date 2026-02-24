@@ -12,5 +12,8 @@ _: {
     gwat = "git log --raw --no-merges";
 
     tree = "eza -T";
+
+    excalidraw = "docker run -d --rm --name excalidraw-canvas -p 3000:3000 ghcr.io/yctimlin/mcp_excalidraw-canvas:latest";
+    excalidraw-stop = "docker stop excalidraw-canvas";
   };
 }
