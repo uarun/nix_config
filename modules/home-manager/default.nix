@@ -87,6 +87,12 @@
     #... Archives and misc
     p7zip
     sc-im
+
+    #... Container tools
+    docker
+    docker-compose
+  ] ++ lib.optionals stdenv.isDarwin [
+    colima              #... Lightweight Docker VM for macOS (replaces Docker Desktop)
   ];
 
   home.sessionVariables = {
