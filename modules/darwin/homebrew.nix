@@ -18,6 +18,7 @@
      #"homebrew/cask"
      # "homebrew/services"
      #"homebrew/bundle"
+      "manaflow-ai/cmux"
       "steveyegge/beads"
     ];
 
@@ -36,6 +37,7 @@
       { name = "caffeine";                 greedy = true; }
       { name = "citrix-workspace";         greedy = true; }
       { name = "claude-code";              greedy = true; }
+      { name = "manaflow-ai/cmux/cmux";   greedy = true; }
       { name = "codex";                    greedy = true; }
       { name = "cursor";                   greedy = true; }
       { name = "discord";                  greedy = true; }
@@ -57,7 +59,6 @@
       { name = "tor-browser";              greedy = true; }
       { name = "utm";                      greedy = true; }
       { name = "veracrypt";                greedy = true; }
-      { name = "windsurf";                 greedy = true; }
       { name = "xquartz";                  greedy = true; }
       { name = "yubico-authenticator";     greedy = true; }
       { name = "yubico-yubikey-manager";   greedy = true; }
