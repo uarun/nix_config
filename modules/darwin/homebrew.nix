@@ -26,6 +26,7 @@
     brews = [
        "bd"               # TODO: Move this to homemanager when it's more stable (i.e. less frequent releases)
        "cargo-audit"
+       "dolt"
        "opencode"
        "gemini-cli"
        "tailscale"
