@@ -45,6 +45,7 @@
     yazi
 
     #... Languages and build tools
+    corretto21           # Amazon Corretto OpenJDK 21
     coursier             #... Scala
     gcc
     go
