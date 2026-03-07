@@ -20,7 +20,7 @@
     miller
     most
     ncdu
-    neofetch
+    fastfetch
     procs
     tree-sitter
 
