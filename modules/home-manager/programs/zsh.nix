@@ -48,7 +48,7 @@ in
       hmclean  = "nix-collect-garbage --delete-older-than 30d; nix store optimise";
 
     } //   #... Union
-    pkgs.lib.optionalAttrs pkgs.stdenv.isDarwin {
+    pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
       dwswitch       = "sudo darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@$(hostname -s):aarch64-darwin";
       dwswitch_trace = "sudo darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@$(hostname -s):aarch64-darwin --show-trace";
       dwfixcache     = "rm -f ~/.cache/nix/fetcher-cache-v4.sqlite && rm -rf ~/.cache/nix/eval-cache-v6 && echo 'Nix fetcher and eval caches cleared. Re-run dwswitch.'";
