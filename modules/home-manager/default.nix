@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 {
   home.stateVersion = "22.11";  #... This is here for backwards compatibility, don't change
 
@@ -45,12 +45,12 @@
     yazi
 
     #... Languages and build tools
-    corretto21           # Amazon Corretto OpenJDK 21
+    jdk21                # OpenJDK 21 (platform-independent)
     coursier             #... Scala
     gcc
     go
     gnumake
-    nodejs_25
+    nodejs_24
     nodePackages.typescript-language-server
     rustup
 
@@ -92,7 +92,11 @@
     #... Container tools
     docker
     docker-compose
-  ] ++ lib.optionals stdenv.isDarwin [
+  ] ++
+  lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+    corretto21           # Amazon Corretto OpenJDK 21 (Linux only)
+  ] ++
+  lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
     colima              #... Lightweight Docker VM for macOS (replaces Docker Desktop)
   ];
 
