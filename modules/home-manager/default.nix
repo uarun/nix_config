@@ -40,7 +40,6 @@
     procps
     ripgrep
     shellcheck
-    snowsql
     toxiproxy
     uv
     vscode
@@ -98,6 +97,7 @@
   ] ++
   lib.optionals pkgs.stdenv.hostPlatform.isLinux [
     corretto21           # Amazon Corretto OpenJDK 21 (Linux only)
+    snowsql              # Only available on x86_64-linux
   ] ++
   lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
     colima              #... Lightweight Docker VM for macOS (replaces Docker Desktop)
