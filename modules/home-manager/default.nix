@@ -29,6 +29,7 @@
     eksctl
     fd
     gh                    #... GitHub CLI
+    glab                  #... GitLab CLI
     just
     kubectl
     lazygit
@@ -39,10 +40,12 @@
     procps
     ripgrep
     shellcheck
+    snowsql
     toxiproxy
     uv
     vscode
     yazi
+    yq
 
     #... Languages and build tools
     jdk21                # OpenJDK 21 (platform-independent)
