@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 {
-  home.stateVersion = "22.11";  #... This is here for backwards compatibility, don't change
+  home.stateVersion = "25.11";
 
   home.packages = with pkgs; [
     #... System monitoring and utilities
