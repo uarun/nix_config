@@ -47,7 +47,6 @@
     yq
 
     #... Languages and build tools
-    jdk21                # OpenJDK 21 (platform-independent)
     coursier             #... Scala
     gcc
     go
@@ -100,6 +99,7 @@
     snowsql              # Only available on x86_64-linux
   ] ++
   lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+    jdk21               # OpenJDK 21 (macOS only, Linux uses Corretto)
     colima              #... Lightweight Docker VM for macOS (replaces Docker Desktop)
   ];
 
