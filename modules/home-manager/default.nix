@@ -51,6 +51,7 @@
     gcc
     go
     gnumake
+    bun
     nodejs_24
     nodePackages.typescript-language-server
     rustup
