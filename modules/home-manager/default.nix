@@ -35,6 +35,7 @@
     lazygit
     liquibase
     mermaid-cli
+    pixi
     pnpm
     pre-commit
     procps
