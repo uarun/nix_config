@@ -88,6 +88,9 @@
     xsel
     xclip
 
+    #... Fonts
+    inter
+
     #... Archives and misc
     p7zip
     sc-im
