@@ -5,6 +5,7 @@
     "roon-server"
     "snowsql"
     "vista-fonts"
+    "n8n"
     "vscode"
   ];
 }

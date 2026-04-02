@@ -37,7 +37,6 @@
       { name = "brave-browser";            greedy = true; }
       { name = "caffeine";                 greedy = true; }
       { name = "citrix-workspace";         greedy = true; }
-      { name = "claude-code";              greedy = true; }
       { name = "manaflow-ai/cmux/cmux";   greedy = true; }
       { name = "codex";                    greedy = true; }
       { name = "cursor";                   greedy = true; }
