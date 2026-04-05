@@ -36,6 +36,7 @@
     liquibase
     mermaid-cli
     pixi
+    pandoc
     pnpm
     pre-commit
     procps
