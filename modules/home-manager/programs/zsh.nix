@@ -26,8 +26,8 @@ in
 
     history = {
       extended = true;                #... Save timestamps into history file
-      save = 500000;                  #... Save 500K lines of history
-      size = 100000;                  #... Number of history lines to keep
+      save = 500000;                  #... Save 500K lines of history to disk (SAVEHIST)
+      size = 500000;                  #... Keep 500K lines in memory (HISTSIZE); must be >= save or SAVEHIST is silently clipped
       share = true;                   #... Share history between zsh sessions
       expireDuplicatesFirst = true;
       ignoreSpace = true;
