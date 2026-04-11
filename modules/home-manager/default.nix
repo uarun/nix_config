@@ -96,6 +96,11 @@
     #... Fonts
     inter
 
+    #... Media & terminal recording
+    ffmpeg
+    silicon
+    vhs
+
     #... Archives and misc
     p7zip
     sc-im

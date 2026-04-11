@@ -54,6 +54,7 @@
       bat
       fzf
       ripgrep
+
     ];
 
     shells = with pkgs; [bash zsh fish];   #... List of acceptable shells in /etc/shells
