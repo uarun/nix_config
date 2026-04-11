@@ -55,8 +55,12 @@
     gnumake
     bun
     nodejs_24
-    nodePackages.typescript-language-server
+    typescript-language-server
     rustup
+
+    #... Node global tools (managed here instead of npm -g)
+    agent-browser
+    (pkgs.callPackage ../../packages/node/ctx7.nix {})
 
     #... Language learning/tools
     exercism
