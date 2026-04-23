@@ -53,6 +53,7 @@
     gcc
     go
     gnumake
+    maven                #... Java build tool
     bun
     nodejs_24
     typescript-language-server
