@@ -97,6 +97,9 @@
     #... Fonts
     inter
 
+    #... Graphics
+    inkscape
+
     #... Media & terminal recording
     ffmpeg
     silicon
