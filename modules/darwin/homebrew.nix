@@ -36,6 +36,7 @@
     casks = [
       { name = "brave-browser";            greedy = true; }
       { name = "caffeine";                 greedy = true; }
+      { name = "chromium";                 greedy = true; }   # For puppeteer/agent-browser
       { name = "citrix-workspace";         greedy = true; }
       { name = "manaflow-ai/cmux/cmux";   greedy = true; }
       { name = "codex";                    greedy = true; }

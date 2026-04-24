@@ -115,6 +115,7 @@
   ] ++
   lib.optionals pkgs.stdenv.hostPlatform.isLinux [
     bubblewrap           # bwrap sandbox (Linux only)
+    chromium             # Headless browser for puppeteer/agent-browser (Linux; macOS uses Homebrew cask)
     corretto21           # Amazon Corretto OpenJDK 21 (Linux only)
     snowsql              # Only available on x86_64-linux
   ] ++
