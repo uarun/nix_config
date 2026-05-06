@@ -42,6 +42,7 @@
     procps
     ripgrep
     shellcheck
+    tokei
     toxiproxy
     uv
     vscode
