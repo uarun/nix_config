@@ -123,6 +123,11 @@
   lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
     jdk21               # OpenJDK 21 (macOS only, Linux uses Corretto)
     colima              #... Lightweight Docker VM for macOS (replaces Docker Desktop)
+
+    #... Internet Computer (ICP) toolchain - prebuilt, darwin-only (not on work Linux hosts)
+    (pkgs.callPackage ../../packages/icp/icp-cli.nix {})
+    (pkgs.callPackage ../../packages/icp/ic-wasm.nix {})
+    (pkgs.callPackage ../../packages/node/ic-mops.nix {})  #... Motoko package manager (mops)
   ];
 
   home.sessionVariables = {
