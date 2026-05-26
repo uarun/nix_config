@@ -77,6 +77,27 @@ Profiles provide high-level configuration presets:
 - For macOS: Xcode command line tools
 - For Linux: A Linux distribution with Nix support
 
+#### Linux Host Setup (for Neovim module)
+
+The Neovim module uses `mkOutOfStoreSymlink` for instant Lua config editing without rebuild. This requires:
+
+1. **Home directory traverse permission** — Nix sandbox build users must be able to follow symlinks into your home:
+   ```bash
+   chmod o+x /home/$USER
+   ```
+
+2. **Corporate proxy SSL** — If behind a proxy that intercepts HTTPS, the Nix daemon needs a CA bundle that includes both Mozilla and corporate CAs. Create a systemd override:
+   ```bash
+   sudo mkdir -p /etc/systemd/system/nix-daemon.service.d
+   sudo tee /etc/systemd/system/nix-daemon.service.d/override.conf <<EOF
+   [Service]
+   Environment="NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
+   EOF
+   sudo systemctl daemon-reload
+   sudo systemctl restart nix-daemon
+   ```
+   Ensure `/etc/ssl/certs/ca-certificates.crt` contains both standard and corporate CAs (e.g., via `update-ca-certificates` after adding corporate certs to `/usr/local/share/ca-certificates/`).
+
 ### Adding a New Host
 
 1. **Create host directory:**
