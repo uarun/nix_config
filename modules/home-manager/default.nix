@@ -148,6 +148,7 @@
     ./programs/mcfly.nix
     ./programs/ssh.nix
     ./programs/tldr.nix
+    ./programs/tmux.nix
     ./programs/zoxide.nix
     ./programs/zsh.nix
   ];
