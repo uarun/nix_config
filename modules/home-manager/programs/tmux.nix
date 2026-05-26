@@ -13,7 +13,12 @@
     plugins = with pkgs; [
       tmuxPlugins.sensible
       tmuxPlugins.extrakto
-      tmuxPlugins.tmux-thumbs
+      {
+        plugin = tmuxPlugins.tmux-thumbs;
+        extraConfig = ''
+          set -g @thumbs-command 'echo -n {} | xclip -selection clipboard'
+        '';
+      }
       tmuxPlugins.tmux-fzf
       {
         plugin = tmuxPlugins.catppuccin;
