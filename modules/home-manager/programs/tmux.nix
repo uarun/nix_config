@@ -12,6 +12,9 @@
 
     plugins = with pkgs; [
       tmuxPlugins.sensible
+      tmuxPlugins.extrakto
+      tmuxPlugins.tmux-thumbs
+      tmuxPlugins.tmux-fzf
       {
         plugin = tmuxPlugins.catppuccin;
         extraConfig = ''
