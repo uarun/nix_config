@@ -27,6 +27,7 @@
           set -g @catppuccin_window_status_style "rounded"
           set -g @catppuccin_status_background "#242638"
           set -g @catppuccin_window_current_number_color "#{@thm_lavender}"  #... default is mauve
+
           #... At the zsh prompt show the path (~ collapsed) instead of user@host:/full/path;
           #... when a command like gtop/claude runs, show the live command (#{pane_current_command})
           #... rather than #W, so a manually-renamed or resurrect-restored window name can't get stuck.
