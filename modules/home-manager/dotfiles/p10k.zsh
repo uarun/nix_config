@@ -167,6 +167,21 @@
   # Add an empty line before each prompt.
   typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 
+  # Keep that empty line visible even at the top of the screen (tmux status bar
+  # is pinned to the top, so a prompt at pane row 1 would collide with it).
+  # p10k otherwise hides/loses the empty line in two cases; both are fixed here:
+  #   1. NEW_TTY_MAX_AGE_SECONDS=0 -> a freshly opened pane's tty never counts as
+  #      "new" (the `now - ctime < 0` test never passes), so the very first prompt
+  #      no longer suppresses the empty line.
+  #   2. Defining p10k-on-post-prompt flips the empty line from "print" mode
+  #      (emitted in precmd, so it's wiped by Ctrl-L / reset-prompt) to "show"
+  #      mode (embedded in $PROMPT, so it survives clear and Ctrl-L).
+  # Net: exactly one blank line above every prompt, in all cases, with no cost to
+  # full-screen TUIs like nvim. See p10k internal p10k.zsh (the P9K_TTY/empty_line
+  # block) for the underlying logic.
+  typeset -g POWERLEVEL9K_NEW_TTY_MAX_AGE_SECONDS=0
+  function p10k-on-post-prompt() {}
+
   # Connect left prompt lines with these symbols.
   typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=
   typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX=
