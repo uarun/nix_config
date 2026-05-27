@@ -102,6 +102,12 @@
       set -g 'status-format[1]' ""
       set -g status 2
 
+      ##... Use the outer terminal's background for the status bar instead of
+      ##... catppuccin's @catppuccin_status_background. Must run after the
+      ##... catppuccin plugin (which sets its own status-style), so it lives here
+      ##... in extraConfig rather than in the plugin block.
+      set -g status-style 'bg=terminal'
+
       ##... Report weather temperature in Fahrenheit (USCS) instead of metric
       set -g @tmux-weather-units 'u'
 
