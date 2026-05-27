@@ -1,5 +1,14 @@
 { pkgs, lib, config, ... }:
 let
+  # Local clone location of this repo, used for the live-edit lua symlink below.
+  # Differs per host: this Mac clones to ~/nix_config (see dwswitch alias),
+  # the Linux host clones to ~/repos/nix_config.
+  neovimRepoPath =
+    if pkgs.stdenv.isDarwin then
+      "${config.home.homeDirectory}/nix_config"
+    else
+      "${config.home.homeDirectory}/repos/nix_config";
+
   # Treesitter grammars — all languages, compiled by Nix
   treesitter = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
   treesitterGrammars = pkgs.symlinkJoin {
@@ -214,11 +223,13 @@ in
       '';
   };
 
-  # Symlink lua config directory — writable, instant iteration without rebuild
-  # Assumes repo is cloned at ~/repos/nix_config
+  # Symlink lua config directory - writable, instant iteration without rebuild.
+  # Points at the local clone of this repo. The clone location differs per host
+  # (this Mac uses ~/nix_config per the dwswitch alias; the Linux host uses
+  # ~/repos/nix_config), so it is derived from neovimRepoPath below.
   xdg.configFile."nvim/lua" = {
     source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/repos/nix_config/modules/home-manager/programs/nvim/lua";
+      "${neovimRepoPath}/modules/home-manager/programs/nvim/lua";
     recursive = true;
   };
 }
