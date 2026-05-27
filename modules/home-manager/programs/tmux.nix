@@ -36,7 +36,10 @@
           #... when a command like gtop/claude runs, show the live command (#{pane_current_command})
           #... rather than #W, so a manually-renamed or resurrect-restored window name can't get stuck.
           set -g @catppuccin_window_text " #{?#{==:#{pane_current_command},zsh},#{s|$HOME|~|:pane_current_path},#{pane_current_command}}"
-          set -g @catppuccin_window_current_text " #{?#{==:#{pane_current_command},zsh},#{s|$HOME|~|:pane_current_path},#{pane_current_command}}"
+          #... Append a magnifier glyph to the current window's segment whenever its
+          #... active pane is zoomed (other panes hidden). Only the current window can
+          #... be zoomed, so it only needs to live on @catppuccin_window_current_text.
+          set -g @catppuccin_window_current_text " #{?#{==:#{pane_current_command},zsh},#{s|$HOME|~|:pane_current_path},#{pane_current_command}}#{?window_zoomed_flag, ,}"
         '';
       }
       {
