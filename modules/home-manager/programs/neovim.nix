@@ -124,6 +124,7 @@ in
       gopls
       gofumpt
       gotools          # goimports
+      golangci-lint    # linter (nvim-lint)
       delve
 
       # Rust
@@ -132,7 +133,6 @@ in
       # TypeScript / JavaScript
       typescript-language-server
       prettierd
-      eslint_d
 
       # Python
       pyright
@@ -147,9 +147,17 @@ in
       # JSON / HTML / CSS / ESLint
       vscode-langservers-extracted
 
+      # Markdown
+      marksman          # LSP
+      markdownlint-cli2 # linter (nvim-lint)
+
+      # TOML
+      taplo             # LSP
+
       # Docker
       dockerfile-language-server
       docker-compose-language-service
+      hadolint          # Dockerfile linter (nvim-lint)
 
       # Bash / Shell
       bash-language-server
