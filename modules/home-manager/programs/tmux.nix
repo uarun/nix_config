@@ -10,6 +10,10 @@
     terminal = "tmux-256color";
     shell = "${pkgs.zsh}/bin/zsh";
 
+    ##... Let Neovim (autoread/autosave) and vim-tmux-navigator see terminal
+    ##... focus changes; off by default in home-manager.
+    focusEvents = true;
+
     plugins = with pkgs; [
       tmuxPlugins.sensible
       tmuxPlugins.extrakto
@@ -56,6 +60,19 @@
     extraConfig = ''
       ##... Enable modified key encoding (Shift+Enter, etc.)
       set -g extended-keys on
+
+      ##... Advertise 24-bit color for the outer terminal. default-terminal is
+      ##... tmux-256color, so without this catppuccin's colors get quantized to
+      ##... the 256-color palette instead of rendering as true RGB.
+      set -as terminal-features ",*:RGB"
+
+      ##... Close gaps in window numbers when a middle window is closed
+      ##... (e.g. 1 2 3, close 2 -> renumbers to 1 2 instead of leaving 1 3).
+      set -g renumber-windows on
+
+      ##... Route copy-mode yanks to the system clipboard via OSC52 (works
+      ##... locally and over SSH-capable terminals).
+      set -g set-clipboard on
 
       ##... Reload config shortcut
       bind r source-file ~/.config/tmux/tmux.conf \; display "Tmux Config reloaded!"
