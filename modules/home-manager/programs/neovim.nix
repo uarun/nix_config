@@ -117,7 +117,7 @@ in
 
       # Nix
       nil
-      nixfmt-rfc-style
+      nixfmt
       statix
 
       # Go
