@@ -1,5 +1,6 @@
 result
 .DS_Store
+*.bak
 
 # Local planning notes, not tracked for now
 docs/brainstorms/
