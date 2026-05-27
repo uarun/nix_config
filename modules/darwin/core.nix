@@ -31,7 +31,10 @@ in {
     '';
   };
 
-  security.pam.services.sudo_local.touchIdAuth = true; #... Enable sudo authentication with Touch ID
+  security.pam.services.sudo_local = {
+    touchIdAuth = true; #... Enable sudo authentication with Touch ID
+    reattach = true; #... Make Touch ID work for sudo inside tmux/screen (pam_reattach)
+  };
 
   #... Used for backwards compatibility, please read the changelog before changing.
   #... $ darwin-rebuild changelog
