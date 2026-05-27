@@ -20,8 +20,6 @@
         '';
       }
       tmuxPlugins.tmux-fzf
-      tmuxPlugins.battery
-      tmuxPlugins.weather
       {
         plugin = tmuxPlugins.catppuccin;
         extraConfig = ''
@@ -75,6 +73,14 @@
       set -agF status-right "#{E:@catppuccin_status_weather}"
       set -agF status-right "#{E:@catppuccin_status_battery}"
       set-window-option -g status-position top
+
+      ##... The battery/weather plugins interpolate their #{battery_*}/#{weather}
+      ##... placeholders into status-right at load time, so they must run AFTER
+      ##... status-right is set here (home-manager loads listed plugins before
+      ##... extraConfig, so loading them via the plugins list leaves the
+      ##... placeholders unsubstituted and the modules render empty).
+      run-shell ${pkgs.tmuxPlugins.battery.rtp}
+      run-shell ${pkgs.tmuxPlugins.weather.rtp}
     '';
   };
 }
