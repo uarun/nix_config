@@ -92,6 +92,16 @@
       set -agF status-right "#{E:@catppuccin_status_battery}"
       set-window-option -g status-position top
 
+      ##... Reserve a blank row directly beneath the (top) status bar so the
+      ##... prompt never butts against it -- p10k drops its own leading empty
+      ##... line whenever the prompt is at pane row 1 (after `clear`/Ctrl-L), so
+      ##... we separate on the tmux side instead. With a 2-row status and
+      ##... status-position top, format[0] is the top row and format[1] is the
+      ##... row just above the pane content, so keep the real status in format[0]
+      ##... and leave format[1] empty: bar on top, blank row, then the prompt.
+      set -g 'status-format[1]' ""
+      set -g status 2
+
       ##... Report weather temperature in Fahrenheit (USCS) instead of metric
       set -g @tmux-weather-units 'u'
 
