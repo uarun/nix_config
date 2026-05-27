@@ -74,6 +74,9 @@
       set -agF status-right "#{E:@catppuccin_status_battery}"
       set-window-option -g status-position top
 
+      ##... Report weather temperature in Fahrenheit (USCS) instead of metric
+      set -g @tmux-weather-units 'u'
+
       ##... The battery/weather plugins interpolate their #{battery_*}/#{weather}
       ##... placeholders into status-right at load time, so they must run AFTER
       ##... status-right is set here (home-manager loads listed plugins before
