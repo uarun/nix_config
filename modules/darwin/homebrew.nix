@@ -26,6 +26,7 @@
     brews = [
        "bd"               # TODO: Move this to homemanager when it's more stable (i.e. less frequent releases)
        "cargo-audit"
+       "cliclick"
        "dolt"
        "opencode"
        "gemini-cli"
