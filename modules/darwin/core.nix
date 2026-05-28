@@ -14,6 +14,8 @@ in {
     # systemPackages = [ ];
     systemPackages = with pkgs; [
       darwin.libiconv
+      whisper-cpp                #... CLI speech-to-text (whisper-cli)
+      sox                        #... CLI audio recorder (rec)
     ];
 
     systemPath = [ "/opt/homebrew/bin" ];

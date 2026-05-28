@@ -47,6 +47,7 @@
       { name = "flux-app";                 greedy = true; }   # f.lux
       { name = "ghostty";                  greedy = true; }
       { name = "gpg-suite-no-mail";        greedy = true; }
+      { name = "hammerspoon";              greedy = true; }
       { name = "keepassxc";                greedy = true; }
       { name = "lm-studio";                greedy = true; }
       { name = "microsoft-teams";          greedy = true; }
