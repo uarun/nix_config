@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   #... MacOS System Preferences
   system.defaults = {
 

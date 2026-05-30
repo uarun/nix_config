@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   #... All things Homebrew go here
   homebrew = {
     enable = true;        #... nix-darwin to manage installing/updating/uprading Homebrew taps
