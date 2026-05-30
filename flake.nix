@@ -16,7 +16,6 @@
 
   outputs = {
     self,
-    darwin,
     home-manager,
     ...
   } @ inputs:
@@ -71,8 +70,6 @@
         modules = baseModules ++ extraModules;
       };
 
-  in
-  let
     hostsDir = ./hosts;
     hostNames = builtins.attrNames (
       lib.filterAttrs (_: entryType: entryType == "directory") (builtins.readDir hostsDir)
@@ -87,8 +84,7 @@
             import configPath
           else
             throw "Host ${hostName}: Missing required file ${toString configPath}";
-      in
-      let
+
         #... Validation
         requiredFields = [ "username" "system" "extraModules" ];
         missingFields = builtins.filter (field: !builtins.hasAttr field config) requiredFields;
@@ -130,6 +126,36 @@
         };
       }) linuxHosts
     );
+
+    #... Dev shell with linting tools for this config
+    devShells = builtins.listToAttrs (map (system: {
+      name = system;
+      value.default = let
+        pkgs = import inputs.nixpkgs { inherit system; };
+      in pkgs.mkShell {
+        packages = with pkgs; [ nixfmt-rfc-style statix deadnix ];
+        shellHook = ''
+          if [ ! -f .git/hooks/pre-commit ] || ! grep -q "nix-lint" .git/hooks/pre-commit; then
+            echo "Installing pre-commit hook..."
+            cat > .git/hooks/pre-commit << 'EOF'
+#!/usr/bin/env bash
+# nix-lint pre-commit hook
+set -euo pipefail
+
+staged=$(git diff --cached --name-only --diff-filter=ACM -- '*.nix')
+[ -z "$staged" ] && exit 0
+
+echo "Running deadnix..."
+deadnix $staged
+
+echo "Running statix..."
+statix check $staged
+EOF
+            chmod +x .git/hooks/pre-commit
+          fi
+        '';
+      };
+    }) defaultSystems);
 
     #... Per-host checks, grouped by system for `nix flake check`
     checks = builtins.foldl' (acc: host:
