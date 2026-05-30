@@ -1,6 +1,7 @@
 result
 .DS_Store
 *.bak
+.ssh/
 
 # Local planning notes, not tracked for now
 docs/brainstorms/
