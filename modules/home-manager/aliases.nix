@@ -11,6 +11,9 @@ _: {
     gst = "git status --long";
     gwat = "git log --raw --no-merges";
 
+    kc = "kiro-cli";
+    cc = "claude";
+
     tree = "eza -T";
 
     excalidraw = "docker run -d --rm --name excalidraw-canvas -p 3000:3000 ghcr.io/yctimlin/mcp_excalidraw-canvas:latest";
