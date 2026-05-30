@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+_:
 {
   programs.mcfly = {
     enable = true;

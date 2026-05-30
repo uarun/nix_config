@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, ... }:
 let
   confContent = ''
     extra-sandbox-paths = /opt/certs/combined_certs.pem
