@@ -133,7 +133,7 @@
       value.default = let
         pkgs = import inputs.nixpkgs { inherit system; };
       in pkgs.mkShell {
-        packages = with pkgs; [ nixfmt-rfc-style statix deadnix ];
+        packages = with pkgs; [ nixfmt statix deadnix ];
         shellHook = ''
           if [ ! -f .git/hooks/pre-commit ] || ! grep -q "nix-lint" .git/hooks/pre-commit; then
             echo "Installing pre-commit hook..."

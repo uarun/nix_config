@@ -11,7 +11,7 @@ nix develop
 This gives you:
 - `deadnix` — finds unused variables, imports, and lambda patterns
 - `statix` — catches Nix anti-patterns (empty patterns, repeated keys, collapsible let-in)
-- `nixfmt-rfc-style` — canonical Nix formatter (RFC 166)
+- `nixfmt` — canonical Nix formatter (RFC 166)
 
 It also auto-installs a pre-commit hook on first entry.
 
