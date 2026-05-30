@@ -48,10 +48,16 @@ statix fix .
 
 ## Formatting
 
+Check formatting without modifying files:
+
+```bash
+nixfmt --check $(find . -name '*.nix' -not -path './result/*')
+```
+
 Format all Nix files:
 
 ```bash
-nixfmt .
+nixfmt $(find . -name '*.nix' -not -path './result/*')
 ```
 
 Note: formatting is not enforced by the pre-commit hook (it's noisy on first run). Run it once to normalize, then it stays clean.
