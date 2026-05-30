@@ -20,7 +20,7 @@
     ...
   } @ inputs:
   let
-    lib = inputs.nixpkgs.lib;
+    inherit (inputs.nixpkgs) lib;
     pkgsConfig = import ./modules/config.nix { inherit lib; };
     isDarwin = system: (builtins.elem system lib.platforms.darwin);
     homePrefix = system: if isDarwin system then "/Users" else "/home";

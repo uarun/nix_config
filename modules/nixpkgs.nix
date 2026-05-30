@@ -3,7 +3,7 @@
   ...
 }:
 {
-  nixpkgs.config = import ./config.nix { lib = inputs.nixpkgs.lib; };
+  nixpkgs.config = import ./config.nix { inherit (inputs.nixpkgs) lib; };
 
   nix.enable = false;
   nix = {
