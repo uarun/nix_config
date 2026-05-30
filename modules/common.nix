@@ -5,7 +5,8 @@
   pkgs,
   hostname ? "",
   ...
-}: {
+}:
+{
 
   imports = [
     ./primaryUser.nix
@@ -29,7 +30,7 @@
 
   #... Let nix manage home-manager profiles and use global nixpkgs
   home-manager = {
-    extraSpecialArgs = {inherit self inputs hostname;};
+    extraSpecialArgs = { inherit self inputs hostname; };
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
@@ -57,7 +58,11 @@
 
     ];
 
-    shells = with pkgs; [bash zsh fish];   #... List of acceptable shells in /etc/shells
+    shells = with pkgs; [
+      bash
+      zsh
+      fish
+    ]; # ... List of acceptable shells in /etc/shells
   };
 
   #... Install documentation for systemPackages
@@ -76,7 +81,7 @@
       pkgs.nerd-fonts.ubuntu-mono
       pkgs.nerd-fonts.victor-mono
       inter
-      vista-fonts                #... Adding this mainly for Consolas (this needs allowUnfree to be set to true)
+      vista-fonts # ... Adding this mainly for Consolas (this needs allowUnfree to be set to true)
     ];
   };
 }

@@ -25,10 +25,10 @@ in
     };
 
     history = {
-      extended = true;                #... Save timestamps into history file
-      save = 500000;                  #... Save 500K lines of history to disk (SAVEHIST)
-      size = 500000;                  #... Keep 500K lines in memory (HISTSIZE); must be >= save or SAVEHIST is silently clipped
-      share = true;                   #... Share history between zsh sessions
+      extended = true; # ... Save timestamps into history file
+      save = 500000; # ... Save 500K lines of history to disk (SAVEHIST)
+      size = 500000; # ... Keep 500K lines in memory (HISTSIZE); must be >= save or SAVEHIST is silently clipped
+      share = true; # ... Share history between zsh sessions
       expireDuplicatesFirst = true;
       ignoreSpace = true;
     };
@@ -38,24 +38,25 @@ in
     ### defaultKeymap = "viins";
 
     shellAliases = {
-      ls  = "ls --color=auto -F -h";
-      l   = "eza --icons --git-ignore --git -F --extended";
-      ll  = "eza --icons --git-ignore --git -F --extended -l";
-      lt  = "eza --icons --git-ignore --git -F --extended -T";
+      ls = "ls --color=auto -F -h";
+      l = "eza --icons --git-ignore --git -F --extended";
+      ll = "eza --icons --git-ignore --git -F --extended -l";
+      lt = "eza --icons --git-ignore --git -F --extended -T";
       llt = "eza --icons --git-ignore --git -F --extended -l -T";
 
       hmswitch = "home-manager switch --flake github:uarun/nix_config#$(id -un)@$(hostname -s):x86_64-linux";
-      hmclean  = "nix-collect-garbage --delete-older-than 30d; nix store optimise";
+      hmclean = "nix-collect-garbage --delete-older-than 30d; nix store optimise";
 
-    } //   #... Union
-    pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
-      dwswitch       = "sudo darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@$(hostname -s):aarch64-darwin";
+    }
+    # ... Union
+    // pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+      dwswitch = "sudo darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@$(hostname -s):aarch64-darwin";
       dwswitch_trace = "sudo darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@$(hostname -s):aarch64-darwin --show-trace";
-      dwfixcache     = "rm -f ~/.cache/nix/fetcher-cache-v4.sqlite && rm -rf ~/.cache/nix/eval-cache-v6 && echo 'Nix fetcher and eval caches cleared. Re-run dwswitch.'";
-      dwclean        = "sudo nix-env --delete-generations +7 --profile /nix/var/nix/profiles/system; sudo nix-collect-garbage --delete-older-than 30d; nix store optimise";
-      dwupdate       = "nix flake update --flake ~/nix_config; /opt/homebrew/bin/brew update; dwswitch; /opt/homebrew/bin/brew upgrade; /opt/homebrew/bin/brew upgrade --cask --greedy; dwshowupdates";
-      dwshowupdates  = ''zsh -c "nix store diff-closures /nix/var/nix/profiles/system-*-link(om[2]) /nix/var/nix/profiles/system-*-link(om[1])"'';
-      dwfix          = "sudo /nix/var/nix/profiles/system/activate"; #... Re-activate current system profile (fast recovery after macOS update breaks /run symlink)
+      dwfixcache = "rm -f ~/.cache/nix/fetcher-cache-v4.sqlite && rm -rf ~/.cache/nix/eval-cache-v6 && echo 'Nix fetcher and eval caches cleared. Re-run dwswitch.'";
+      dwclean = "sudo nix-env --delete-generations +7 --profile /nix/var/nix/profiles/system; sudo nix-collect-garbage --delete-older-than 30d; nix store optimise";
+      dwupdate = "nix flake update --flake ~/nix_config; /opt/homebrew/bin/brew update; dwswitch; /opt/homebrew/bin/brew upgrade; /opt/homebrew/bin/brew upgrade --cask --greedy; dwshowupdates";
+      dwshowupdates = ''zsh -c "nix store diff-closures /nix/var/nix/profiles/system-*-link(om[2]) /nix/var/nix/profiles/system-*-link(om[1])"'';
+      dwfix = "sudo /nix/var/nix/profiles/system/activate"; # ... Re-activate current system profile (fast recovery after macOS update breaks /run symlink)
     };
 
     envExtra = ''

@@ -1,14 +1,13 @@
-_:
-{
+_: {
   programs = {
     git = {
       enable = true;
 
       settings = {
         alias = {
-          co      = "checkout";
-          dc      = "diff --cached";
-          dt      = "difftool";
+          co = "checkout";
+          dc = "diff --cached";
+          dt = "difftool";
           unstash = "stash pop";
         };
 
@@ -24,7 +23,7 @@ _:
         syntax-theme = "Monokai Extended";
         side-by-side = true;
         line-numbers = true;
-        navigate     = true;
+        navigate = true;
       };
     };
 

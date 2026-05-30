@@ -42,7 +42,10 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/dfinity/ic-wasm";
     license = lib.licenses.asl20;
     mainProgram = "ic-wasm";
-    platforms = [ "aarch64-darwin" "x86_64-darwin" ];
+    platforms = [
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
 }

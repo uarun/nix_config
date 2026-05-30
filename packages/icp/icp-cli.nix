@@ -43,7 +43,10 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/dfinity/icp-cli";
     license = lib.licenses.asl20;
     mainProgram = "icp";
-    platforms = [ "aarch64-darwin" "x86_64-darwin" ];
+    platforms = [
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
 }

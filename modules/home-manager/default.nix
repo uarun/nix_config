@@ -2,138 +2,140 @@
 {
   home.stateVersion = "25.11";
 
-  home.packages = with pkgs; [
-    #... System monitoring and utilities
-    bandwhich
-    bottom
-    browsh
-    ddgr
-    dust
-    duf
-    glances
-    gping
-    gron
-    gtop
-    httpie
-    kalker
-    lnav
-    miller
-    most
-    ncdu
-    fastfetch
-    procs
-    tree-sitter
+  home.packages =
+    with pkgs;
+    [
+      #... System monitoring and utilities
+      bandwhich
+      bottom
+      browsh
+      ddgr
+      dust
+      duf
+      glances
+      gping
+      gron
+      gtop
+      httpie
+      kalker
+      lnav
+      miller
+      most
+      ncdu
+      fastfetch
+      procs
+      tree-sitter
 
-    #... Development tools
-    awscli2
-    eksctl
-    fd
-    gh                    #... GitHub CLI
-    glab                  #... GitLab CLI
-    just
-    kubectl
-    lazygit
-    liquibase
-    mermaid-cli
-    pixi
-    pandoc
-    pnpm
-    pre-commit
-    procps
-    ripgrep
-    shellcheck
-    tokei
-    toxiproxy
-    uv
-    vscode
-    yazi
-    yq
+      #... Development tools
+      awscli2
+      eksctl
+      fd
+      gh # ... GitHub CLI
+      glab # ... GitLab CLI
+      just
+      kubectl
+      lazygit
+      liquibase
+      mermaid-cli
+      pixi
+      pandoc
+      pnpm
+      pre-commit
+      procps
+      ripgrep
+      shellcheck
+      tokei
+      toxiproxy
+      uv
+      vscode
+      yazi
+      yq
 
-    #... Languages and build tools
-    coursier             #... Scala
-    gcc
-    go
-    gnumake
-    maven                #... Java build tool
-    bun
-    nodejs_24
-    typescript-language-server
-    rustup
+      #... Languages and build tools
+      coursier # ... Scala
+      gcc
+      go
+      gnumake
+      maven # ... Java build tool
+      bun
+      nodejs_24
+      typescript-language-server
+      rustup
 
-    #... Node global tools (managed here instead of npm -g)
-    agent-browser
-    (pkgs.callPackage ../../packages/node/ctx7.nix {})
+      #... Node global tools (managed here instead of npm -g)
+      agent-browser
+      (pkgs.callPackage ../../packages/node/ctx7.nix { })
 
-    #... Language learning/tools
-    exercism
+      #... Language learning/tools
+      exercism
 
-    #... Cloud storage and backup
-    rclone
-    restic
+      #... Cloud storage and backup
+      rclone
+      restic
 
-    #... Text processing and data
-    # tuir                 #... Text UI reddit
-    visidata
+      #... Text processing and data
+      # tuir                 #... Text UI reddit
+      visidata
 
-    #... AI tools
-    llama-cpp
-    (lib.hiPrio parallel)  #... Higher priority than collision from llama-cpp
+      #... AI tools
+      llama-cpp
+      (lib.hiPrio parallel) # ... Higher priority than collision from llama-cpp
 
-    #... Automation and infrastructure
-    ansible
-    sshpass
+      #... Automation and infrastructure
+      ansible
+      sshpass
 
-    #... Networking
-    arp-scan
-    nmap
+      #... Networking
+      arp-scan
+      nmap
 
-    #... Documentation and cheatsheets
-    cht-sh
-    navi
+      #... Documentation and cheatsheets
+      cht-sh
+      navi
 
-    #... Clipboard management (Linux)
-    xsel
-    xclip
+      #... Clipboard management (Linux)
+      xsel
+      xclip
 
-    #... Fonts
-    inter
+      #... Fonts
+      inter
 
-    #... Graphics
-    inkscape
+      #... Graphics
+      inkscape
 
-    #... Media & terminal recording
-    ffmpeg
-    silicon
-    vhs
+      #... Media & terminal recording
+      ffmpeg
+      silicon
+      vhs
 
-    #... Archives and misc
-    p7zip
-    sc-im
+      #... Archives and misc
+      p7zip
+      sc-im
 
-    #... Container tools
-    docker
-    docker-compose
-  ] ++
-  lib.optionals pkgs.stdenv.hostPlatform.isLinux [
-    bubblewrap           # bwrap sandbox (Linux only)
-    chromium             # Headless browser for puppeteer/agent-browser (Linux; macOS uses Homebrew cask)
-    corretto21           # Amazon Corretto OpenJDK 21 (Linux only)
-    snowsql              # Only available on x86_64-linux
-  ] ++
-  lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
-    jdk21               # OpenJDK 21 (macOS only, Linux uses Corretto)
-    colima              #... Lightweight Docker VM for macOS (replaces Docker Desktop)
+      #... Container tools
+      docker
+      docker-compose
+    ]
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+      bubblewrap # bwrap sandbox (Linux only)
+      chromium # Headless browser for puppeteer/agent-browser (Linux; macOS uses Homebrew cask)
+      corretto21 # Amazon Corretto OpenJDK 21 (Linux only)
+      snowsql # Only available on x86_64-linux
+    ]
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
+      jdk21 # OpenJDK 21 (macOS only, Linux uses Corretto)
+      colima # ... Lightweight Docker VM for macOS (replaces Docker Desktop)
 
-    #... Internet Computer (ICP) toolchain - prebuilt, darwin-only (not on work Linux hosts)
-    (pkgs.callPackage ../../packages/icp/icp-cli.nix {})
-    (pkgs.callPackage ../../packages/icp/ic-wasm.nix {})
-    (pkgs.callPackage ../../packages/node/ic-mops.nix {})  #... Motoko package manager (mops)
-  ];
+      #... Internet Computer (ICP) toolchain - prebuilt, darwin-only (not on work Linux hosts)
+      (pkgs.callPackage ../../packages/icp/icp-cli.nix { })
+      (pkgs.callPackage ../../packages/icp/ic-wasm.nix { })
+      (pkgs.callPackage ../../packages/node/ic-mops.nix { }) # ... Motoko package manager (mops)
+    ];
 
   home.sessionVariables = {
-    EDITOR   = "nvim";
+    EDITOR = "nvim";
     MANPAGER = "most";
-    PAGER    = "less";
+    PAGER = "less";
   };
 
   imports = [

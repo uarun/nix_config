@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   # Local clone location of this repo, used for the live-edit lua symlink below.
   # Differs per host: this Mac clones to ~/nix_config (see dwswitch alias),
@@ -26,7 +31,10 @@ let
     snacks-nvim
 
     # Completion
-    { name = "blink.cmp"; path = blink-cmp; }
+    {
+      name = "blink.cmp";
+      path = blink-cmp;
+    }
     friendly-snippets
 
     # UI
@@ -37,8 +45,11 @@ let
     mini-icons
 
     # Colorschemes
-    { name = "catppuccin"; path = catppuccin-nvim; }
-    tokyonight-nvim  # required by LazyVim default; disabled in colorscheme.lua
+    {
+      name = "catppuccin";
+      path = catppuccin-nvim;
+    }
+    tokyonight-nvim # required by LazyVim default; disabled in colorscheme.lua
 
     # Editor
     flash-nvim
@@ -79,9 +90,13 @@ let
   ];
 
   # Convert plugin derivations to { name, path } for linkFarm
-  mkEntryFromDrv = drv:
+  mkEntryFromDrv =
+    drv:
     if lib.isDerivation drv then
-      { name = "${lib.getName drv}"; path = drv; }
+      {
+        name = "${lib.getName drv}";
+        path = drv;
+      }
     else
       drv;
 
@@ -123,8 +138,8 @@ in
       # Go
       gopls
       gofumpt
-      gotools          # goimports
-      golangci-lint    # linter (nvim-lint)
+      gotools # goimports
+      golangci-lint # linter (nvim-lint)
       delve
 
       # Rust
@@ -148,16 +163,16 @@ in
       vscode-langservers-extracted
 
       # Markdown
-      marksman          # LSP
+      marksman # LSP
       markdownlint-cli2 # linter (nvim-lint)
 
       # TOML
-      taplo             # LSP
+      taplo # LSP
 
       # Docker
       dockerfile-language-server
       docker-compose-language-service
-      hadolint          # Dockerfile linter (nvim-lint)
+      hadolint # Dockerfile linter (nvim-lint)
 
       # Bash / Shell
       bash-language-server
@@ -236,8 +251,7 @@ in
   # (this Mac uses ~/nix_config per the dwswitch alias; the Linux host uses
   # ~/repos/nix_config), so it is derived from neovimRepoPath below.
   xdg.configFile."nvim/lua" = {
-    source = config.lib.file.mkOutOfStoreSymlink
-      "${neovimRepoPath}/modules/home-manager/programs/nvim/lua";
+    source = config.lib.file.mkOutOfStoreSymlink "${neovimRepoPath}/modules/home-manager/programs/nvim/lua";
     recursive = true;
   };
 }

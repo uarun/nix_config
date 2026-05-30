@@ -1,4 +1,6 @@
 _: {
   user.name = "arun";
-  hmgr = { imports = [ ./home-manager/personal.nix ]; };
+  hmgr = {
+    imports = [ ./home-manager/personal.nix ];
+  };
 }

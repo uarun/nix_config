@@ -6,19 +6,20 @@
 }:
 let
   inherit (lib) mkAliasDefinitions mkOption types;
-in {
+in
+{
   #... Define some aliases for ease of use
   options = {
     user = mkOption {
       description = "Primary user configuration";
       type = types.attrs;
-      default = {};
+      default = { };
     };
 
     hmgr = mkOption {
       description = "Home Manager Bootstrap";
       type = types.attrs;
-      default = {};
+      default = { };
     };
   };
 

@@ -7,7 +7,7 @@
       package = pkgs.iosevka;
       name = "Iosevka";
     };
-    themeFile = "gruvbox-dark";                #... Other options we like "Solarized Dark", "Gruvbox Dark", "Monokai Pro"
+    themeFile = "gruvbox-dark"; # ... Other options we like "Solarized Dark", "Gruvbox Dark", "Monokai Pro"
     settings = {
       bold_font = "auto";
       italic_font = "auto";
@@ -21,10 +21,10 @@
       scrollback_lines = 10000;
       shell_integration = "no-cursor";
       window_padding_width = 3;
-      disable_ligatures = "cursor";         #... disable disable ligatures when the cursor is under them
+      disable_ligatures = "cursor"; # ... disable disable ligatures when the cursor is under them
 
       #... Tab bar
-      tab_bar_edge  = "top";
+      tab_bar_edge = "top";
       tab_bar_style = "powerline";
       tab_title_template = "{index}: {title}";
       active_tab_font_style = "normal";

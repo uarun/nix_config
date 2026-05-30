@@ -3,7 +3,8 @@ let
   confContent = ''
     extra-sandbox-paths = /opt/certs/combined_certs.pem
   '';
-in {
+in
+{
   home.activation.nixDaemonConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     confFile="/etc/nix/nix.conf"
     marker="extra-sandbox-paths = /opt/certs/combined_certs.pem"

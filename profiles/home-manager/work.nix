@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [ ../../modules/home-manager/nix-daemon-config.nix ];
 
   programs.git.settings.user = {
