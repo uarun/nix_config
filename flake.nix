@@ -145,6 +145,11 @@ set -euo pipefail
 staged=$(git diff --cached --name-only --diff-filter=ACM -- '*.nix')
 [ -z "$staged" ] && exit 0
 
+if ! command -v deadnix &>/dev/null; then
+  deadnix() { nix run nixpkgs#deadnix -- "$@"; }
+  statix() { nix run nixpkgs#statix -- "$@"; }
+fi
+
 echo "Running deadnix..."
 deadnix $staged
 
