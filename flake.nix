@@ -148,10 +148,14 @@ staged=$(git diff --cached --name-only --diff-filter=ACM -- '*.nix')
 if ! command -v deadnix &>/dev/null; then
   deadnix() { nix run nixpkgs#deadnix -- "$@"; }
   statix() { nix run nixpkgs#statix -- "$@"; }
+  nixfmt() { nix run nixpkgs#nixfmt -- "$@"; }
 fi
 
+echo "Running nixfmt..."
+nixfmt --check $staged
+
 echo "Running deadnix..."
-deadnix $staged
+deadnix --fail $staged
 
 echo "Running statix..."
 statix check $staged
