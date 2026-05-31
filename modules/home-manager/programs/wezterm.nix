@@ -32,7 +32,7 @@ in
       config.term = "wezterm"
       config.front_end = "Software"
       config.enable_wayland = false
-      config.max_fps = 30
+      config.max_fps = 60
       config.animation_fps = 1
       config.cursor_blink_rate = 0
 
