@@ -152,6 +152,7 @@
     ./programs/ssh.nix
     ./programs/tldr.nix
     ./programs/tmux.nix
+    ./programs/wezterm.nix
     ./programs/zoxide.nix
     ./programs/zsh.nix
   ];
