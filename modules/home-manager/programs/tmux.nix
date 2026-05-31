@@ -92,7 +92,7 @@
       set -g status-left "#{E:@catppuccin_status_session}"
       set -g status-right "#{E:@catppuccin_status_application}"
       set -agF status-right "#{E:@catppuccin_status_weather}"
-      set -agF status-right "#{E:@catppuccin_status_battery}"
+      set -agF status-right "#{E:@catppuccin_status_cpu}"
       set-window-option -g status-position top
 
       ##... Reserve a blank row directly beneath the (top) status bar so the
@@ -114,12 +114,12 @@
       ##... Report weather temperature in Fahrenheit (USCS) instead of metric
       set -g @tmux-weather-units 'u'
 
-      ##... The battery/weather plugins interpolate their #{battery_*}/#{weather}
+      ##... The cpu/weather plugins interpolate their #{cpu}/#{weather}
       ##... placeholders into status-right at load time, so they must run AFTER
       ##... status-right is set here (home-manager loads listed plugins before
       ##... extraConfig, so loading them via the plugins list leaves the
       ##... placeholders unsubstituted and the modules render empty).
-      run-shell ${pkgs.tmuxPlugins.battery.rtp}
+      run-shell ${pkgs.tmuxPlugins.cpu.rtp}
       run-shell ${pkgs.tmuxPlugins.weather.rtp}
     '';
   };

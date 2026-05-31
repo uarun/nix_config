@@ -100,6 +100,8 @@
 
       #... Fonts
       inter
+      nerd-fonts.iosevka
+      nerd-fonts.iosevka-term
 
       #... Graphics
       inkscape
