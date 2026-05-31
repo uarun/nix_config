@@ -55,6 +55,7 @@
       coursier # ... Scala
       gcc
       go
+      cmake
       gnumake
       maven # ... Java build tool
       bun
