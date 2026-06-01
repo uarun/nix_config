@@ -7,7 +7,7 @@ let
     postBuild = ''
       for bin in wezterm wezterm-gui wezterm-mux-server; do
         wrapProgram $out/bin/$bin \
-          --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [ pkgs.libglvnd pkgs.mesa.drivers ]}"
+          --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [ pkgs.libglvnd pkgs.mesa ]}"
       done
     '';
   };
