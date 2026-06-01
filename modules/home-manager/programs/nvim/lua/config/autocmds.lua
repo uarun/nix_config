@@ -43,3 +43,12 @@ autocmd("FileType", {
     vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
 })
+
+-- Disable diagnostics for markdown files (keeps LSP active)
+autocmd("FileType", {
+  group = augroup("disable_md_diagnostics", { clear = true }),
+  pattern = { "markdown" },
+  callback = function(event)
+    vim.diagnostic.enable(false, { bufnr = event.buf })
+  end,
+})
