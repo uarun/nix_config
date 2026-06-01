@@ -84,6 +84,9 @@ let
     SchemaStore-nvim
     venv-selector-nvim
 
+    # UI effects
+    smear-cursor-nvim
+
     # Util
     persistence-nvim
     plenary-nvim
