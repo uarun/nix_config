@@ -82,6 +82,9 @@
       bind -T copy-mode-vi V send-keys -X select-line
       bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
+      ##... Blinking cursor so active pane is obvious
+      set -g cursor-style blinking-block
+
       ##... Reload config shortcut
       bind r source-file ~/.config/tmux/tmux.conf \; display "Tmux Config reloaded!"
 
