@@ -43,6 +43,7 @@ in
       ll = "eza --icons --git-ignore --git -F --extended -l";
       lt = "eza --icons --git-ignore --git -F --extended -T";
       llt = "eza --icons --git-ignore --git -F --extended -l -T";
+      clear = "printf '\\033[H\\033[2J'";
 
       hmswitch = "home-manager switch --flake github:uarun/nix_config#$(id -un)@$(hostname -s):x86_64-linux";
       hmclean = "nix-collect-garbage --delete-older-than 30d; nix store optimise";
@@ -76,7 +77,12 @@ in
       set -o vi
       bindkey -v
 
+      #... Clear screen without wiping tmux scrollback
+      clear-screen-no-scrollback() { printf '\033[H\033[2J'; zle reset-prompt }
+      zle -N clear-screen-no-scrollback
+
       #... Key bindings
+      bindkey '^L' clear-screen-no-scrollback
       bindkey '^a' beginning-of-line
       bindkey '^e' end-of-line
 
