@@ -77,6 +77,11 @@
       ##... locally and over SSH-capable terminals).
       set -g set-clipboard on
 
+      ##... Vi-style yank in copy mode
+      bind -T copy-mode-vi v send-keys -X begin-selection
+      bind -T copy-mode-vi V send-keys -X select-line
+      bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+
       ##... Reload config shortcut
       bind r source-file ~/.config/tmux/tmux.conf \; display "Tmux Config reloaded!"
 
