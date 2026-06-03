@@ -66,6 +66,7 @@
       #... Node global tools (managed here instead of npm -g)
       agent-browser
       (pkgs.callPackage ../../packages/node/ctx7.nix { })
+      (pkgs.callPackage ../../packages/node/excalidraw-edit.nix { })
 
       #... Language learning/tools
       exercism
