@@ -60,6 +60,7 @@
       maven # ... Java build tool
       bun
       nodejs_24
+      pyright
       typescript-language-server
       rustup
 
