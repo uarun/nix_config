@@ -33,7 +33,9 @@
       gh # ... GitHub CLI
       glab # ... GitLab CLI
       just
+      k9s # ... Kubernetes cluster TUI
       kubectl
+      kubectx # ... Fast kube context + namespace switching (provides kubectx & kubens)
       lazygit
       liquibase
       mermaid-cli
@@ -78,6 +80,7 @@
 
       #... Text processing and data
       # tuir                 #... Text UI reddit
+      duckdb # ... In-process SQL on CSV/JSON/Parquet files (static binary, no deps)
       visidata
 
       #... AI tools
@@ -120,6 +123,7 @@
       #... Container tools
       docker
       docker-compose
+      lazydocker # ... Docker/Colima TUI (lazygit for containers)
     ]
     ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       bubblewrap # bwrap sandbox (Linux only)
