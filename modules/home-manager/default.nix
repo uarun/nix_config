@@ -115,6 +115,7 @@
       ffmpeg
       silicon
       vhs
+      yt-dlp
 
       #... Archives and misc
       p7zip
