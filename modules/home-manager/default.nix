@@ -52,6 +52,7 @@
       vscode
       yazi
       yq
+      yubikey-manager # ... ykman CLI for YubiKey config (FIDO2/PIV/OATH)
 
       #... Languages and build tools
       coursier # ... Scala

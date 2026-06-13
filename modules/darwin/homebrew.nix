@@ -152,10 +152,6 @@ _: {
         greedy = true;
       }
       {
-        name = "yubico-yubikey-manager";
-        greedy = true;
-      }
-      {
         name = "zed";
         greedy = true;
       }
