@@ -96,6 +96,10 @@ _: {
         greedy = true;
       }
       {
+        name = "macfuse";
+        greedy = true;
+      } # Required by veracrypt for mounting volumes
+      {
         name = "microsoft-teams";
         greedy = true;
       }
