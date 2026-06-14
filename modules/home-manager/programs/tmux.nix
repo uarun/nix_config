@@ -32,14 +32,14 @@
           set -g @catppuccin_status_background "#242638"
           set -g @catppuccin_window_current_number_color "#{@thm_lavender}"  #... default is mauve
 
-          #... At the zsh prompt show the path (~ collapsed) instead of user@host:/full/path;
+          #... At the zsh prompt show the last path component (basename) instead of user@host:/full/path;
           #... when a command like gtop/claude runs, show the live command (#{pane_current_command})
           #... rather than #W, so a manually-renamed or resurrect-restored window name can't get stuck.
-          set -g @catppuccin_window_text " #{?#{==:#{pane_current_command},zsh},#{s|$HOME|~|:pane_current_path},#{pane_current_command}}"
+          set -g @catppuccin_window_text " #{?#{||:#{==:#{pane_current_command},zsh},#{m:[0-9]*,#{pane_current_command}}},#{b:pane_current_path},#{pane_current_command}}"
           #... Append a magnifier glyph to the current window's segment whenever its
           #... active pane is zoomed (other panes hidden). Only the current window can
           #... be zoomed, so it only needs to live on @catppuccin_window_current_text.
-          set -g @catppuccin_window_current_text " #{?#{==:#{pane_current_command},zsh},#{s|$HOME|~|:pane_current_path},#{pane_current_command}}#{?window_zoomed_flag, ,}"
+          set -g @catppuccin_window_current_text " #{?#{||:#{==:#{pane_current_command},zsh},#{m:[0-9]*,#{pane_current_command}}},#{b:pane_current_path},#{pane_current_command}}#{?window_zoomed_flag, ,}"
         '';
       }
       {
@@ -112,6 +112,18 @@
       ##... and leave format[1] empty: bar on top, blank row, then the prompt.
       set -g 'status-format[1]' ""
       set -g status 2
+
+      ##... The right-hand "application" pill (catppuccin) also renders
+      ##... #{pane_current_command}, so it shows Claude Code's version-string
+      ##... process title too. Show "claude" for those version-like commands and
+      ##... keep the live command for everything else. Must run after the
+      ##... catppuccin plugin (loaded before extraConfig), which sets the default.
+      set -g @catppuccin_application_text " #{?#{m:[0-9]*,#{pane_current_command}},claude,#{pane_current_command}}"
+
+      ##... automatic-rename names windows after #{pane_current_command}; for Claude
+      ##... Code panes that is the bare version (e.g. "2.1.177"), which then gets
+      ##... saved by resurrect. Rename those windows to "claude" instead.
+      set -g automatic-rename-format "#{?pane_in_mode,[tmux],#{?#{m:[0-9]*,#{pane_current_command}},claude,#{pane_current_command}}}"
 
       ##... Use the outer terminal's background for the status bar instead of
       ##... catppuccin's @catppuccin_status_background. Must run after the
