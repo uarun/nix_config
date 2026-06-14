@@ -35,11 +35,16 @@
           #... At the zsh prompt show the last path component (basename) instead of user@host:/full/path;
           #... when a command like gtop/claude runs, show the live command (#{pane_current_command})
           #... rather than #W, so a manually-renamed or resurrect-restored window name can't get stuck.
-          set -g @catppuccin_window_text " #{?#{||:#{==:#{pane_current_command},zsh},#{m:[0-9]*,#{pane_current_command}}},#{b:pane_current_path},#{pane_current_command}}"
+          #... Claude Code sets its process title to its version (e.g. "2.1.177"), so for
+          #... claude panes pane_current_command is a bare version string; treat any
+          #... value starting with a digit ([0-9]*) like zsh and show the basename.
+          #... Prefix a robot glyph when an AI agent runs in the active pane: Claude
+          #... (version-like, [0-9]*) or kiro-cli (exact match).
+          set -g @catppuccin_window_text " #{?#{||:#{m:[0-9]*,#{pane_current_command}},#{==:#{pane_current_command},kiro-cli}},🤖 ,}#{?#{||:#{==:#{pane_current_command},zsh},#{m:[0-9]*,#{pane_current_command}}},#{b:pane_current_path},#{pane_current_command}}"
           #... Append a magnifier glyph to the current window's segment whenever its
           #... active pane is zoomed (other panes hidden). Only the current window can
           #... be zoomed, so it only needs to live on @catppuccin_window_current_text.
-          set -g @catppuccin_window_current_text " #{?#{||:#{==:#{pane_current_command},zsh},#{m:[0-9]*,#{pane_current_command}}},#{b:pane_current_path},#{pane_current_command}}#{?window_zoomed_flag, ,}"
+          set -g @catppuccin_window_current_text " #{?#{||:#{m:[0-9]*,#{pane_current_command}},#{==:#{pane_current_command},kiro-cli}},🤖 ,}#{?#{||:#{==:#{pane_current_command},zsh},#{m:[0-9]*,#{pane_current_command}}},#{b:pane_current_path},#{pane_current_command}}#{?window_zoomed_flag, ,}"
         '';
       }
       {
