@@ -1,0 +1,6 @@
+# statix 0.5.8 has no inline/per-line ignore directive, so we disable the
+# `repeated_keys` (W20) lint repo-wide. The flat dotted style (system.defaults,
+# system.primaryUser, home.packages, home.sessionVariables, ...) is idiomatic
+# and intentional in nix-darwin / home-manager configs; collapsing into nested
+# brackets would hurt readability.
+disabled = ["repeated_keys"]
