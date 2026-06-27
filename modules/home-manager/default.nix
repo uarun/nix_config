@@ -54,6 +54,34 @@
       yq
       yubikey-manager # ... ykman CLI for YubiKey config (FIDO2/PIV/OATH)
 
+      #... Coding-agent power tools (structural search/rewrite, lint/format, autonomous loops)
+      ast-grep # ... AST-based code search & rewrite (sg) - syntax-aware refactors
+      semgrep # ... Pattern-based static analysis & security scanning
+      sd # ... Intuitive find/replace, safer than sed for agents
+      ruff # ... Fast Python linter + formatter (pairs with uv)
+      shfmt # ... Shell formatter (pairs with shellcheck)
+      watchexec # ... Run commands on file change (edit->test loops)
+      ripgrep-all # ... rg over PDFs, docx, zip, sqlite (rga)
+      hyperfine # ... Statistical CLI benchmarking
+      jless # ... Interactive JSON/YAML viewer
+      mise # ... Polyglot runtime + task manager
+
+      #... Agent self-verification guardrails (run before commit/push)
+      typos # ... Source-code spell checker (identifiers/comments/docs)
+      gitleaks # ... Secret scanning - block committed keys/tokens
+      treefmt # ... Run every formatter in a repo via one command
+      act # ... Run GitHub Actions locally before pushing
+      trivy # ... Vulnerability + container + IaC scanning
+
+      #... Per-ecosystem linters/formatters (matched to languages edited here)
+      nixfmt # ... Nix formatter (RFC style)
+      statix # ... Nix linter
+      deadnix # ... Nix dead-code finder
+      stylua # ... Lua formatter (neovim config)
+      prettierd # ... Daemonized prettier (JS/TS) - fast in edit loops
+      eslint_d # ... Daemonized eslint (JS/TS)
+      golangci-lint # ... Aggregate Go linter
+
       #... Languages and build tools
       coursier # ... Scala
       gcc

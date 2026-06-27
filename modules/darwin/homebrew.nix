@@ -128,6 +128,10 @@ _: {
         greedy = true;
       }
       {
+        name = "supacode";
+        greedy = true;
+      } # Worktree coding agents command center
+      {
         name = "superwhisper";
         greedy = true;
       }
