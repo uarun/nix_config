@@ -9,5 +9,6 @@
       "vista-fonts"
       "n8n"
       "vscode"
+      "drawio"
     ];
 }

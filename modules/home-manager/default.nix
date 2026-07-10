@@ -139,6 +139,7 @@
 
       #... Graphics
       inkscape
+      drawio # ... draw.io desktop; headless CLI export via `drawio --export` (Linux needs xvfb-run)
 
       #... Media & terminal recording
       ffmpeg
@@ -158,6 +159,7 @@
     ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       bubblewrap # bwrap sandbox (Linux only)
       chromium # Headless browser for puppeteer/agent-browser (Linux; macOS uses Homebrew cask)
+      xvfb-run # Virtual X display so `drawio --export` runs headless (macOS exports without it)
       corretto21 # Amazon Corretto OpenJDK 21 (Linux only)
       snowsql # Only available on x86_64-linux
     ]
