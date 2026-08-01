@@ -110,7 +110,7 @@
       #... Text processing and data
       # tuir                 #... Text UI reddit
       duckdb # ... In-process SQL on CSV/JSON/Parquet files (static binary, no deps)
-      sqlite # ... SQLite3 CLI for lightweight relational databases
+      sqlite.bin # ... SQLite3 CLI for lightweight relational databases
       visidata
 
       #... AI tools
