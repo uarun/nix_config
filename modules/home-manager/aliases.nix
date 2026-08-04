@@ -11,7 +11,6 @@ _: {
     gst = "git status --long";
     gwat = "git log --raw --no-merges";
 
-    kc = "kiro-cli";
     cc = "claude";
 
     tree = "eza -T";
