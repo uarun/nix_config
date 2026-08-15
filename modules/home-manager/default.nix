@@ -61,6 +61,7 @@
       ruff # ... Fast Python linter + formatter (pairs with uv)
       shfmt # ... Shell formatter (pairs with shellcheck)
       watchexec # ... Run commands on file change (edit->test loops)
+      herdr # ... Terminal workspace manager for AI coding agents
       ripgrep-all # ... rg over PDFs, docx, zip, sqlite (rga)
       hyperfine # ... Statistical CLI benchmarking
       jless # ... Interactive JSON/YAML viewer
