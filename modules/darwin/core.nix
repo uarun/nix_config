@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (pkgs.stdenvNoCC) isAarch64 isAarch32;
+  inherit (pkgs.stdenvNoCC.hostPlatform) isAarch64 isAarch32;
 in
 {
   #... Environment setup

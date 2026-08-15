@@ -107,7 +107,7 @@ in
     '';
 
     profileExtra = ''
-      ${lib.optionalString pkgs.stdenvNoCC.isLinux "[[ -e /etc/profile ]] && source /etc/profile"}
+      ${lib.optionalString pkgs.stdenvNoCC.hostPlatform.isLinux "[[ -e /etc/profile ]] && source /etc/profile"}
     '';
 
     oh-my-zsh = {

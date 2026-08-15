@@ -9,7 +9,7 @@ let
   # Differs per host: this Mac clones to ~/nix_config (see dwswitch alias),
   # the Linux host clones to ~/repos/nix_config.
   neovimRepoPath =
-    if pkgs.stdenv.isDarwin then
+    if pkgs.stdenv.hostPlatform.isDarwin then
       "${config.home.homeDirectory}/nix_config"
     else
       "${config.home.homeDirectory}/repos/nix_config";
