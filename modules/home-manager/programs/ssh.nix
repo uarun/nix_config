@@ -2,11 +2,9 @@ _: {
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks."*" = {
-      compression = true;
-      extraOptions = {
-        AddKeysToAgent = "yes";
-      };
+    settings."*" = {
+      Compression = true;
+      AddKeysToAgent = "yes";
     };
   };
 }
