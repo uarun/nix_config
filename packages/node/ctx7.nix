@@ -31,8 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    fetcherVersion = 3;
-    hash = "sha256-8RRHfCTZVC91T1Qx+ACCo2oG4ZwMNy5WYakCjmBhe3Q=";
+    fetcherVersion = 4;
+    hash = "sha256-uYh75yjTXpC2noM+rfAMvejO5n28zez4GPlhdoIhOOc=";
   };
 
   buildPhase = ''
@@ -46,9 +46,12 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
+    #... pnpm 11 turns ignored build scripts (esbuild) into a hard error; the
+    #... prebuilt esbuild binary ships in its platform package, so skip the check.
     pnpm --filter ${tag-prefix} \
          --offline \
          --config.inject-workspace-packages=true \
+         --config.strict-dep-builds=false \
          deploy $out/lib/ctx7
 
     # Hoist transitive deps from pnpm virtual store so ESM resolution finds them
