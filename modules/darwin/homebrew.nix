@@ -19,12 +19,11 @@ _: {
       # "homebrew/services"
       #"homebrew/bundle"
       "manaflow-ai/cmux"
-      "steveyegge/beads"
     ];
 
     #... List of Homebrew Formulae to install
     brews = [
-      "bd" # TODO: Move this to homemanager when it's more stable (i.e. less frequent releases)
+      "beads" # ... provides `bd`; the steveyegge/gastownhall tap formulae are deprecated shims. TODO: Move to homemanager when it's more stable (i.e. less frequent releases)
       "cargo-audit"
       "cliclick"
       "dolt"
