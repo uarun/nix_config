@@ -144,6 +144,7 @@
       drawio # ... draw.io desktop; headless CLI export via `drawio --export` (Linux needs xvfb-run)
 
       #... Media & terminal recording
+      exiftool # ... Read/write image, video and doc metadata (EXIF/IPTC/XMP)
       ffmpeg
       silicon
       vhs
