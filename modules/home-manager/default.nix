@@ -27,6 +27,7 @@
       tree-sitter
 
       #... Development tools
+      android-tools # ... adb and fastboot for Android device debugging
       awscli2
       eksctl
       fd
