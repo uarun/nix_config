@@ -1,6 +1,5 @@
 { lib }:
 {
-  allowBroken = false;
   allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [

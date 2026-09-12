@@ -14,10 +14,6 @@ _: {
 
     #... List of Homebrew formula repositories to tap
     taps = [
-      #"homebrew/core"
-      #"homebrew/cask"
-      # "homebrew/services"
-      #"homebrew/bundle"
       "manaflow-ai/cmux"
     ];
 
