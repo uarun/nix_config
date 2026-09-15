@@ -9,5 +9,6 @@
       "n8n"
       "vscode"
       "drawio"
+      "liquibase"
     ];
 }
