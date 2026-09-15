@@ -53,7 +53,7 @@ in
       dwswitch_trace = "sudo darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@$(hostname -s):aarch64-darwin --show-trace";
       dwfixcache = "rm -f ~/.cache/nix/fetcher-cache-v4.sqlite && rm -rf ~/.cache/nix/eval-cache-v6 && echo 'Nix fetcher and eval caches cleared. Re-run dwswitch.'";
       dwclean = "sudo nix-env --delete-generations +7 --profile /nix/var/nix/profiles/system; sudo nix-collect-garbage --delete-older-than 30d; nix store optimise";
-      dwupdate = "nix flake update --flake ~/nix_config; /opt/homebrew/bin/brew update; dwswitch; /opt/homebrew/bin/brew upgrade; /opt/homebrew/bin/brew upgrade --cask --greedy; dwshowupdates";
+      dwupdate = "nix flake update --flake ~/nix_config && /opt/homebrew/bin/brew update && dwswitch && /opt/homebrew/bin/brew upgrade && /opt/homebrew/bin/brew upgrade --cask --greedy && dwshowupdates";
       dwshowupdates = ''zsh -c "nix store diff-closures /nix/var/nix/profiles/system-*-link(om[2]) /nix/var/nix/profiles/system-*-link(om[1])"'';
       dwfix = "sudo /nix/var/nix/profiles/system/activate"; # ... Re-activate current system profile (fast recovery after macOS update breaks /run symlink)
     };
