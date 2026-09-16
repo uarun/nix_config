@@ -48,7 +48,25 @@ statix fix .
 
 ## Formatting
 
-Check formatting without modifying files:
+The flake exposes `nixfmt-tree` (nixfmt wrapped in treefmt) as its formatter,
+so `nix fmt` is the canonical entry point. It walks the tree, honours
+`.gitignore` — so build artefacts under `./result` are skipped — and accepts
+individual paths:
+
+```bash
+nix fmt                       # format everything
+nix fmt modules/common.nix    # format one file
+```
+
+Check formatting without leaving changes behind (treefmt writes, then fails if
+anything changed):
+
+```bash
+nix fmt -- --ci
+```
+
+Without the flake (for example inside the pre-commit hook, which operates on
+staged files only):
 
 ```bash
 nixfmt --check $(find . -name '*.nix' -not -path './result/*')

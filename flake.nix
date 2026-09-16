@@ -159,6 +159,16 @@
         }) linuxHosts
       );
 
+      #... `nix fmt` entry point. nixfmt-tree wraps nixfmt in treefmt, which walks
+      #... directories and honours .gitignore, so build artefacts under ./result are
+      #... skipped. Bare `nixfmt .` would descend into them.
+      formatter = builtins.listToAttrs (
+        map (system: {
+          name = system;
+          value = (import inputs.nixpkgs { inherit system; }).nixfmt-tree;
+        }) defaultSystems
+      );
+
       #... Dev shell with linting tools for this config
       devShells = builtins.listToAttrs (
         map (system: {
