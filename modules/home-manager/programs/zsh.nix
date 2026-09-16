@@ -56,7 +56,6 @@ in
       dwupdate = "nix flake update --flake ~/nix_config && /opt/homebrew/bin/brew update && dwswitch && /opt/homebrew/bin/brew upgrade && /opt/homebrew/bin/brew upgrade --cask --greedy && dwshowupdates";
       dwshowupdates = ''zsh -c "nix store diff-closures /nix/var/nix/profiles/system-*-link(om[2]) /nix/var/nix/profiles/system-*-link(om[1])"'';
       dwfix = "sudo /nix/var/nix/profiles/system/activate"; # ... Re-activate current system profile (fast recovery after macOS update breaks /run symlink)
-      dwzap = "brew uninstall --zap --cask"; # ... Deliberately purge a cask plus its preferences/caches; homebrew.nix only uninstalls
     };
 
     envExtra = ''
@@ -94,6 +93,39 @@ in
       bindkey -M vicmd '?' vi-history-search-backward                       # default is vi-history-search-forward
 
       source ${../dotfiles/lscolors.sh}
+
+      ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+        #... Deliberately purge a cask plus its preferences/caches; homebrew.nix only
+        #... uninstalls. `brew uninstall --zap` is irreversible, has no --dry-run, and
+        #... may remove files shared with other applications, so show what is installed
+        #... and require an explicit confirmation before deleting anything.
+        dwzap() {
+          if [[ $# -eq 0 ]]; then
+            echo "usage: dwzap <cask> [cask...]" >&2
+            return 2
+          fi
+
+          echo "About to run: brew uninstall --zap --cask $*"
+          echo "This removes each cask's app plus its preferences, caches and support data."
+          echo "Homebrew may also remove files shared with other applications."
+          echo
+          local cask
+          for cask in "$@"; do
+            echo "--- $cask ---"
+            brew list --cask "$cask" 2>/dev/null || echo "(not installed, or unknown cask)"
+          done
+          echo
+
+          local reply
+          read -r "reply?Type 'zap' to proceed: "
+          if [[ $reply != zap ]]; then
+            echo "Aborted. Nothing was removed."
+            return 1
+          fi
+
+          brew uninstall --zap --cask "$@"
+        }
+      ''}
 
       #... Host-specific config (from git)
       ${lib.optionalString hasHostZshrc (builtins.readFile hostZshrcPath)}
