@@ -10,12 +10,14 @@
 # download the pages and extract them into tealdeer's cache directory.
 set -euo pipefail
 
-LANG="${1:-en}"
+#... LANG_CODE, not LANG: LANG is the exported locale variable, and reassigning
+#... it here would hand an invalid locale (e.g. "en") to curl and unzip.
+LANG_CODE="${1:-en}"
 CACHE_DIR="${HOME}/.cache/tealdeer/tldr-pages"
-URL="https://github.com/tldr-pages/tldr/releases/latest/download/tldr-pages.${LANG}.zip"
+URL="https://github.com/tldr-pages/tldr/releases/latest/download/tldr-pages.${LANG_CODE}.zip"
 TMP=$(mktemp)
 
-echo "Downloading tldr pages (lang=${LANG})..."
+echo "Downloading tldr pages (lang=${LANG_CODE})..."
 curl -fSL -o "$TMP" "$URL"
 
 echo "Extracting to ${CACHE_DIR}..."
