@@ -81,12 +81,14 @@ Profiles provide high-level configuration presets:
 
 The Neovim module uses `mkOutOfStoreSymlink` for instant Lua config editing without rebuild. This requires:
 
-1. **Home directory traverse permission** — Nix sandbox build users must be able to follow symlinks into your home:
+1. **A clone at the expected path** — activation fails if the Lua config is not found, because a symlink into a missing path leaves Neovim with no config and nothing pointing at the cause. The path is fixed per platform in `modules/home-manager/programs/neovim.nix`: `~/repos/nix_config` on Linux, `~/nix_config` on macOS. Clone there, or change `neovimRepoPath`.
+
+2. **Home directory traverse permission** — Nix sandbox build users must be able to follow symlinks into your home:
    ```bash
    chmod o+x /home/$USER
    ```
 
-2. **Corporate proxy SSL** — If behind a proxy that intercepts HTTPS, the Nix daemon needs a CA bundle that includes both Mozilla and corporate CAs. Create a systemd override:
+3. **Corporate proxy SSL** — If behind a proxy that intercepts HTTPS, the Nix daemon needs a CA bundle that includes both Mozilla and corporate CAs. Create a systemd override:
    ```bash
    sudo mkdir -p /etc/systemd/system/nix-daemon.service.d
    sudo tee /etc/systemd/system/nix-daemon.service.d/override.conf <<EOF
@@ -175,10 +177,14 @@ The Zsh configuration includes helpful aliases for common Nix operations:
 - `dwupdate`: Update flake inputs and switch configuration
 - `dwclean`: Clean up old system generations and optimize store
 - `dwshowupdates`: Show changes between system generations
+- `dwzap`: Deliberately purge a cask plus its preferences, caches and support data. `homebrew.nix` only uninstalls, so this is the manual escape hatch. It is irreversible and Homebrew may remove files shared with other applications, so it lists the cask's artifacts and asks for confirmation first.
 
 **Home Manager (Linux) aliases:**
 - `hmswitch`: Switch Home Manager configuration from the pushed flake (`home-manager switch --flake github:uarun/nix_config#$(id -un)@$(hostname -s):x86_64-linux`)
 - `hmclean`: Clean up old packages and optimize Nix store
+
+**Other commands:**
+- `tldr-update`: Refresh the tealdeer cache using `curl`. Tealdeer's own `auto_update` is disabled on Linux because it bundles Mozilla's CA store and fails behind a corporate proxy, so this is the only way to refresh the cache there.
 
 ### Available Configurations
 
