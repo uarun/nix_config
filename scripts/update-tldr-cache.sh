@@ -16,6 +16,8 @@ LANG_CODE="${1:-en}"
 CACHE_DIR="${HOME}/.cache/tealdeer/tldr-pages"
 URL="https://github.com/tldr-pages/tldr/releases/latest/download/tldr-pages.${LANG_CODE}.zip"
 TMP=$(mktemp)
+#... curl or unzip failing exits via `set -e`, so clean up on any exit, not just success.
+trap 'rm -f "$TMP"' EXIT
 
 echo "Downloading tldr pages (lang=${LANG_CODE})..."
 curl -fSL -o "$TMP" "$URL"
@@ -24,5 +26,4 @@ echo "Extracting to ${CACHE_DIR}..."
 mkdir -p "$CACHE_DIR"
 unzip -o "$TMP" -d "$CACHE_DIR" > /dev/null
 
-rm -f "$TMP"
 echo "Done. tldr cache updated."
