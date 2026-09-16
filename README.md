@@ -148,8 +148,17 @@ Convenient aliases are available in the Zsh configuration:
 - `dwclean`: Clean up old generations
 
 #### Linux (Home Manager)
+
+Linux hosts deploy from the pushed GitHub flake, not the local working tree. Commit and push before switching.
+
 ```bash
 # Switch Home Manager configuration
+home-manager switch --flake github:uarun/nix_config#$(id -un)@$(hostname -s):x86_64-linux
+```
+
+To test uncommitted changes, point at the local checkout explicitly:
+
+```bash
 home-manager switch --flake .#$(id -un)@$(hostname -s):x86_64-linux
 ```
 
@@ -168,7 +177,7 @@ The Zsh configuration includes helpful aliases for common Nix operations:
 - `dwshowupdates`: Show changes between system generations
 
 **Home Manager (Linux) aliases:**
-- `hmswitch`: Switch Home Manager configuration (`home-manager switch --flake .#$(id -un)@$(hostname -s):x86_64-linux`)
+- `hmswitch`: Switch Home Manager configuration from the pushed flake (`home-manager switch --flake github:uarun/nix_config#$(id -un)@$(hostname -s):x86_64-linux`)
 - `hmclean`: Clean up old packages and optimize Nix store
 
 ### Available Configurations
