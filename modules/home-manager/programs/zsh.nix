@@ -56,6 +56,7 @@ in
       dwupdate = "nix flake update --flake ~/nix_config && /opt/homebrew/bin/brew update && dwswitch && /opt/homebrew/bin/brew upgrade && /opt/homebrew/bin/brew upgrade --cask --greedy && dwshowupdates";
       dwshowupdates = ''zsh -c "nix store diff-closures /nix/var/nix/profiles/system-*-link(om[2]) /nix/var/nix/profiles/system-*-link(om[1])"'';
       dwfix = "sudo /nix/var/nix/profiles/system/activate"; # ... Re-activate current system profile (fast recovery after macOS update breaks /run symlink)
+      dwzap = "brew uninstall --zap --cask"; # ... Deliberately purge a cask plus its preferences/caches; homebrew.nix only uninstalls
     };
 
     envExtra = ''
