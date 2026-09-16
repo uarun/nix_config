@@ -257,4 +257,18 @@ in
     source = config.lib.file.mkOutOfStoreSymlink "${neovimRepoPath}/modules/home-manager/programs/nvim/lua";
     recursive = true;
   };
+
+  #... mkOutOfStoreSymlink points outside the store by design, so Nix cannot verify
+  #... the target. Without this check a clone in an unexpected location activates
+  #... cleanly and leaves a dangling ~/.config/nvim/lua, i.e. Neovim silently loses
+  #... its entire Lua config with nothing pointing at the cause.
+  home.activation.checkNeovimRepoPath = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+    luaDir="${neovimRepoPath}/modules/home-manager/programs/nvim/lua"
+    if [ ! -d "$luaDir" ]; then
+      echo "ERROR: neovim lua config not found at $luaDir" >&2
+      echo "Clone this repo to ${neovimRepoPath} on this platform, or update" >&2
+      echo "neovimRepoPath in modules/home-manager/programs/neovim.nix." >&2
+      exit 1
+    fi
+  '';
 }
