@@ -17,9 +17,20 @@ if ! gh auth status >/dev/null 2>&1 && [ -z "${GH_TOKEN:-}" ]; then
   exit 1
 fi
 
+ERR_FILE=$(mktemp)
+trap 'rm -f "$ERR_FILE"' EXIT
+
+#... Read one quoted Nix attribute value, or print nothing when the attr is absent.
+#... POSIX classes rather than \s, and -oE rather than -oP: BSD grep (macOS) has no
+#... \s and no -P at all. The trailing `|| true` keeps a missing attr from tripping
+#... `set -e` through pipefail, so callers can handle the empty case themselves.
+attr_value() {
+  grep -oE "^[[:space:]]*$1[[:space:]]*=[[:space:]]*\"[^\"]+\"" "$2" | head -1 | sed 's/.*"\(.*\)"/\1/' || true
+}
+
 while IFS= read -r nix_file; do
-  pname=$(grep 'pname\s*=' "$nix_file" | head -1 | sed 's/.*"\(.*\)".*/\1/')
-  current=$(grep 'version\s*=' "$nix_file" | head -1 | sed 's/.*"\(.*\)".*/\1/')
+  pname=$(attr_value pname "$nix_file")
+  current=$(attr_value version "$nix_file")
 
   if [ -z "$pname" ] || [ -z "$current" ]; then
     continue
@@ -31,8 +42,8 @@ while IFS= read -r nix_file; do
     repo=$(grep -oE 'github\.com/[^/]+/[^/]+' "$nix_file" | head -1 | cut -d/ -f2-)
   elif grep -q 'fetchFromGitHub' "$nix_file"; then
     #... fetchFromGitHub source: no URL to scrape, so read the owner/repo attrs.
-    owner=$(grep -oP 'owner\s*=\s*"\K[^"]+' "$nix_file" | head -1)
-    name=$(grep -oP 'repo\s*=\s*"\K[^"]+' "$nix_file" | head -1)
+    owner=$(attr_value owner "$nix_file")
+    name=$(attr_value repo "$nix_file")
     if [ -n "$owner" ] && [ -n "$name" ]; then
       repo="$owner/$name"
     fi
@@ -40,22 +51,22 @@ while IFS= read -r nix_file; do
 
   if [ -n "$repo" ]; then
     origin="$repo"
-    if ! err=$(gh api "repos/$repo/releases/latest" --jq .tag_name 2>&1 >/dev/null); then
-      printf "! %s: %s (GitHub query failed: %s)\n" "$pname" "$current" "${err%%$'\n'*}"
+    if ! latest=$(gh api "repos/$repo/releases/latest" --jq .tag_name 2>"$ERR_FILE"); then
+      err=$(head -1 "$ERR_FILE")
+      printf "! %s: %s (GitHub query failed: %s)\n" "$pname" "$current" "${err:-unknown error}"
       continue
     fi
-    latest=$(gh api "repos/$repo/releases/latest" --jq .tag_name)
     #... Normalise tags: some repos use vX.Y.Z, monorepos use <pname>@X.Y.Z.
     latest=${latest#"$pname"@}
     latest=${latest#v}
   else
     #... npm source: pname is the published package name.
     origin="npm"
-    if ! err=$(npm view "$pname" version 2>&1 >/dev/null); then
-      printf "! %s: %s (npm query failed: %s)\n" "$pname" "$current" "$(echo "$err" | grep -m1 'npm error' || echo "unknown error")"
+    if ! latest=$(npm view "$pname" version 2>"$ERR_FILE"); then
+      err=$(grep -m1 'npm error' "$ERR_FILE" || true)
+      printf "! %s: %s (npm query failed: %s)\n" "$pname" "$current" "${err:-unknown error}"
       continue
     fi
-    latest=$(npm view "$pname" version)
   fi
 
   if [ -z "$latest" ]; then
