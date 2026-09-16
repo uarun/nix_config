@@ -2,6 +2,7 @@
   lib,
   stdenvNoCC,
   fetchurl,
+  versionCheckHook,
 }:
 let
   version = "0.9.11";
@@ -36,6 +37,11 @@ stdenvNoCC.mkDerivation {
     install -Dm755 */ic-wasm $out/bin/ic-wasm
     runHook postInstall
   '';
+
+  #... Run the installed binary so a successful build that cannot actually launch
+  #... fails here rather than on first use.
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
 
   meta = {
     description = "A tool for transforming Wasm canisters running on the Internet Computer";

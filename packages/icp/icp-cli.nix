@@ -2,6 +2,7 @@
   lib,
   stdenvNoCC,
   fetchurl,
+  versionCheckHook,
 }:
 let
   version = "0.2.7";
@@ -37,6 +38,11 @@ stdenvNoCC.mkDerivation {
     install -Dm755 */icp $out/bin/icp
     runHook postInstall
   '';
+
+  #... Run the installed binary so a successful build that cannot actually launch
+  #... fails here rather than on first use.
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
 
   meta = {
     description = "ICP CLI - command-line tool for building on the Internet Computer";

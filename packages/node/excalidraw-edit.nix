@@ -7,6 +7,7 @@
   pnpm,
   pnpmConfigHook,
   fetchPnpmDeps,
+  versionCheckHook,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "excalidraw-edit";
@@ -54,6 +55,11 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  #... Run the installed binary so a successful build that cannot actually launch
+  #... fails here rather than on first use.
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
 
   meta = {
     description = "Edit .excalidraw files locally in your browser. Like grip for Excalidraw.";

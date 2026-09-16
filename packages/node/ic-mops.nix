@@ -4,6 +4,7 @@
   fetchurl,
   makeWrapper,
   nodejs,
+  versionCheckHook,
 }:
 let
   version = "2.13.2";
@@ -72,6 +73,11 @@ stdenvNoCC.mkDerivation {
 
     runHook postInstall
   '';
+
+  #... Run the installed binary so a successful build that cannot actually launch
+  #... fails here rather than on first use.
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
 
   meta = {
     description = "Motoko package manager (mops) for the Internet Computer";

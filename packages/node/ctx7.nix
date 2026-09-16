@@ -7,6 +7,7 @@
   pnpm,
   pnpmConfigHook,
   fetchPnpmDeps,
+  versionCheckHook,
 }:
 let
   tag-prefix = "ctx7";
@@ -79,6 +80,11 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  #... Run the wrapper so a build that produced files but cannot resolve its ESM
+  #... imports fails here rather than on first use.
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
 
   meta = {
     description = "Context7 CLI - Manage AI coding skills and documentation context";
