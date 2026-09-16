@@ -5,7 +5,7 @@ _: {
     onActivation = {
       autoUpdate = false;
       upgrade = true;
-      cleanup = "zap"; # ... "uninstall" or "zap"
+      cleanup = "uninstall"; # ... "uninstall" removes undeclared packages but keeps their data; use `dwzap <cask>` to purge data deliberately
     };
     global = {
       brewfile = true;
