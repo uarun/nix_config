@@ -10,5 +10,6 @@
       "vscode"
       "drawio"
       "liquibase"
+      "twg"
     ];
 }
