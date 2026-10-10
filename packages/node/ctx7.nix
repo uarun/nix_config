@@ -11,6 +11,10 @@
 }:
 let
   tag-prefix = "ctx7";
+  pnpmDepsHashes = {
+    aarch64-darwin = "sha256-ztU5hqqMgcrQ03XmEjwfuZfURP5aPJtgJfoC+FFchaw=";
+    x86_64-linux = "sha256-5ojr1gvxEF46ypKSjWBfOXGrmoKX9A5NfwAfWQKnpIg=";
+  };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "ctx7";
@@ -33,7 +37,10 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 4;
-    hash = "sha256-ztU5hqqMgcrQ03XmEjwfuZfURP5aPJtgJfoC+FFchaw=";
+    #... The fetched pnpm tree differs per platform, so each one has its own hash.
+    hash =
+      pnpmDepsHashes.${stdenv.hostPlatform.system}
+        or (throw "ctx7: no pnpm deps hash for ${stdenv.hostPlatform.system}");
   };
 
   buildPhase = ''

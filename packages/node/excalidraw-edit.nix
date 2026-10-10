@@ -9,6 +9,12 @@
   fetchPnpmDeps,
   versionCheckHook,
 }:
+let
+  pnpmDepsHashes = {
+    aarch64-darwin = "sha256-iQE4rsJf+FqJhO6STYT1bAcMaj7vQi9YsqN0kPSd2WU=";
+    x86_64-linux = "sha256-453U5BxHi0PbqMfwwCiOrdf2rBpjUPNi+8y439/8vMU=";
+  };
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "excalidraw-edit";
   version = "0.1.1";
@@ -30,7 +36,10 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 4;
-    hash = "sha256-iQE4rsJf+FqJhO6STYT1bAcMaj7vQi9YsqN0kPSd2WU=";
+    #... The fetched pnpm tree differs per platform, so each one has its own hash.
+    hash =
+      pnpmDepsHashes.${stdenv.hostPlatform.system}
+        or (throw "excalidraw-edit: no pnpm deps hash for ${stdenv.hostPlatform.system}");
   };
 
   buildPhase = ''
