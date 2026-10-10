@@ -57,7 +57,11 @@
 
       #... Coding-agent power tools (structural search/rewrite, lint/format, autonomous loops)
       ast-grep # ... AST-based code search & rewrite (sg) - syntax-aware refactors
-      semgrep # ... Pattern-based static analysis & security scanning
+      #... Pattern-based static analysis & security scanning
+      #... Relax the pyjwt pin: semgrep 1.172.0 wants ~=2.13.0, nixpkgs ships 2.14.0. Drop once nixpkgs fixes it.
+      (semgrep.overridePythonAttrs (old: {
+        pythonRelaxDeps = old.pythonRelaxDeps ++ [ "pyjwt" ];
+      }))
       sd # ... Intuitive find/replace, safer than sed for agents
       ruff # ... Fast Python linter + formatter (pairs with uv)
       shfmt # ... Shell formatter (pairs with shellcheck)
