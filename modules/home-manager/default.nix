@@ -170,6 +170,7 @@
     ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
       jdk21 # OpenJDK 21 (macOS only, Linux uses Corretto)
       colima # ... Lightweight Docker VM for macOS (replaces Docker Desktop)
+      stable-diffusion-cpp # ... sd-cli/sd-server for local FLUX.2 GGUF; Metal on Apple Silicon, CPU-only (useless) on Linux hosts
 
       #... Internet Computer (ICP) toolchain - prebuilt, darwin-only (not on work Linux hosts)
       (pkgs.callPackage ../../packages/icp/icp-cli.nix { })
