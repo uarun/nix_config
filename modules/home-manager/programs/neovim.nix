@@ -145,9 +145,6 @@ in
       golangci-lint # linter (nvim-lint)
       delve
 
-      # Rust
-      rust-analyzer
-
       # TypeScript / JavaScript
       typescript-language-server
       prettierd
