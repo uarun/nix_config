@@ -54,6 +54,12 @@ return {
     "scalameta/nvim-metals",
     opts = function(_, opts)
       opts.settings = vim.tbl_extend("force", opts.settings or {}, { useGlobalExecutable = true })
+      -- The scala extra calls setup_dap on attach, which complains without nvim-dap
+      opts.on_attach = function()
+        if pcall(require, "dap") then
+          require("metals").setup_dap()
+        end
+      end
       return opts
     end,
   },
