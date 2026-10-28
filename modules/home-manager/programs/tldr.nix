@@ -18,7 +18,8 @@
   };
 
   #... curl respects the system CA bundle, so this works where `tldr --update` cannot.
-  home.packages = [
+  #... Linux only: Darwin keeps auto_update, and its cache lives in ~/Library/Caches.
+  home.packages = pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux [
     (pkgs.writeShellApplication {
       name = "tldr-update";
       runtimeInputs = with pkgs; [

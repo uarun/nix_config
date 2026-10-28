@@ -31,15 +31,19 @@
         "x86_64-linux"
       ];
 
-      #... Function to generate a base darwin configuration with the specified hostname, overlays, and any extraModules applied
+      #... Function to generate a base darwin configuration with the specified username, hostname, and any extraModules applied
       mkDarwinConfig =
         {
+          username,
           system ? "aarch64-darwin",
-          nixpkgs ? inputs.nixpkgs,
           hostname ? "",
           baseModules ? [
             home-manager.darwinModules.home-manager
             ./modules/darwin
+            {
+              user.name = username;
+              system.primaryUser = username;
+            }
           ],
           extraModules ? [ ],
         }:
@@ -50,7 +54,6 @@
             inherit
               self
               inputs
-              nixpkgs
               hostname
               ;
           };
@@ -61,7 +64,6 @@
         {
           username,
           system ? "x86_64-linux",
-          nixpkgs ? inputs.nixpkgs,
           hostname ? "",
           baseModules ? [
             ./modules/home-manager
@@ -75,8 +77,8 @@
           ],
           extraModules ? [ ],
         }:
-        inputs.home-manager.lib.homeManagerConfiguration rec {
-          pkgs = import nixpkgs {
+        inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = import inputs.nixpkgs {
             inherit system;
             config = pkgsConfig;
           };
@@ -84,7 +86,6 @@
             inherit
               self
               inputs
-              nixpkgs
               hostname
               ;
           };
@@ -131,15 +132,23 @@
       darwinHosts = builtins.filter (host: builtins.match ".*-darwin" host.system != null) allHosts;
       linuxHosts = builtins.filter (host: builtins.match ".*-linux" host.system != null) allHosts;
 
+      #... Output attribute name shared by the configurations and the checks
+      hostOutputName = host: "${host.username}@${host.hostname}:${host.system}";
+
     in
     {
 
       #... MacOS Configurations
       darwinConfigurations = builtins.listToAttrs (
         map (host: {
-          name = "${host.username}@${host.hostname}:${host.system}";
+          name = hostOutputName host;
           value = mkDarwinConfig {
-            inherit (host) system hostname extraModules;
+            inherit (host)
+              username
+              system
+              hostname
+              extraModules
+              ;
           };
         }) darwinHosts
       );
@@ -147,7 +156,7 @@
       #... Linux Home Manager Configurations
       homeConfigurations = builtins.listToAttrs (
         map (host: {
-          name = "${host.username}@${host.hostname}:${host.system}";
+          name = hostOutputName host;
           value = mkHomeConfig {
             inherit (host)
               username
@@ -176,17 +185,7 @@
           value.default =
             let
               pkgs = import inputs.nixpkgs { inherit system; };
-            in
-            pkgs.mkShell {
-              packages = with pkgs; [
-                nixfmt
-                statix
-                deadnix
-              ];
-              shellHook = ''
-                          if [ ! -f .git/hooks/pre-commit ] || ! grep -q "nix-lint" .git/hooks/pre-commit; then
-                            echo "Installing pre-commit hook..."
-                            cat > .git/hooks/pre-commit << 'EOF'
+              preCommitHook = pkgs.writeText "pre-commit" ''
                 #!/usr/bin/env bash
                 # nix-lint pre-commit hook
                 set -euo pipefail
@@ -208,9 +207,20 @@
 
                 echo "Running statix..."
                 statix check $staged
-                EOF
-                            chmod +x .git/hooks/pre-commit
-                          fi
+              '';
+            in
+            pkgs.mkShell {
+              packages = with pkgs; [
+                nixfmt
+                statix
+                deadnix
+              ];
+              #... Compare contents, so edits to the hook reach existing clones too.
+              shellHook = ''
+                if ! cmp -s ${preCommitHook} .git/hooks/pre-commit; then
+                  echo "Installing pre-commit hook..."
+                  install -m 755 ${preCommitHook} .git/hooks/pre-commit
+                fi
               '';
             };
         }) defaultSystems
@@ -223,16 +233,9 @@
           hostCheckName = "${host.username}@${host.hostname}";
           checkDrv =
             if builtins.match ".*-darwin" host.system != null then
-              (mkDarwinConfig { inherit (host) system hostname extraModules; }).system
+              self.darwinConfigurations.${hostOutputName host}.system
             else
-              (mkHomeConfig {
-                inherit (host)
-                  username
-                  system
-                  hostname
-                  extraModules
-                  ;
-              }).activationPackage;
+              self.homeConfigurations.${hostOutputName host}.activationPackage;
         in
         acc
         // {

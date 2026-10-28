@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   wezterm-wrapped = pkgs.symlinkJoin {
     name = "wezterm-wrapped";
@@ -18,11 +18,9 @@ let
   };
 in
 {
-  home.packages = [ wezterm-wrapped ];
-
   programs.wezterm = {
     enable = true;
-    package = wezterm-wrapped;
+    package = if pkgs.stdenv.hostPlatform.isLinux then wezterm-wrapped else pkgs.wezterm;
     extraConfig = ''
       local config = wezterm.config_builder()
 
@@ -35,8 +33,10 @@ in
       config.audible_bell = "Disabled"
       config.scrollback_lines = 10000
       config.term = "wezterm"
-      config.front_end = "Software"
-      config.enable_wayland = false
+      ${lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
+        config.front_end = "Software"
+        config.enable_wayland = false
+      ''}
       config.max_fps = 60
       config.animation_fps = 1
       config.cursor_blink_rate = 0

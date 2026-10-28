@@ -12,8 +12,8 @@ in
       $VERBOSE_ECHO "nix daemon config: sandbox-paths already present"
     else
       echo "nix daemon config: adding extra-sandbox-paths (requires sudo)"
-      printf '\n%s\n' ${lib.escapeShellArg confContent} | sudo tee -a "$confFile" >/dev/null
-      sudo systemctl restart nix-daemon 2>/dev/null || true
+      printf '\n%s\n' ${lib.escapeShellArg confContent} | run sudo tee -a "$confFile" >/dev/null
+      run sudo systemctl restart nix-daemon
     fi
   '';
 }

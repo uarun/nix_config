@@ -79,6 +79,7 @@ let
     crates-nvim
     markdown-preview-nvim
     nvim-jdtls
+    nvim-metals
     render-markdown-nvim
     rustaceanvim
     SchemaStore-nvim
@@ -146,7 +147,7 @@ in
       delve
 
       # TypeScript / JavaScript
-      typescript-language-server
+      vtsls
       prettierd
 
       # Python

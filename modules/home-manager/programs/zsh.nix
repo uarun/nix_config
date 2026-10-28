@@ -21,7 +21,6 @@ in
     localVariables = {
       LANG = "en_US.UTF-8";
       DEFAULT_USER = "${config.home.username}";
-      TERM = "xterm-256color";
     };
 
     history = {
@@ -43,11 +42,13 @@ in
       llt = "eza --icons --git-ignore --git -F --extended -l -T";
       clear = "printf '\\033[H\\033[2J'";
 
-      hmswitch = "home-manager switch --flake github:uarun/nix_config#$(id -un)@$(hostname -s):x86_64-linux";
       hmclean = "nix-collect-garbage --delete-older-than 30d; nix store optimise";
 
     }
     # ... Union
+    // pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+      hmswitch = "home-manager switch --flake github:uarun/nix_config#$(id -un)@$(hostname -s):x86_64-linux";
+    }
     // pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
       dwswitch = "sudo darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@$(hostname -s):aarch64-darwin";
       dwswitch_trace = "sudo darwin-rebuild switch --flake ~/nix_config/.#$(id -un)@$(hostname -s):aarch64-darwin --show-trace";
@@ -63,76 +64,79 @@ in
       export RUSTFLAGS="-L${pkgs.libiconv}/lib"
     '';
 
-    initContent = ''
-      source ${../dotfiles/p10k.zsh}
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+    initContent = lib.mkMerge [
+      # Enable powerlevel10k instant prompt; must stay at the top of .zshrc
+      (lib.mkBefore ''
+        if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+          source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+        fi
+      '')
+      ''
+        source ${../dotfiles/p10k.zsh}
+        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 
-      # Enable powerlevel10k instant prompt
-      if [[ -r "$\{XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-$\{(%):-%n}.zsh" ]]; then
-        source "$\{XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-$\{(%):-%n}.zsh"
-      fi
+        set -o vi
+        bindkey -v
 
-      set -o vi
-      bindkey -v
+        #... Clear screen without wiping tmux scrollback
+        clear-screen-no-scrollback() { printf '\033[H\033[2J'; zle reset-prompt }
+        zle -N clear-screen-no-scrollback
 
-      #... Clear screen without wiping tmux scrollback
-      clear-screen-no-scrollback() { printf '\033[H\033[2J'; zle reset-prompt }
-      zle -N clear-screen-no-scrollback
+        #... Key bindings
+        bindkey '^L' clear-screen-no-scrollback
+        bindkey '^a' beginning-of-line
+        bindkey '^e' end-of-line
 
-      #... Key bindings
-      bindkey '^L' clear-screen-no-scrollback
-      bindkey '^a' beginning-of-line
-      bindkey '^e' end-of-line
+        # j/k do partial searches when there is already text in play, rather than
+        # stepping through history. Up/down get the same behaviour from
+        # historySubstringSearch above.
+        bindkey -M vicmd 'k' up-line-or-search
+        bindkey -M vicmd 'j' down-line-or-search
+        bindkey -M vicmd '/' history-incremental-pattern-search-backward      # default is vi-history-search-backward
+        bindkey -M vicmd '?' vi-history-search-backward                       # default is vi-history-search-forward
 
-      # j/k do partial searches when there is already text in play, rather than
-      # stepping through history. Up/down get the same behaviour from
-      # historySubstringSearch above.
-      bindkey -M vicmd 'k' up-line-or-search
-      bindkey -M vicmd 'j' down-line-or-search
-      bindkey -M vicmd '/' history-incremental-pattern-search-backward      # default is vi-history-search-backward
-      bindkey -M vicmd '?' vi-history-search-backward                       # default is vi-history-search-forward
+        source ${../dotfiles/lscolors.sh}
 
-      source ${../dotfiles/lscolors.sh}
+        ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+          #... Deliberately purge a cask plus its preferences/caches; homebrew.nix only
+          #... uninstalls. `brew uninstall --zap` is irreversible, has no --dry-run, and
+          #... may remove files shared with other applications, so show what is installed
+          #... and require an explicit confirmation before deleting anything.
+          dwzap() {
+            if [[ $# -eq 0 ]]; then
+              echo "usage: dwzap <cask> [cask...]" >&2
+              return 2
+            fi
 
-      ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
-        #... Deliberately purge a cask plus its preferences/caches; homebrew.nix only
-        #... uninstalls. `brew uninstall --zap` is irreversible, has no --dry-run, and
-        #... may remove files shared with other applications, so show what is installed
-        #... and require an explicit confirmation before deleting anything.
-        dwzap() {
-          if [[ $# -eq 0 ]]; then
-            echo "usage: dwzap <cask> [cask...]" >&2
-            return 2
-          fi
+            echo "About to run: brew uninstall --zap --cask $*"
+            echo "This removes each cask's app plus its preferences, caches and support data."
+            echo "Homebrew may also remove files shared with other applications."
+            echo
+            local cask
+            for cask in "$@"; do
+              echo "--- $cask ---"
+              brew list --cask "$cask" 2>/dev/null || echo "(not installed, or unknown cask)"
+            done
+            echo
 
-          echo "About to run: brew uninstall --zap --cask $*"
-          echo "This removes each cask's app plus its preferences, caches and support data."
-          echo "Homebrew may also remove files shared with other applications."
-          echo
-          local cask
-          for cask in "$@"; do
-            echo "--- $cask ---"
-            brew list --cask "$cask" 2>/dev/null || echo "(not installed, or unknown cask)"
-          done
-          echo
+            local reply
+            read -r "reply?Type 'zap' to proceed: "
+            if [[ $reply != zap ]]; then
+              echo "Aborted. Nothing was removed."
+              return 1
+            fi
 
-          local reply
-          read -r "reply?Type 'zap' to proceed: "
-          if [[ $reply != zap ]]; then
-            echo "Aborted. Nothing was removed."
-            return 1
-          fi
+            brew uninstall --zap --cask "$@"
+          }
+        ''}
 
-          brew uninstall --zap --cask "$@"
-        }
-      ''}
+        #... Host-specific config (from git)
+        ${lib.optionalString hasHostZshrc (builtins.readFile hostZshrcPath)}
 
-      #... Host-specific config (from git)
-      ${lib.optionalString hasHostZshrc (builtins.readFile hostZshrcPath)}
-
-      #... Local overrides (untracked)
-      [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
-    '';
+        #... Local overrides (untracked)
+        [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+      ''
+    ];
 
     profileExtra = ''
       ${lib.optionalString pkgs.stdenvNoCC.hostPlatform.isLinux "[[ -e /etc/profile ]] && source /etc/profile"}
@@ -141,6 +145,10 @@ in
     oh-my-zsh = {
       enable = true;
       plugins = [ "ssh-agent" ];
+      #... ssh-add output after the p10k instant prompt triggers its console-output warning
+      extraConfig = ''
+        zstyle :omz:plugins:ssh-agent quiet yes
+      '';
     };
 
   };

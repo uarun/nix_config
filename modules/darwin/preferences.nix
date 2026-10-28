@@ -46,7 +46,7 @@ _: {
     #... Login Window settings
     loginwindow = {
       GuestEnabled = false; # ... disable guest account
-      SHOWFULLNAME = false; # ... show name/password field instead of list of users, when false
+      SHOWFULLNAME = true; # ... show name/password field instead of list of users, when true
       DisableConsoleAccess = true; # ... disables access to the console by typing “>console” for a username at the login window
     };
 
@@ -74,8 +74,6 @@ _: {
       "com.apple.commerce".AutoUpdate = true; # ... auto-update apps
     };
   };
-
-  system.primaryUser = "arun"; # ... define the primary user name for the system (string: username used for user account, home-manager, and other user-specific configurations)
 
   #... Keyboard settings
   system.keyboard = {

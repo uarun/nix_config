@@ -14,15 +14,6 @@ return {
             },
           },
         },
-        rust_analyzer = {
-          settings = {
-            ["rust-analyzer"] = {
-              check = { command = "clippy" },
-              cargo = { allFeatures = true },
-            },
-          },
-        },
-        ts_ls = {},
         pyright = {
           settings = {
             python = {
@@ -41,8 +32,29 @@ return {
         dockerls = {},
         docker_compose_language_service = {},
         bashls = {},
-        metals = {},
       },
     },
+  },
+  -- The lang.rust extra starts rust-analyzer through rustaceanvim, not lspconfig
+  {
+    "mrcjkb/rustaceanvim",
+    opts = {
+      server = {
+        default_settings = {
+          ["rust-analyzer"] = {
+            check = { command = "clippy" },
+            cargo = { allFeatures = true },
+          },
+        },
+      },
+    },
+  },
+  -- Use the metals on PATH (from neovim.nix) instead of nvim-metals' own install
+  {
+    "scalameta/nvim-metals",
+    opts = function(_, opts)
+      opts.settings = vim.tbl_extend("force", opts.settings or {}, { useGlobalExecutable = true })
+      return opts
+    end,
   },
 }

@@ -18,7 +18,6 @@
   user = {
     description = "Arun Udayashankar";
     home = "${if pkgs.stdenvNoCC.hostPlatform.isDarwin then "/Users" else "/home"}/${config.user.name}";
-    shell = pkgs.zsh;
   };
 
   #... Bootstrap home manager using system config
@@ -39,9 +38,6 @@
   #... Environment setup
   environment = {
     systemPackages = with pkgs; [
-      # editors
-      neovim
-
       # standard toolset
       coreutils-full
       findutils

@@ -3,10 +3,8 @@
   allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
-      "roon-server"
       "snowsql"
       "vista-fonts"
-      "n8n"
       "vscode"
       "drawio"
       "liquibase"

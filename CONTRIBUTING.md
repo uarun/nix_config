@@ -9,20 +9,20 @@ nix develop
 ```
 
 This gives you:
-- `deadnix` — finds unused variables, imports, and lambda patterns
-- `statix` — catches Nix anti-patterns (empty patterns, repeated keys, collapsible let-in)
-- `nixfmt` — canonical Nix formatter (RFC 166)
+- `deadnix` - finds unused variables, imports, and lambda patterns
+- `statix` - catches Nix anti-patterns (empty patterns, repeated keys, collapsible let-in)
+- `nixfmt` - canonical Nix formatter (RFC 166)
 
 It also auto-installs a pre-commit hook on first entry.
 
 ## Pre-commit Hook
 
-The dev shell installs a git pre-commit hook that runs `deadnix` and `statix` on staged `.nix` files. This prevents committing lint violations.
+The dev shell installs a git pre-commit hook that runs `nixfmt --check`, `deadnix --fail` and `statix check` on staged `.nix` files. This prevents committing unformatted files or lint violations.
 
 The hook is installed automatically when you enter `nix develop`. To reinstall manually:
 
 ```bash
-nix develop  # re-entering the shell reinstalls if missing
+nix develop  # re-entering the shell reinstalls the hook if it is missing or out of date
 ```
 
 To skip the hook for a specific commit (e.g., WIP):
@@ -50,7 +50,7 @@ statix fix .
 
 The flake exposes `nixfmt-tree` (nixfmt wrapped in treefmt) as its formatter,
 so `nix fmt` is the canonical entry point. It walks the tree, honours
-`.gitignore` — so build artefacts under `./result` are skipped — and accepts
+`.gitignore` - so build artefacts under `./result` are skipped - and accepts
 individual paths:
 
 ```bash
@@ -78,12 +78,6 @@ Format all Nix files:
 nixfmt $(find . -name '*.nix' -not -path './result/*')
 ```
 
-Note: formatting is not enforced by the pre-commit hook (it's noisy on first run). Run it once to normalize, then it stays clean.
-
 ## Accepted Warnings
 
-Two statix "repeated keys" warnings are intentionally suppressed:
-- `modules/home-manager/default.nix` — `home.*` keys are grouped by concern (packages, session, files)
-- `modules/darwin/preferences.nix` — `system.*` keys are grouped by domain (defaults, keyboard, user)
-
-These are readable as-is and Nix merges them correctly.
+`statix.toml` disables the statix `repeated_keys` (W20) lint for the whole repo, because statix 0.5.8 has no per-line ignore. Modules use the flat dotted style on purpose, for example `home.*` keys in `modules/home-manager/default.nix` and `system.*` keys in `modules/darwin/preferences.nix`. They are readable as-is and Nix merges them correctly.

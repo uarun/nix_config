@@ -139,11 +139,6 @@
       xsel
       xclip
 
-      #... Fonts
-      inter
-      nerd-fonts.iosevka
-      nerd-fonts.iosevka-term
-
       #... Graphics
       inkscape
       drawio # ... draw.io desktop; headless CLI export via `drawio --export` (Linux needs xvfb-run)
@@ -170,6 +165,11 @@
       xvfb-run # Virtual X display so `drawio --export` runs headless (macOS exports without it)
       corretto21 # Amazon Corretto OpenJDK 21 (Linux only)
       snowsql # Only available on x86_64-linux
+
+      #... Fonts (macOS gets them from fonts.packages in modules/common.nix)
+      inter
+      nerd-fonts.iosevka
+      nerd-fonts.iosevka-term
     ]
     ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
       jdk21 # OpenJDK 21 (macOS only, Linux uses Corretto)
@@ -183,7 +183,6 @@
     ];
 
   home.sessionVariables = {
-    EDITOR = "nvim";
     MANPAGER = "most";
     PAGER = "less";
   };
@@ -213,7 +212,6 @@
 
     broot.enable = true;
     btop.enable = true;
-    dircolors.enable = true;
     htop.enable = true;
     jq.enable = true;
     less.enable = true;
@@ -223,5 +221,5 @@
 
   home.file.".inputrc".source = ./dotfiles/inputrc;
   home.file.".config/nix/nix.conf".text = "experimental-features = nix-command flakes\n";
-  fonts.fontconfig.enable = true;
+  fonts.fontconfig.enable = pkgs.stdenv.hostPlatform.isLinux;
 }

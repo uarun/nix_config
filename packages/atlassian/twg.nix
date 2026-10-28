@@ -12,7 +12,7 @@ let
   #... installer (`bash <(curl -fsSL https://teamwork-graph.atlassian.com/cli/install)`)
   #... downloads exactly this asset into ~/.local/bin, so we skip the installer and
   #... fetch the asset directly. Hashes are the published SHA256SUMS values converted
-  #... to SRI; see ./UPGRADING.md for the bump flow.
+  #... to SRI; see ../node/UPGRADING.md for the bump flow.
   baseUrl = "https://teamwork-graph.atlassian.com/cli";
 
   sources = {

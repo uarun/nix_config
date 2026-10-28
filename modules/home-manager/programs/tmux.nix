@@ -20,7 +20,9 @@
       {
         plugin = tmuxPlugins.tmux-thumbs;
         extraConfig = ''
-          set -g @thumbs-command 'echo -n {} | xclip -selection clipboard'
+          set -g @thumbs-command 'echo -n {} | ${
+            if pkgs.stdenv.hostPlatform.isDarwin then "pbcopy" else "xclip -selection clipboard"
+          }'
         '';
       }
       tmuxPlugins.tmux-fzf
@@ -53,14 +55,6 @@
           set -g @resurrect-strategy-vim 'session'
           set -g @resurrect-strategy-nvim 'session'
           set -g @resurrect-capture-pane-contents 'on'
-        '';
-      }
-      {
-        plugin = tmuxPlugins.continuum;
-        extraConfig = ''
-          set -g @continuum-restore 'on'
-          set -g @continuum-boot 'on'
-          set -g @continuum-save-interval '10'
         '';
       }
     ];
@@ -146,6 +140,14 @@
       ##... placeholders unsubstituted and the modules render empty).
       run-shell ${pkgs.tmuxPlugins.cpu.rtp}
       run-shell ${pkgs.tmuxPlugins.weather.rtp}
+
+      ##... continuum hooks its auto-save into status-right at load time, so it
+      ##... also has to load after status-right is final (resurrect, which it
+      ##... needs, is already loaded from the plugins list).
+      set -g @continuum-restore 'on'
+      set -g @continuum-boot 'on'
+      set -g @continuum-save-interval '10'
+      run-shell ${pkgs.tmuxPlugins.continuum.rtp}
     '';
   };
 }

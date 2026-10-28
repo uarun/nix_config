@@ -70,7 +70,6 @@ hosts/{hostname}/
   system = "aarch64-darwin";  # or "x86_64-linux"
   extraModules = [
     ../../profiles/personal.nix
-    ../../modules/darwin/apps.nix
   ];
 }
 ```
@@ -78,19 +77,19 @@ hosts/{hostname}/
 ### `modules/` - Reusable Configuration Components
 
 #### `modules/common.nix` - Shared Configuration
-- **Purpose**: Configurations applied to all systems (Darwin + Linux)
+- **Purpose**: Configuration shared by all Darwin hosts. Only `modules/darwin/default.nix` imports it; Linux hosts get fonts and packages from `modules/home-manager/default.nix` instead
 - **Contents**:
   - User account setup (`users.users`)
   - Home Manager bootstrapping for Darwin
-  - System packages (neovim, git, coreutils, etc.)
+  - System packages (git, coreutils, etc.)
   - Font installations (Nerd Fonts)
   - Environment variables and shell configuration
 
 #### `modules/darwin/` - macOS-Specific Modules
 - `core.nix`: Core Darwin system configuration (services, security, etc.)
-- `apps.nix`: GUI application installations
-- `homebrew.nix`: Homebrew package management configuration
+- `homebrew.nix`: Homebrew package management configuration, including GUI applications (casks)
 - `preferences.nix`: macOS system preferences and defaults
+- `services.nix`: launchd services (colima)
 
 #### `modules/home-manager/` - User Environment Modules
 - `default.nix`: Main Home Manager configuration with packages and programs
@@ -102,8 +101,8 @@ hosts/{hostname}/
   - Individual tool configs (bat, eza, fzf, etc.)
 
 #### `modules/nixpkgs.nix` - Nixpkgs Configuration
-- Package overrides and unfree package allowances
-- Nix daemon configuration (GC, experimental features)
+- Sets `nixpkgs.config` (unfree package allowances) from `modules/config.nix`
+- Sets `nix.enable = false`, because Determinate Nix owns nix.conf and nix-darwin must not manage Nix
 
 #### `modules/primaryUser.nix` - User Abstraction
 - Provides `user` and `hmgr` options for user/home-manager configuration
@@ -133,10 +132,8 @@ hosts/{hostname}/
    - `*-linux` → `homeConfigurations`
 
 ### Module Loading
-1. Common modules loaded first (`common.nix`, `primaryUser.nix`, `nixpkgs.nix`)
-2. Platform-specific modules loaded based on system type
-3. Host-specific modules loaded from `config.nix`
-4. Profile modules applied based on host configuration
+- **Darwin**: the Home Manager darwin module and `modules/darwin` (which imports `common.nix`, and through it `primaryUser.nix` and `nixpkgs.nix`), then the host's `extraModules` (profiles and other modules from `config.nix`)
+- **Linux**: only `modules/home-manager` plus the `home` username and directory, then the host's `extraModules`
 
 ### Special Configuration Handling
 - **Darwin**: Home Manager integrated into system configuration
@@ -149,8 +146,9 @@ hosts/{hostname}/
 Commands use shell variables for portability:
 ```bash
 # Instead of hardcoded: .#arun@Melbourne:aarch64-darwin
-# Use dynamic: .#$(id -un)@$(hostname -s):$(uname -m)-$(uname -s | tr '[:upper:]' '[:lower:]')
+# Use dynamic: .#$(id -un)@$(hostname -s):aarch64-darwin (or :x86_64-linux on Linux)
 ```
+The system string stays literal: macOS `uname -m` prints `arm64`, which matches no flake attribute.
 
 ### Validation & Error Handling
 - Runtime validation of required config fields
@@ -166,7 +164,7 @@ Commands use shell variables for portability:
 ### Adding a New Host
 1. Create `hosts/NewHostName/config.nix` with required fields
 2. Optionally add `hosts/NewHostName/zshrc` for host-specific shell config
-3. Run `nix build .#$(id -un)@NewHostName:arch` to test
+3. Run `nix build .#darwinConfigurations."$(id -un)@NewHostName:aarch64-darwin".system` (Linux: `.#homeConfigurations."$(id -un)@NewHostName:x86_64-linux".activationPackage`) to test
 4. Commit changes
 
 ### Modifying User Environment
@@ -176,7 +174,7 @@ Commands use shell variables for portability:
 
 ### System-Level Changes
 1. Edit `modules/darwin/` files for macOS changes
-2. Edit `modules/common.nix` for cross-platform changes
+2. Edit `modules/common.nix` for changes shared by all Darwin hosts
 3. Test with `darwin-rebuild build` or `home-manager build`
 
 ## Gotchas & Important Notes
@@ -266,7 +264,7 @@ Commands use shell variables for portability:
 nix flake check
 
 # Build specific configuration
-nix build .#$(id -un)@$(hostname -s):aarch64-darwin
+nix build .#darwinConfigurations."$(id -un)@$(hostname -s):aarch64-darwin".system
 
 # Update dependencies
 nix flake update

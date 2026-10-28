@@ -13,7 +13,10 @@ set -euo pipefail
 #... LANG_CODE, not LANG: LANG is the exported locale variable, and reassigning
 #... it here would hand an invalid locale (e.g. "en") to curl and unzip.
 LANG_CODE="${1:-en}"
-CACHE_DIR="${HOME}/.cache/tealdeer/tldr-pages"
+CACHE_DIR="${TEALDEER_CACHE_DIR:-${XDG_CACHE_HOME:-$HOME/.cache}/tealdeer}/tldr-pages"
+#... Each per-language zip holds the contents of one pages directory. Tealdeer
+#... reads every language, English included, from pages.<lang>/.
+SUB="pages.${LANG_CODE}"
 URL="https://github.com/tldr-pages/tldr/releases/latest/download/tldr-pages.${LANG_CODE}.zip"
 TMP=$(mktemp)
 #... curl or unzip failing exits via `set -e`, so clean up on any exit, not just success.
@@ -22,8 +25,14 @@ trap 'rm -f "$TMP"' EXIT
 echo "Downloading tldr pages (lang=${LANG_CODE})..."
 curl -fSL -o "$TMP" "$URL"
 
-echo "Extracting to ${CACHE_DIR}..."
+#... Extract beside the old pages and swap only once unzip succeeds, so a bad
+#... download keeps the previous cache.
+echo "Extracting to ${CACHE_DIR}/${SUB}..."
 mkdir -p "$CACHE_DIR"
-unzip -o "$TMP" -d "$CACHE_DIR" > /dev/null
+NEW=$(mktemp -d "$CACHE_DIR/.${SUB}.XXXXXX")
+trap 'rm -f "$TMP"; rm -rf "$NEW"' EXIT
+unzip -o "$TMP" -d "$NEW" > /dev/null
+rm -rf "${CACHE_DIR:?}/$SUB"
+mv "$NEW" "$CACHE_DIR/$SUB"
 
 echo "Done. tldr cache updated."

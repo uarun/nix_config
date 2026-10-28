@@ -15,7 +15,8 @@ _: {
 
     tree = "eza -T";
 
-    excalidraw = "docker run -d --rm --name excalidraw-canvas -p 3000:3000 ghcr.io/yctimlin/mcp_excalidraw-canvas:latest";
+    #... Pinned by digest (the :latest image already pulled locally). Bump it on purpose.
+    excalidraw = "docker run -d --rm --name excalidraw-canvas -p 127.0.0.1:3000:3000 ghcr.io/yctimlin/mcp_excalidraw-canvas@sha256:090c0dd7dbef4613e36dbd12936234661696f4256dce15c0d0692e5ce7b0ff0e";
     excalidraw-stop = "docker stop excalidraw-canvas";
   };
 }

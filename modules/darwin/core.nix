@@ -1,11 +1,9 @@
 {
   inputs,
   pkgs,
+  config,
   ...
 }:
-let
-  inherit (pkgs.stdenvNoCC.hostPlatform) isAarch64 isAarch32;
-in
 {
   #... Environment setup
   environment = {
@@ -20,11 +18,9 @@ in
       sox # ... CLI audio recorder (rec)
     ];
 
-    systemPath = [ "/opt/homebrew/bin" ];
+    systemPath = [ "${config.homebrew.prefix}/bin" ];
     pathsToLink = [ "/Applications" ];
   };
-
-  homebrew.prefix = if isAarch64 || isAarch32 then "/opt/homebrew" else "/usr/local";
 
   security.pam.services.sudo_local = {
     touchIdAuth = true; # ... Enable sudo authentication with Touch ID

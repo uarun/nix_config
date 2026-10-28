@@ -1,9 +1,0 @@
-_: {
-  homebrew = {
-    casks = [
-    ];
-
-    masApps = {
-    };
-  };
-}

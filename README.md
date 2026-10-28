@@ -23,14 +23,14 @@ This project provides a unified, declarative approach to system configuration ac
 │   └── bifrost/              #... Linux host
 │       └── config.nix        #... Host configuration
 ├── modules/                  #... Reusable configuration modules
-│   ├── common.nix            #... Shared configuration for all systems
+│   ├── common.nix            #... Shared configuration for Darwin hosts
 │   ├── nixpkgs.nix           #... Nixpkgs configuration
 │   ├── primaryUser.nix       #... User account setup
 │   ├── darwin/               #... macOS-specific modules
 │   │   ├── core.nix          #... Core Darwin system configuration
-│   │   ├── apps.nix          #... GUI applications
-│   │   ├── homebrew.nix      #... Homebrew integration
-│   │   └── preferences.nix   #... macOS system preferences
+│   │   ├── homebrew.nix      #... Homebrew integration and GUI applications (casks)
+│   │   ├── preferences.nix   #... macOS system preferences
+│   │   └── services.nix      #... launchd services
 │   └── home-manager/         #... User environment modules
 │       ├── default.nix       #... Home Manager entry point
 │       ├── aliases.nix       #... Shell aliases
@@ -59,7 +59,7 @@ The system automatically detects whether to create a Darwin or Home Manager conf
 
 ### Modules
 
-- Common modules: Apply to all systems (fonts, basic packages)
+- Common modules: Shared by all Darwin hosts (fonts, basic packages). Linux hosts get their fonts and packages from the Home Manager modules
 - Darwin modules: macOS-specific (system preferences, GUI apps)
 - Home Manager modules: User environment (shell, editors, CLI tools)
 
@@ -81,14 +81,14 @@ Profiles provide high-level configuration presets:
 
 The Neovim module uses `mkOutOfStoreSymlink` for instant Lua config editing without rebuild. This requires:
 
-1. **A clone at the expected path** — activation fails if the Lua config is not found, because a symlink into a missing path leaves Neovim with no config and nothing pointing at the cause. The path is fixed per platform in `modules/home-manager/programs/neovim.nix`: `~/repos/nix_config` on Linux, `~/nix_config` on macOS. Clone there, or change `neovimRepoPath`.
+1. **A clone at the expected path** - activation fails if the Lua config is not found, because a symlink into a missing path leaves Neovim with no config and nothing pointing at the cause. The path is fixed per platform in `modules/home-manager/programs/neovim.nix`: `~/repos/nix_config` on Linux, `~/nix_config` on macOS. Clone there, or change `neovimRepoPath`.
 
-2. **Home directory traverse permission** — Nix sandbox build users must be able to follow symlinks into your home:
+2. **Home directory traverse permission** - Nix sandbox build users must be able to follow symlinks into your home:
    ```bash
    chmod o+x /home/$USER
    ```
 
-3. **Corporate proxy SSL** — If behind a proxy that intercepts HTTPS, the Nix daemon needs a CA bundle that includes both Mozilla and corporate CAs. Create a systemd override:
+3. **Corporate proxy SSL** - If behind a proxy that intercepts HTTPS, the Nix daemon needs a CA bundle that includes both Mozilla and corporate CAs. Create a systemd override:
    ```bash
    sudo mkdir -p /etc/systemd/system/nix-daemon.service.d
    sudo tee /etc/systemd/system/nix-daemon.service.d/override.conf <<EOF
@@ -114,7 +114,7 @@ The Neovim module uses `mkOutOfStoreSymlink` for instant Lua config editing with
      username = "yourusername";
      system = "aarch64-darwin";  # or "x86_64-linux"
      extraModules = [
-       ../../profiles/home-manager/personal.nix
+       ../../profiles/personal.nix  # Linux hosts use ../../profiles/home-manager/personal.nix
        # Add other modules as needed
      ];
    }
@@ -129,7 +129,8 @@ The Neovim module uses `mkOutOfStoreSymlink` for instant Lua config editing with
 4. **Commit and build:**
    ```bash
    git add hosts/YourHostName/
-   nix build .#$(id -un)@YourHostName:aarch64-darwin
+   nix build .#darwinConfigurations."$(id -un)@YourHostName:aarch64-darwin".system
+   # Linux: nix build .#homeConfigurations."$(id -un)@YourHostName:x86_64-linux".activationPackage
    ```
 
 ### Building Configurations
@@ -140,8 +141,8 @@ The Neovim module uses `mkOutOfStoreSymlink` for instant Lua config editing with
 sudo nix run nix-darwin -- switch --flake .#$(id -un)@$(hostname -s):aarch64-darwin
 
 # Or build first, then switch
-nix build .#$(id -un)@$(hostname -s):aarch64-darwin
-./result/sw/bin/darwin-rebuild switch --flake .
+nix build .#darwinConfigurations."$(id -un)@$(hostname -s):aarch64-darwin".system
+sudo ./result/sw/bin/darwin-rebuild switch --flake .#$(id -un)@$(hostname -s):aarch64-darwin
 ```
 
 Convenient aliases are available in the Zsh configuration:
@@ -181,7 +182,9 @@ The Zsh configuration includes helpful aliases for common Nix operations:
 
 **Home Manager (Linux) aliases:**
 - `hmswitch`: Switch Home Manager configuration from the pushed flake (`home-manager switch --flake github:uarun/nix_config#$(id -un)@$(hostname -s):x86_64-linux`)
-- `hmclean`: Clean up old packages and optimize Nix store
+
+**Linux and macOS aliases:**
+- `hmclean`: Clean up old packages and optimize Nix store. On macOS it also removes your own Home Manager generations, which `dwclean` does not.
 
 **Other commands:**
 - `tldr-update`: Refresh the tealdeer cache using `curl`. Tealdeer's own `auto_update` is disabled on Linux because it bundles Mozilla's CA store and fails behind a corporate proxy, so this is the only way to refresh the cache there.
@@ -202,7 +205,7 @@ nix eval --impure '.#homeConfigurations' --apply 'builtins.attrNames'
 - **Melbourne**: macOS (aarch64-darwin) - Personal development machine
 - **bifrost**: Linux (x86_64-linux) - Work development environment
 
-To build for your current machine, use: `.#$(id -un)@$(hostname -s):$(uname -m)-$(uname -s | tr '[:upper:]' '[:lower:]')`
+The flake attribute for your current machine is `.#$(id -un)@$(hostname -s):aarch64-darwin` on macOS or `.#$(id -un)@$(hostname -s):x86_64-linux` on Linux, as in the `dwswitch` and `hmswitch` aliases. Do not build the system string from `uname -m`: macOS prints `arm64`, not `aarch64`.
 
 ## Configuration Examples
 
@@ -214,7 +217,6 @@ To build for your current machine, use: `.#$(id -un)@$(hostname -s):$(uname -m)-
   system = "aarch64-darwin";
   extraModules = [
     ../../profiles/personal.nix          # Darwin system profile
-    ../../modules/darwin/apps.nix        # GUI applications
   ];
 }
 ```
@@ -280,7 +282,7 @@ nix flake show
 nix flake check
 
 # Build with verbose output
-nix build .#$(id -un)@$(hostname -s):aarch64-darwin --show-trace
+nix build .#darwinConfigurations."$(id -un)@$(hostname -s):aarch64-darwin".system --show-trace
 ```
 
 ## Contributing

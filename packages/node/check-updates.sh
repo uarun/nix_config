@@ -51,7 +51,15 @@ while IFS= read -r nix_file; do
 
   if [ -n "$repo" ]; then
     origin="$repo"
-    if ! latest=$(gh api "repos/$repo/releases/latest" --jq .tag_name 2>"$ERR_FILE"); then
+    endpoint="releases/latest"
+    filter=".tag_name"
+    #... Monorepo tag (<pname>@X.Y.Z): releases/latest may be another package's
+    #... release, so take the newest stable release carrying this package's prefix.
+    if grep -qE 'tag = ".*@' "$nix_file"; then
+      endpoint="releases?per_page=100"
+      filter="[.[] | select(.prerelease | not) | select(.tag_name | startswith(\"$pname@\"))][0].tag_name // empty"
+    fi
+    if ! latest=$(gh api "repos/$repo/$endpoint" --jq "$filter" 2>"$ERR_FILE"); then
       err=$(head -1 "$ERR_FILE")
       printf "! %s: %s (GitHub query failed: %s)\n" "$pname" "$current" "${err:-unknown error}"
       continue
@@ -59,6 +67,11 @@ while IFS= read -r nix_file; do
     #... Normalise tags: some repos use vX.Y.Z, monorepos use <pname>@X.Y.Z.
     latest=${latest#"$pname"@}
     latest=${latest#v}
+  elif ! grep -q 'registry\.npmjs\.org' "$nix_file"; then
+    #... Neither GitHub nor npm (e.g. a vendor download): npm view would query an
+    #... unrelated package of the same name.
+    printf "? %s: %s (not from npm or GitHub; check manually)\n" "$pname" "$current"
+    continue
   else
     #... npm source: pname is the published package name.
     origin="npm"
