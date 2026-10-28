@@ -115,6 +115,10 @@ _: {
         greedy = true;
       }
       {
+        name = "openusage";
+        greedy = true;
+      }
+      {
         name = "osaurus";
         greedy = true;
       }
