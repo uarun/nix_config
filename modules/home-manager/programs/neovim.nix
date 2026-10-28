@@ -189,10 +189,6 @@ in
     initLua =
       # lua
       ''
-        -- Treesitter grammars: append Nix-built parsers to runtimepath
-        vim.opt.runtimepath:append("${pkgs.vimPlugins.nvim-treesitter}")
-        vim.opt.runtimepath:append("${treesitterGrammars}")
-
         -- Bootstrap lazy.nvim with Nix-provided plugins
         require("lazy").setup({
           defaults = { lazy = true },
@@ -236,6 +232,11 @@ in
           lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
           performance = {
             rtp = {
+              -- lazy.nvim resets the runtimepath, so Nix-built parsers and queries must be listed here
+              paths = {
+                "${treesitterGrammars}",
+                "${pkgs.vimPlugins.nvim-treesitter}/runtime",
+              },
               disabled_plugins = {
                 "gzip",
                 "tarPlugin",
