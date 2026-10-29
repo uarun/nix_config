@@ -12,7 +12,7 @@
 let
   pnpmDepsHashes = {
     aarch64-darwin = "sha256-XdSI3/WF0X2rCdjYKzloUx3Maq0BjksXB3r/f086U5c=";
-    x86_64-linux = "sha256-453U5BxHi0PbqMfwwCiOrdf2rBpjUPNi+8y439/8vMU=";
+    x86_64-linux = "sha256-uF4lKd4qouoNXTLffOsU0Z5/bw06OzCJnJI1Pr1CGSU=";
   };
 in
 stdenv.mkDerivation (finalAttrs: {
