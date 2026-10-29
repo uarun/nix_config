@@ -11,7 +11,7 @@
 }:
 let
   pnpmDepsHashes = {
-    aarch64-darwin = "sha256-iQE4rsJf+FqJhO6STYT1bAcMaj7vQi9YsqN0kPSd2WU=";
+    aarch64-darwin = "sha256-XdSI3/WF0X2rCdjYKzloUx3Maq0BjksXB3r/f086U5c=";
     x86_64-linux = "sha256-453U5BxHi0PbqMfwwCiOrdf2rBpjUPNi+8y439/8vMU=";
   };
 in
