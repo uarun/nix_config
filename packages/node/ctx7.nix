@@ -13,7 +13,7 @@ let
   tag-prefix = "ctx7";
   pnpmDepsHashes = {
     aarch64-darwin = "sha256-lDOEspKgi4kNKckAbC6H3ht4WXfPhSD7MA8/E2TnFmA=";
-    x86_64-linux = "sha256-5ojr1gvxEF46ypKSjWBfOXGrmoKX9A5NfwAfWQKnpIg=";
+    x86_64-linux = "sha256-lQ9RwNXlDcTVAOBrrKqeX1JpVheVOQ+cqrXFXtWZxqU=";
   };
 in
 stdenv.mkDerivation (finalAttrs: {
