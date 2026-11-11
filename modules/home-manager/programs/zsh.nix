@@ -136,6 +136,14 @@ in
         #... Local overrides (untracked)
         [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
       ''
+      #... macOS: point ssh at the homelab guarded user agent, which hl-unlock
+      #... starts and hl-lock stops. It must come last so nothing replaces it.
+      #... GitHub keys use their own agent (see ssh.nix).
+      (lib.mkAfter (
+        lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+          export SSH_AUTH_SOCK="$HOME/.local/state/homelab/user.sock"
+        ''
+      ))
     ];
 
     profileExtra = ''
@@ -144,7 +152,9 @@ in
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "ssh-agent" ];
+      #... Not on macOS: an agent there would hold keys that any process could
+      #... sign with, and SSH_AUTH_SOCK belongs to the homelab user agent.
+      plugins = lib.optionals pkgs.stdenv.hostPlatform.isLinux [ "ssh-agent" ];
       #... ssh-add output after the p10k instant prompt triggers its console-output warning
       extraConfig = ''
         zstyle :omz:plugins:ssh-agent quiet yes
